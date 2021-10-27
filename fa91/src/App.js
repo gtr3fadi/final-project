@@ -1,5 +1,5 @@
 import NavBar from "./component/NavBar/NavBar";
-import { ThemContextProvider } from "./Context/ThemContext";
+import { ThemContextProvider } from "./Context/ThemeContext";
 
 
 
