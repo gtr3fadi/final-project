@@ -1,9 +1,14 @@
+import NavBar from "./component/NavBar/NavBar";
+import { ThemContextProvider } from "./Context/ThemContext";
+
 
 
 function App() {
   return (
     <div className="App">
-      hello from react
+      <ThemContextProvider>
+        <NavBar/>
+      </ThemContextProvider>
     </div>
   );
 }
