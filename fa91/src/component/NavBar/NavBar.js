@@ -1,23 +1,21 @@
-import React , { useContext } from "react";
+import React , { useContext,useState } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 
 
 const  NavBar=() =>{
-    const { isLightTheme, light, dark } = useContext(ThemeContext);
-    const theme = isLightTheme ? light : dark;
+  const { theme } = useContext(ThemeContext);
+  const Theme = theme.isLightTheme ? theme.light : theme.dark;
+  
+  console.log(Theme);
 
     return (
       <>
         <div
-          className="navbar"
-          style={{
-            color: theme.syntax,
-            background: theme.bg,
-            height: "300px",
-            width: "300px"
-          }}
-        ></div>
+          style={{ background: Theme.ui, color: Theme.syntax }}
+            >
+                fadi ayoub
+        </div>
       </>
     );
 }

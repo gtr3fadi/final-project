@@ -1,14 +1,15 @@
+import React  from "react";
 import NavBar from "./component/NavBar/NavBar";
-import { ThemContextProvider } from "./Context/ThemeContext";
+import ThemeContextProvider from "./Context/ThemeContext";
 
 
 
 function App() {
   return (
     <div className="App">
-      <ThemContextProvider>
-        <NavBar/>
-      </ThemContextProvider>
+      <ThemeContextProvider>
+        <NavBar />
+      </ThemeContextProvider>
     </div>
   );
 }
