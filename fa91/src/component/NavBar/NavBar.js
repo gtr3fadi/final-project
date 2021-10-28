@@ -4,7 +4,8 @@ import { ThemeContext } from "../../Context/ThemeContext";
 
 
 const  NavBar=() =>{
-  const { theme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  
   const Theme = theme.isLightTheme ? theme.light : theme.dark;
   
   console.log(Theme);
@@ -15,6 +16,9 @@ const  NavBar=() =>{
           style={{ background: Theme.ui, color: Theme.syntax }}
             >
                 fadi ayoub
+        </div>
+        <div>
+          <button onClick={toggleTheme}>Toggle Theme</button>
         </div>
       </>
     );
