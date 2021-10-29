@@ -3,25 +3,31 @@ import React , { createContext, useState } from "react";
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
-  const [theme, setTheme] = useState(
-    {
-      isLightTheme: true,
-      light: { syntax: "#555", ui: "#ddd", bg: "#eee" },
-      dark: { syntax: "#ddd", ui: "#333", bg: "#555" },
-    });
+  
+
+  const tran = () => {
+    document.documentElement.classList.add('transition');
+    window.setTimeout(() => {
+      document.documentElement.classList.remove('transition')
+    }, 1000)
+  };
+  
+
   
   const toggleTheme = () => {
-    if (theme.isLightTheme) {
-      setTheme({ ...theme, isLightTheme: false });
+    if (document.documentElement.getAttribute("data-theme") === "light") {
+      tran();
+      document.documentElement.setAttribute("data-theme", "dark");
     } else {
-      setTheme({ ...theme, isLightTheme: true });
+      tran();
+      document.documentElement.setAttribute("data-theme", "light");
     }
   };
 
 
 
   return (
-    <ThemeContext.Provider value={{ theme ,toggleTheme }}>
+    <ThemeContext.Provider value={{ toggleTheme }}>
       {props.children}
       </ThemeContext.Provider>
   );

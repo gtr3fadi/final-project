@@ -1,27 +1,39 @@
-import React , { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
 
+const NavBar = () => {
+  const {  toggleTheme } = useContext(ThemeContext);
 
+ 
 
-const  NavBar=() =>{
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  
-  const Theme = theme.isLightTheme ? theme.light : theme.dark;
-  
-  console.log(Theme);
+  return (
+    <>
+      <nav >
+        <div className="container">
 
-    return (
-      <>
-        <div
-          style={{ background: Theme.ui, color: Theme.syntax }}
-            >
-                fadi ayoub
         </div>
-        <div>
-          <button onClick={toggleTheme}>Toggle Theme</button>
+        
+      </nav>
+      <div>
+        <button onClick={toggleTheme}>Toggle Theme</button>
+      </div>
+      <div className="mean">
+        <div className="mean-card">
+          <div className="mean-card-header">
+            <div className="mean-card-header-title">
+              <h3>fadi ayoub</h3>
+            </div>
+            <p>
+              lourem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            </div>
+
         </div>
-      </>
-    );
-}
+        
+       </div>
+
+    </>
+  );
+};
 
 export default NavBar;
