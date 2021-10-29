@@ -1,0 +1,93 @@
+@mixin flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+    
+@mixin flexBetween() {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+
+.navbar{
+    background-color:var(--bg-panel) !important;
+    color: var(--color-text);
+    @include flexBetween();
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height:50px;
+
+
+    .bars-toggle{
+        margin: 0px 10px;
+        
+        
+        .bars{
+          font-size: 1.5em;
+          cursor: pointer;
+          padding-bottom: 5px;
+        }
+    }
+
+    .brand{
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-left: 10px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    ul{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        margin-right: 10px;
+        margin-left: 10px;
+        list-style: none;
+        padding: 0px;
+        li{
+            margin-left: 10px;
+            margin-right: 10px;
+            a{
+                text-decoration: none;
+                color: var(--color-text);
+                font-size: 1.2em;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+    }
+    .theme-toggle{
+       background: transparent;
+
+      button{
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--color-text);
+        padding: 10px;
+        margin: 0px;
+         .theme-toggle-text{
+              font-size: 1em;
+              cursor: pointer;
+              background: transparent;
+       }
+      }
+        
+    }
+
+}

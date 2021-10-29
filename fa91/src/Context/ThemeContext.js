@@ -3,7 +3,8 @@ import React , { createContext, useState } from "react";
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
-  
+  const [isLightTheme, setIsLightTheme] = useState(true);
+  const[isLogin, setIsLogin] = useState(true);
 
   const tran = () => {
     document.documentElement.classList.add('transition');
@@ -18,16 +19,18 @@ const ThemeContextProvider = (props) => {
     if (document.documentElement.getAttribute("data-theme") === "light") {
       tran();
       document.documentElement.setAttribute("data-theme", "dark");
+      setIsLightTheme(false);
     } else {
       tran();
       document.documentElement.setAttribute("data-theme", "light");
+      setIsLightTheme(true);
     }
   };
 
 
 
   return (
-    <ThemeContext.Provider value={{ toggleTheme }}>
+    <ThemeContext.Provider value={{ toggleTheme ,isLightTheme ,isLogin}}>
       {props.children}
       </ThemeContext.Provider>
   );
