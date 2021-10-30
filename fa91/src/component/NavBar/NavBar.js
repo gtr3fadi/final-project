@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FaBars, FaSun, FaMoon } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
 import userAvatar from "../image/user.jpg";
@@ -9,16 +10,16 @@ const NavBar = () => {
 
   return (
     <div>
-      <nav className="navbar ">
-        <div className="bars-toggle">
+      <nav className="navbar row">
+        <div className="bars-toggle col-2">
           <FaBars className="bars" />
         </div>
 
-        <div className="container">
-          <a className="brand" to="#">
+        <div className="container col">
+          <a className="brand " to="#">
             FA91
           </a>
-          <ul className="nav-links">
+          <ul className="nav-links d-none d-lg-flex ">
             <li>
               <a href="#">Home</a>
             </li>
@@ -37,6 +38,9 @@ const NavBar = () => {
                 <div className="user-avatar">
                   <img src={userAvatar} alt="avatar" />
                 </div>
+                <div className="user-dropdown">
+                  <BsThreeDotsVertical  size="25px" className="threeDots" />
+                  </div>
               </div>
             )}
             {!isLogin && (
@@ -48,7 +52,7 @@ const NavBar = () => {
           </div>
         </div>
 
-        <div className="theme-toggle">
+        <div className="theme-toggle col-2">
           <button onClick={toggleTheme}>
             {isLightTheme ? (
               <span className="theme-toggle-text">
@@ -79,6 +83,9 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+
+
+
 
       </div>
     

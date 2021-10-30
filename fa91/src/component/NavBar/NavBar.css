@@ -62,14 +62,52 @@
 }
 
 .navbar ul li {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0px 18px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.navbar ul li::before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  bottom: 30%;
+  right: -18px;
+}
+
+.navbar ul li::after {
+  content: '';
+  display: block;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-headings);
+  bottom: 10%;
+  left: 0;
+  position: absolute;
+  -webkit-transition: width 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
+}
+
+.navbar ul li:hover::before {
+  border-bottom: 10px solid var(--color-headings);
+}
+
+.navbar ul li:hover::after {
+  width: 100%;
 }
 
 .navbar ul li a {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
   cursor: pointer;
 }
@@ -132,6 +170,14 @@
   height: 105%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.navbar .user-tools .user-login .user-dropdown {
+  cursor: pointer;
+}
+
+.navbar .user-tools .user-login .user-dropdown:hover .threeDots {
+  color: var(--color-headings);
 }
 
 .navbar .user-tools .user-tools-text {

@@ -4,8 +4,8 @@ export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
   const [isLightTheme, setIsLightTheme] = useState(true);
-  const [isLogin, setIsLogin] = useState(false);
-  const[user,setUser]=useState("Fadi");
+  const [isLogin, setIsLogin] = useState(true);
+  const[user,setUser]=useState("Fadi Ayoub");
 
   const tran = () => {
     document.documentElement.classList.add("transition");
