@@ -2,44 +2,50 @@ import React, { useContext, useState } from "react";
 import { FaBars, FaSun, FaMoon } from "react-icons/fa";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
+import userAvatar from "../image/user.jpg";
 
 const NavBar = () => {
-  const { toggleTheme, isLightTheme, isLogin } = useContext(ThemeContext);
+  const { toggleTheme, isLightTheme, isLogin ,user} = useContext(ThemeContext);
 
   return (
-    <>
+    <div>
       <nav className="navbar ">
         <div className="bars-toggle">
           <FaBars className="bars" />
         </div>
-        <a className="brand" to="#">
-          FA91
-        </a>
-        <ul className="nav-links">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
-        </ul>
 
-        <div className="user-tools">
-          {isLogin && (
-            <span className="user-tools-text">
-              <a href="#"> Welcome, fadi ayoub</a>
-              <a href="#">Logout</a>
-            </span>
-          )}
-          {!isLogin && (
-            <span className="user-tools-text">
-              <a href="#">Login</a>
-              <a href="#">Sign Up</a>
-            </span>
-          )}
+        <div className="container">
+          <a className="brand" to="#">
+            FA91
+          </a>
+          <ul className="nav-links">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href="#">Contact</a>
+            </li>
+          </ul>
+
+          <div className="user-tools">
+            {isLogin && (
+              <div className="user-login">
+                <div className="user-name">{user}</div>
+                <div className="user-avatar">
+                  <img src={userAvatar} alt="avatar" />
+                </div>
+              </div>
+            )}
+            {!isLogin && (
+              <span className="user-tools-text">
+                <a href="#">Login</a>
+                <a href="#">Sign Up</a>
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="theme-toggle">
@@ -55,7 +61,9 @@ const NavBar = () => {
             )}
           </button>
         </div>
+        
       </nav>
+      
 
       <div>
         <button onClick={toggleTheme}>Toggle Theme</button>
@@ -71,7 +79,9 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-    </>
+
+      </div>
+    
   );
 };
 

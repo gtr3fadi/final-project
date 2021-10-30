@@ -6,8 +6,8 @@ html{
     --bg-panel: #EBEBEB;
     --color-headings: #0077FF;
     --color-text: #5e6e82;
-    --shadow:0 7px 14px 0 rgb(59 65 94 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%)
-    
+    --shadow:0 7px 14px 0 rgb(59 65 94 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+    --color-text-hover:#3694FF;
 }
 
 html[data-theme="dark"]{
