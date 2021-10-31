@@ -1,194 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap");
+
 @mixin flexCenter() {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
-    
+
 @mixin flexBetween() {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: row;
 }
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+.fa-icon{
+  font-size: 1.5rem;
+  color: var(--color-headings);
+  margin-left: 5px;
+}
 
+.navbar {
+  background-color: var(--bg-panel) !important;
+  color: var(--color-text);
+  @include flexBetween();
+  position: fixed;
+  flex-wrap: nowrap;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0px;
+  z-index: 9999;
+  border-bottom: 1px solid var(--color-headings);
 
+  .bars-toggle {
+    margin: 0px ;
+    @include flexCenter();
 
+    .bars {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+  }
 
-.navbar{
-    background-color:var(--bg-panel) !important;
-    color: var(--color-text);
-    @include flexBetween();
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    border-bottom: 1px solid var(--color-headings);
+  .brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0px ;
+    margin-left: 15px;
+    list-style: none;
+    padding: 10px 0px;
     
-
-
-    .bars-toggle{
-        margin: 0px 10px;
-        
-        
-        .bars{
-          font-size: 1.5em;
-          cursor: pointer;
-          
-        }
-    }
-
-    .brand{
-        font-size: 1.5em;
-        font-weight: bold;
-        margin-left: 10px;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    ul{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-end;
-        margin: 0px 10px;
-        list-style: none;
-        padding: 0px;
-        li{
-            margin: 0px 18px;
-            transition: all 0.3s ease-in-out;
-            position: relative;
-            &::before{
-                content: '';
-                display: block;
-                width: 0px;
-                height: 0px;
-                border-top: 10px solid transparent;
-                border-left: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-                position: absolute;
-                transform: rotate(45deg);
-                bottom: 30%;
-                right: -18px;
-            }
-            &::after{
-                content: '';
-                display: block;
-                width: 0%;
-                height: 2px;
-               background-color: var(--color-headings);
-                bottom: 10%;
-                left: 0;
-                position: absolute;
-                transition: width 0.3s ease-in-out;
-            }
-            &:hover{
-                &::before{
-                    border-bottom: 10px solid var(--color-headings);
-                }
-                &::after{
-                  width: 100%;
-                }
-            }
-            a{
-                text-decoration: none;
-                color: var(--color-text);
-                font-size: 1.1em;
-                font-weight: bold;
-                cursor: pointer;
-            }
-        }
-    }
-    .theme-toggle{
-       background: transparent;
-
-      button{
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        color: var(--color-text);
-        padding: 10px;
-        margin: 0px;
-         .theme-toggle-text{
-              font-size: 1em;
-              cursor: pointer;
-              background: transparent;
-       }
+    li {
+      margin-right: 10px;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+      &::after {
+        content: "";
+        display: block;
+        width: 0%;
+        height: 2px;
+        background-color: var(--color-headings);
+        bottom: 0%;
+        left: 0;
+        position: absolute;
+        transition: width 0.3s ease-in-out;
       }
-        
-    }
-    .user-tools{
-        padding: 0px 10px;
-        
-        .user-login{
-          @include flexBetween();
-
-
-          .user-name{
-            color: var(--color-headings);
-            font-size: 1em;
-            font-weight: 500;
-            letter-spacing: 1px;
-          }
-          
-            .user-avatar{
-                        width: 30px;
-                        height: 30px;
-                        padding: 0;
-                        border-radius: 50%;
-                        margin-right: 10px;
-                        margin-left: 10px;
-                        border: 2px solid var(--color-headings);
-                        overflow: hidden;
-                            img{
-                              width: 100%;
-                              height: 105%;
-                              
-                              object-fit: cover;
-                            }
-                      }
-
-           .user-dropdown{
-           cursor: pointer;
-            
-            &:hover{
-              .threeDots{
-                color: var(--color-headings);
-              }
-              }
-            }
-
+      &:hover {
+        &::after {
+          width: 100%;
         }
-
-
-          
+      }
+      a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-size: 16px;
         
-        
-            .user-tools-text{
-               display: inline-block;
+        cursor: pointer;
+        text-transform: capitalize;
+      }
+    }
+  }
 
-               span{
-                cursor: pointer;
-               }
-              a{
-                text-decoration: none;
-                color: var(--color-text);
-                font-size: 1.1em;
-                font-weight: bold;
-                cursor: pointer;
-                padding: 0px 10px;
-                &:hover{
-                    color: var(--color-text-hover);
-                }
-              }
+  .user-tools {
+    padding: 0px 10px;
+
+    .user-login {
+      @include flexCenter();
+
+      .user-name {
+        color: var(--color-headings);
+        font-size: 1em;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      .user-avatar {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border-radius: 50%;
+        margin: 0px 3px;
+        border: 2px solid var(--color-headings);
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 105%;
+
+          object-fit: cover;
+        }
+      }
+
+      .user-dropdown {
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+          .threeDots {
+            color: var(--color-headings);
+            
+          }
+          .dropdown-menu{
+            display: block;
+          }
+
+         
+        }
+         .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: -500%;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--bg-panel)!important;
+            display: none;
+            transition: 1s ease-in-out;
+            border: 1px solid var(--color-headings);
+
+            .dropdown-item {
+              background-color: var(--bg-panel);
             }
-        
+          }
+      }
     }
 
+    .user-tools-text {
+      display: inline-block;
+
+      span {
+        cursor: pointer;
+      }
+      a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0px 10px;
+        &:hover {
+          color: var(--color-text-hover);
+        }
+      }
+    }
+  }
+
+  .theme-toggle {
+    background: transparent;
+    @include flexCenter();
+
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text);
+      padding: 10px;
+      margin: 0px;
+      .theme-toggle-text {
+        font-size: 1em;
+        cursor: pointer;
+        background: transparent;
+      }
+    }
+  }
 }

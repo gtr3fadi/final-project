@@ -1,6 +1,14 @@
 import React, { useContext, useState } from "react";
-import { FaBars, FaSun, FaMoon } from "react-icons/fa";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import {
+  FaBars,
+  FaSun,
+  FaMoon,
+  FaUsers,
+  FaProjectDiagram,
+} from "react-icons/fa";
+import { BsThreeDotsVertical, BsFileEarmarkPerson } from "react-icons/bs";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { MdOutlineLogout } from "react-icons/md";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
 import userAvatar from "../image/user.jpg";
@@ -10,49 +18,81 @@ const NavBar = () => {
 
   return (
     <div>
-      <nav className="navbar row">
-        <div className="bars-toggle col-2">
+      <nav className="navbar">
+        <div className="bars-toggle col">
           <FaBars className="bars" />
         </div>
-
-        <div className="container col">
-          <a className="brand " to="#">
-            FA91
-          </a>
-          <ul className="nav-links d-none d-lg-flex ">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
-
-          <div className="user-tools">
-            {isLogin && (
-              <div className="user-login">
-                <div className="user-name">{user}</div>
-                <div className="user-avatar">
-                  <img src={userAvatar} alt="avatar" />
-                </div>
-                <div className="user-dropdown">
-                  <BsThreeDotsVertical  size="25px" className="threeDots" />
-                  </div>
-              </div>
-            )}
-            {!isLogin && (
-              <span className="user-tools-text">
-                <a href="#">Login</a>
-                <a href="#">Sign Up</a>
-              </span>
-            )}
-          </div>
+        <div className="brand col  " to="#">
+          FrLncr.ME
         </div>
 
-        <div className="theme-toggle col-2">
+        <div className=" col-lg-7 ">
+          <ul className="nav-links d-none d-lg-flex ">
+            <li>
+              <a href="#">
+                Post a project
+                <AiOutlineAppstoreAdd className="mb-2 fa-icon" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Project
+                <FaProjectDiagram className="mb-2 fa-icon" />
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                Find a Freelancer
+                <FaUsers className="mb-2 fa-icon" />
+              </a>
+            </li>
+
+            {isLogin && (
+              <li>
+                <a href="#">
+                  my project
+                  <BsFileEarmarkPerson className="mb-2 fa-icon" />
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
+
+        <div className="user-tools col col-lg-2">
+          {isLogin && (
+            <div className="user-login">
+              <div className="user-name">{user}</div>
+              <div className="user-avatar">
+                <img src={userAvatar} alt="avatar" />
+              </div>
+              <div className="user-dropdown">
+                <BsThreeDotsVertical size="25px" className="threeDots" />
+                <ul className="dropdown-menu">
+                  <li className="dropdown-item">
+                    <a href="#">viwe profile</a>
+                  </li>
+                  <li className="dropdown-item">
+                    <a href="#">Setting</a>
+                  </li>
+                  <li className="dropdown-item">
+                    <a href="#">
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+          {!isLogin && (
+            <span className="user-tools-text">
+              <a href="#">Login</a>
+              <a href="#">Sign Up</a>
+            </span>
+          )}
+        </div>
+
+        <div className="theme-toggle col">
           <button onClick={toggleTheme}>
             {isLightTheme ? (
               <span className="theme-toggle-text">
@@ -65,30 +105,8 @@ const NavBar = () => {
             )}
           </button>
         </div>
-        
       </nav>
-      
-
-      <div>
-        <button onClick={toggleTheme}>Toggle Theme</button>
-      </div>
-      <div className="mean">
-        <div className="mean-card">
-          <div className="mean-card-header">
-            <div className="mean-card-header-title">
-              <h3>fadi ayoub</h3>
-              <i className="fa fa-user-circle-o"></i>
-            </div>
-            <p>lourem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          </div>
-        </div>
-      </div>
-
-
-
-
-      </div>
-    
+    </div>
   );
 };
 

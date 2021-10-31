@@ -1,8 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap");
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.fa-icon {
+  font-size: 1.5rem;
+  color: var(--color-headings);
+  margin-left: 5px;
 }
 
 .navbar {
@@ -17,16 +24,37 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   position: fixed;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  width: 100%;
   top: 0;
   left: 0;
   right: 0;
+  padding: 0px;
   z-index: 9999;
   border-bottom: 1px solid var(--color-headings);
 }
 
 .navbar .bars-toggle {
-  margin: 0px 10px;
+  margin: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .navbar .bars-toggle .bars {
@@ -37,7 +65,6 @@
 .navbar .brand {
   font-size: 1.5em;
   font-weight: bold;
-  margin-left: 10px;
   text-decoration: none;
   cursor: pointer;
 }
@@ -53,51 +80,32 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  margin: 0px 10px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin: 0px;
+  margin-left: 15px;
   list-style: none;
-  padding: 0px;
+  padding: 10px 0px;
 }
 
 .navbar ul li {
-  margin: 0px 18px;
+  margin-right: 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   position: relative;
 }
 
-.navbar ul li::before {
-  content: '';
-  display: block;
-  width: 0px;
-  height: 0px;
-  border-top: 10px solid transparent;
-  border-left: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  position: absolute;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-  bottom: 30%;
-  right: -18px;
-}
-
 .navbar ul li::after {
-  content: '';
+  content: "";
   display: block;
   width: 0%;
   height: 2px;
   background-color: var(--color-headings);
-  bottom: 10%;
+  bottom: 0%;
   left: 0;
   position: absolute;
   -webkit-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
-}
-
-.navbar ul li:hover::before {
-  border-bottom: 10px solid var(--color-headings);
 }
 
 .navbar ul li:hover::after {
@@ -107,28 +115,9 @@
 .navbar ul li a {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 1.1em;
-  font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
-}
-
-.navbar .theme-toggle {
-  background: transparent;
-}
-
-.navbar .theme-toggle button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--color-text);
-  padding: 10px;
-  margin: 0px;
-}
-
-.navbar .theme-toggle button .theme-toggle-text {
-  font-size: 1em;
-  cursor: pointer;
-  background: transparent;
+  text-transform: capitalize;
 }
 
 .navbar .user-tools {
@@ -139,12 +128,16 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .navbar .user-tools .user-login .user-name {
@@ -159,8 +152,7 @@
   height: 30px;
   padding: 0;
   border-radius: 50%;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 0px 3px;
   border: 2px solid var(--color-headings);
   overflow: hidden;
 }
@@ -174,10 +166,32 @@
 
 .navbar .user-tools .user-login .user-dropdown {
   cursor: pointer;
+  position: relative;
 }
 
 .navbar .user-tools .user-login .user-dropdown:hover .threeDots {
   color: var(--color-headings);
+}
+
+.navbar .user-tools .user-login .user-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.navbar .user-tools .user-login .user-dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: -500%;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--bg-panel) !important;
+  display: none;
+  -webkit-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
+  border: 1px solid var(--color-headings);
+}
+
+.navbar .user-tools .user-login .user-dropdown .dropdown-menu .dropdown-item {
+  background-color: var(--bg-panel);
 }
 
 .navbar .user-tools .user-tools-text {
@@ -199,5 +213,37 @@
 
 .navbar .user-tools .user-tools-text a:hover {
   color: var(--color-text-hover);
+}
+
+.navbar .theme-toggle {
+  background: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.navbar .theme-toggle button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 10px;
+  margin: 0px;
+}
+
+.navbar .theme-toggle button .theme-toggle-text {
+  font-size: 1em;
+  cursor: pointer;
+  background: transparent;
 }
 /*# sourceMappingURL=NavBar.css.map */
