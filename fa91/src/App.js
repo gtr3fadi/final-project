@@ -6,6 +6,8 @@ import { FaBeer, FaBars } from "react-icons/fa";
 import ThemeContextProvider from "./Context/ThemeContext";
 import "./index.css";
 import Home from "./component/Home";
+import Project from "./component/project/Project";
+import SingleProject from "./component/SingleProject";
 
 
 
@@ -18,6 +20,8 @@ function App() {
           <Home />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/project" component={Project} />
+            <Route exact path="/project/:id" component={SingleProject} />
           </Switch>
         </BrowserRouter>
       </ThemeContextProvider>
