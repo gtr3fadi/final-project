@@ -93,9 +93,16 @@
         
         cursor: pointer;
         text-transform: capitalize;
+        .active{
+        background-color: black;
+        }
+      }
+      
+        
+      
       }
     }
-  }
+  
 
   .user-tools {
     padding: 0px 10px;

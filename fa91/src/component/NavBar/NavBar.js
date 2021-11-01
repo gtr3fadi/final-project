@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Link ,NavLink} from "react-router-dom";
 import {
   FaBars,
   FaSun,
@@ -22,38 +23,38 @@ const NavBar = () => {
         <div className="bars-toggle col">
           <FaBars className="bars" />
         </div>
-        <div className="brand col  " to="#">
+        <NavLink exact className="brand col  " to="/">
           FrLncr.ME
-        </div>
+        </NavLink>
 
         <div className=" col-lg-7 ">
           <ul className="nav-links d-none d-lg-flex ">
             <li>
-              <a href="#">
+              <NavLink to="/postproject">
                 Post a project
                 <AiOutlineAppstoreAdd className="mb-2 fa-icon" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/project">
                 Project
                 <FaProjectDiagram className="mb-2 fa-icon" />
-              </a>
+              </NavLink>
             </li>
 
             <li>
-              <a href="#">
+              <NavLink to="#">
                 Find a Freelancer
                 <FaUsers className="mb-2 fa-icon" />
-              </a>
+              </NavLink>
             </li>
 
             {isLogin && (
               <li>
-                <a href="#">
+                <Link to="#">
                   my project
                   <BsFileEarmarkPerson className="mb-2 fa-icon" />
-                </a>
+                </Link>
               </li>
             )}
           </ul>
@@ -70,15 +71,13 @@ const NavBar = () => {
                 <BsThreeDotsVertical size="25px" className="threeDots" />
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
-                    <a href="#">viwe profile</a>
+                    <Link to="#">viwe profile</Link>
                   </li>
                   <li className="dropdown-item">
-                    <a href="#">Setting</a>
+                    <Link to="#">Setting</Link>
                   </li>
                   <li className="dropdown-item">
-                    <a href="#">
-                      Logout
-                    </a>
+                    <Link to="#">Logout</Link>
                   </li>
                 </ul>
               </div>
@@ -86,8 +85,8 @@ const NavBar = () => {
           )}
           {!isLogin && (
             <span className="user-tools-text">
-              <a href="#">Login</a>
-              <a href="#">Sign Up</a>
+              <Link to="#">Login</Link>
+              <Link to="#">Sign Up</Link>
             </span>
           )}
         </div>
