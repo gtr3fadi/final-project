@@ -8,17 +8,27 @@ export default function PostProject() {
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectCategory, setProjectCategory] = useState([]);
+  const [budget, setBudget] = useState("");
+  const [projectDuration, setProjectDuration] = useState("");
+
   const [projectTags, setProjectTags] = useState("");
 
   const handelAddCategory = (e) => {
     e.preventDefault();
     if (e.target.value && !projectCategory.includes(e.target.value)) {
-
       setProjectCategory([...projectCategory, e.target.value]);
-      
     } else {
       alert("Category already exist");
-    } 
+    }
+  };
+
+  const handelRemoveCategory = (e) => {
+    e.preventDefault();
+    if (e.target.value && projectCategory.includes(e.target.value)) {
+      setProjectCategory(
+        projectCategory.filter((category) => category !== e.target.value)
+      );
+    }
   };
 
   return (
@@ -70,11 +80,17 @@ export default function PostProject() {
                   {projectCategory &&
                     projectCategory.map((category) => (
                       <span className="badge badge-pill badge-secondary m-1">
-                        {category}
+                        <button
+                          onClick={handelRemoveCategory}
+                          className="btn btn-danger btn-sm"
+                        >
+                          {category}
+
+                          <i className="fas fa-times  ms-2"></i>
+                        </button>
                       </span>
                     ))}
                 </div>
-
                 <select
                   className="form-control form-control-lg"
                   name="projectCategory"
@@ -148,7 +164,29 @@ export default function PostProject() {
                     Unity Package Manifest Asset Bundle Manifest Asset Bundle
                   </option>
                 </select>
+                <label htmlFor="budget">Budget (Dollars $ ) </label>
+                <input
+                  type="number"
+                  min="0"
+                  className="form-control form-control-lg"
+                  placeholder="Budget"
+                  name="budget"
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                  required
+                />
 
+                <label htmlFor="projectduration">Project Duration (days)</label>
+                <input
+                  type="number"
+                  min="1"
+                  className="form-control form-control-lg"
+                  placeholder="Project Duration"
+                  name="projectduration"
+                  value={projectDuration}
+                  onChange={(e) => setProjectDuration(e.target.value)}
+                  required
+                />
                 <label htmlFor="projectTags">Project Tags</label>
                 <input
                   type="text"
