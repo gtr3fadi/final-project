@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 export default function PostProject() {
@@ -6,85 +7,33 @@ export default function PostProject() {
 
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
-  const [projectCategory, setProjectCategory] = useState("");
+  const [projectCategory, setProjectCategory] = useState([]);
   const [projectTags, setProjectTags] = useState("");
+
+  const handelAddCategory = (e) => {
+    e.preventDefault();
+    if (e.target.value && !projectCategory.includes(e.target.value)) {
+
+      setProjectCategory([...projectCategory, e.target.value]);
+      
+    } else {
+      alert("Category already exist");
+    } 
+  };
 
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-md-8 m-auto">
-            <a href="/" className="btn btn-light">
+            <Link to="/" className="btn btn-light">
               <i className="fas fa-arrow-left"></i> Back To Dashboard
-            </a>
+            </Link>
             <h1 className="display-4 text-center">Add Project</h1>
             <p className="lead text-center">
               Create a project and share with the world
             </p>
-            <div className="row">
-              // add by fa
-              <div className="col-lg-4 col-md-12 mb-4">
-                <div className="form-outline mb-3">
-                  <input type="text" id="form1" className="form-control" />
-                  <label
-                    className="form-label"
-                    htmlFor="form1"
-                    style={{
-                      marginLeft: "0px",
-                    }}
-                  >
-                    Example label
-                  </label>
-                  <div className="form-notch">
-                    <div
-                      className="form-notch-leading"
-                      style={{
-                        width: "9px",
-                      }}
-                    ></div>
-                    <div
-                      className="form-notch-middle"
-                      style={{
-                        width: "88.8px",
-                      }}
-                    ></div>
-                    <div className="form-notch-trailing"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-4 col-md-12 mb-4">
-                <div className="form-outline mb-3">
-                  <input type="text" id="form1" className="form-control" />
-                  <label
-                    className="form-label"
-                    htmlFor="form1"
-                    style={{
-                      marginLeft: "0px",
-                    }}
-                  >
-                    Example label
-                  </label>
-                  <div className="form-notch">
-                    <div
-                      className="form-notch-leading"
-                      style={{
-                        width: "9px",
-                      }}
-                    ></div>
-                    <div
-                      className="form-notch-middle"
-                      style={{
-                        width: "88.8px",
-                      }}
-                    ></div>
-                    <div className="form-notch-trailing"></div>
-                  </div>
-                </div>
-              </div>
-            </div>{" "}
-            // by fadi
+
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -105,6 +54,7 @@ export default function PostProject() {
                   name="projectName"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
+                  required
                 />
                 <label htmlFor="projectDescription">Project Description</label>
                 <textarea
@@ -113,13 +63,24 @@ export default function PostProject() {
                   name="projectDescription"
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
+                  required
                 ></textarea>
                 <label htmlFor="projectCategory">Project Category</label>
+                <div>
+                  {projectCategory &&
+                    projectCategory.map((category) => (
+                      <span className="badge badge-pill badge-secondary m-1">
+                        {category}
+                      </span>
+                    ))}
+                </div>
+
                 <select
                   className="form-control form-control-lg"
                   name="projectCategory"
                   value={projectCategory}
-                  onChange={(e) => setProjectCategory(e.target.value)}
+                  onChange={handelAddCategory}
+                  required
                 >
                   <option value="">Select Category</option>
                   <option value="react">React</option>
@@ -154,6 +115,9 @@ export default function PostProject() {
                   <option value="ionic">Ionic</option>
                   <option value="android">Android</option>
                   <option value="ios">Ios</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Mobile Development">Mobile Development</option>
+                  <option value="Games Development">Games Development</option>
                   <option value="unity">Unity</option>
                   <option value="unreal">Unreal</option>
                   <option value="unity-engine">Unity Engine</option>
@@ -184,6 +148,7 @@ export default function PostProject() {
                     Unity Package Manifest Asset Bundle Manifest Asset Bundle
                   </option>
                 </select>
+
                 <label htmlFor="projectTags">Project Tags</label>
                 <input
                   type="text"
