@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
+import { projectFirestore } from "../../firebase/firebase";
 
 export default function PostProject() {
   const { user } = useContext(ThemeContext);
@@ -8,8 +9,10 @@ export default function PostProject() {
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectCategory, setProjectCategory] = useState([]);
-  const [budget, setBudget] = useState("");
-  const [projectDuration, setProjectDuration] = useState("");
+  const [budget, setBudget] = useState(Number);
+  const [projectDuration, setProjectDuration] = useState(Number);
+  const [projectSkills, setProjectSkills] = useState([]);
+  const [projectImage, setProjectImage] = useState("");
 
   const [projectTags, setProjectTags] = useState("");
 
@@ -17,6 +20,7 @@ export default function PostProject() {
     e.preventDefault();
     if (e.target.value && !projectCategory.includes(e.target.value)) {
       setProjectCategory([...projectCategory, e.target.value]);
+      console.log(projectCategory);
     } else {
       alert("Category already exist");
     }
@@ -45,14 +49,27 @@ export default function PostProject() {
             </p>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                console.log(
+                setProjectCategory(
+                  projectCategory.map((category) => category.toLowerCase())
+                );
+                const doc = {
+                  projectCategory,
                   projectName,
                   projectDescription,
-                  projectCategory,
-                  projectTags
-                );
+                  budget,
+                  projectDuration,
+                  projectTags,
+                  projectImage,
+                };
+                console.log(doc);
+                try {
+                  await projectFirestore.collection("Projects").add(doc);
+                  alert("Project added successfully");
+                } catch (error) {
+                  alert(error.message);
+                }
               }}
             >
               <div className="form-group">
@@ -94,9 +111,10 @@ export default function PostProject() {
                 <select
                   className="form-control form-control-lg"
                   name="projectCategory"
-                  value={projectCategory}
-                  onChange={handelAddCategory}
-                  required
+                  value={projectCategory
+                    .map((category) => category.toLowerCase())
+                    .join(",")}
+                  onChange={(e) => handelAddCategory(e)}
                 >
                   <option value="">Select Category</option>
                   <option value="react">React</option>

@@ -1,12 +1,32 @@
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useFetch } from "./hook/useFetch";
+import { projectFirestore } from "../firebase/firebase";
+
+
 
 export default function SingleProject() {
   const { id } = useParams();
-  const url = "https://jsonplaceholder.typicode.com/users/" + id;
-  const { data, isPending, error } = useFetch(url);
+  const [data, setData] = useState([]);
+  const [isPending, setIsPending] = useState(false);
+  const[error, setError] = useState(false);
+ 
   const history = useHistory();
+
+  useEffect(() => {
+    setIsPending(true);
+    projectFirestore.collection("Projects").doc(id).get().then(doc => {
+      if (doc.exists) {
+        setData(doc.data());
+        setIsPending(false);
+      } else {
+        setError("could not Find That Project");
+        setIsPending(false);
+      }
+    }
+    );
+  }, [id]);
+  
+
 
   useEffect(() => {
     if (error) {
@@ -22,13 +42,21 @@ export default function SingleProject() {
       {isPending && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {data && (
-        <div className="card">
-          <h3>Name:{data.name}</h3>
-          <p> Email :{data.email}</p>
-          <p> Phone :{data.phone}</p>
-          <p> Website :{data.website}</p>
-          <button className="btn btn-primary">Add to your Project</button>
+        <div>
+          <h2>{data.ProjectName}</h2>
+          <p>{data.ProjectDescription}</p>
+          <p className="text-muted">{data.ProjectDescription}</p>
+          <p className="text-muted">{data.ProjectCategory.map(cat => (
+            <p>{cat}</p>
+          ))}</p>
+          
+        
+          
+
+
+
         </div>
+
       )}
     </div>
   );
