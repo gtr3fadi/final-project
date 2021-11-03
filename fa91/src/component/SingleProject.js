@@ -43,18 +43,11 @@ export default function SingleProject() {
       {error && <p>Error: {error.message}</p>}
       {data && (
         <div>
-          <h2>{data.ProjectName}</h2>
-          <p>{data.ProjectDescription}</p>
-          <p className="text-muted">{data.ProjectDescription}</p>
-          <p className="text-muted">{data.ProjectCategory.map(cat => (
-            <p>{cat}</p>
-          ))}</p>
-          
-        
-          
-
-
-
+          <h2>{data.projectName}</h2>
+          <p>{data.projectDescription}</p>
+          <p className="text-muted">{data.projectDescription}</p>
+          <ul className="text-muted">{data.projectCategory}</ul>
+         
         </div>
 
       )}

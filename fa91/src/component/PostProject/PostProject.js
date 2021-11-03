@@ -52,8 +52,9 @@ export default function PostProject() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 setProjectCategory(
-                  projectCategory.map((category) => category.toLowerCase())
+                  projectCategory
                 );
+                console.log(projectCategory);
                 const doc = {
                   projectCategory,
                   projectName,

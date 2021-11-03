@@ -9,10 +9,8 @@ export default function Project() {
 
   useEffect(() => {
     setIsPending(true);
-    projectFirestore
-      .collection("Projects")
-      .get()
-      .then((snapshot) => {
+    const unsub = projectFirestore.collection("Projects").onSnapshot(
+      (snapshot) => {
         if (snapshot.empty) {
           setError("No Projects Found");
           setIsPending(false);
@@ -27,12 +25,21 @@ export default function Project() {
           setData(result);
           setIsPending(false);
         }
-      })
-      .catch((err) => {
-        setError(err.message);
+      },
+      (error) => {
+        setError(error.message);
         setIsPending(false);
-      });
+      }
+    );
+
+    return () => {
+      unsub();
+    };
   }, []);
+
+  const handelClick = (id) => {
+    projectFirestore.collection("Projects").doc(id).delete();
+  };
 
   return (
     console.log(data),
@@ -41,24 +48,31 @@ export default function Project() {
         <h1>Project</h1>
         {isPending && <p>Loading...</p>}
         {error && <p>Error: {error.message}</p>}
+        {data && <div>Total Projects: {data.length}</div>}
         {data && (
-                  <ul>
-                      {data.map((item) => (
-                          <li key={item.id}>
-                              <h3 style={{ marginBottom: 0 }}>{item.ProjectName}</h3>
-                              <div className="project-description">{item.ProjectDescription}</div>
-                              <div className="project-image">
-                                    <img src={item.ProjectImage} alt="project" />
-                              </div>
-                              <div >
-                                    <Link to={`/project/${item.id}`}>View Project</Link>
-                              </div>
+          <ul>
+            {data.map((item) => (
+              <li key={item.id}>
+                <h3 style={{ marginBottom: 0 }}>{item.projectName}</h3>
+                <div className="project-description">
+                  {item.projectDescription}
+                </div>
+                <div className="project-image">
+                  <img src={item.projectImage} alt="project" />
+                </div>
+                <div>
+                  <Link to={`/project/${item.id}`}>View Project</Link>
+                </div>
 
-                          </li>
-                          
-                      ))}
-                  </ul>
-                  
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handelClick(item.id)}
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     )
