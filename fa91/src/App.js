@@ -9,7 +9,9 @@ import "./index.css";
 import Home from "./component/Home";
 import Project from "./component/project/Project";
 import SingleProject from "./component/SingleProject";
+import UpdateProject from "./component/UpdateProject";
 import PostProject from "./component/PostProject/PostProject";
+import LogIn from "./component/LogIn";
 
 
 
@@ -24,7 +26,9 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/project" component={Project} />
             <Route exact path="/project/:id" component={SingleProject} />
+            <Route exact path="/project/edit/:id" component={UpdateProject} />
             <Route exact path="/postproject" component={PostProject} />
+            <Route exact path="/login" component={LogIn} />
             <Route path="*">
               <Redirect to="/" />
             </Route>

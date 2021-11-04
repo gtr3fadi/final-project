@@ -1,5 +1,5 @@
 import { useEffect ,useState} from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { projectFirestore } from "../firebase/firebase";
 
 
@@ -14,7 +14,7 @@ export default function SingleProject() {
 
   useEffect(() => {
     setIsPending(true);
-    projectFirestore.collection("Projects").doc(id).get().then(doc => {
+     const unsub= projectFirestore.collection("Projects").doc(id).onSnapshot((doc => {
       if (doc.exists) {
         setData(doc.data());
         setIsPending(false);
@@ -23,7 +23,11 @@ export default function SingleProject() {
         setIsPending(false);
       }
     }
-    );
+     ));
+    return () => {
+      unsub();
+    };
+    
   }, [id]);
   
 
@@ -36,6 +40,13 @@ export default function SingleProject() {
     }
   }, [error]);
 
+  const handelClick = (id) => {
+    projectFirestore.collection("Projects").doc(id).delete();
+    history.push("/project");
+    prompt("Are you sure you want to delete this project?");
+    alert("Project Deleted");
+  };
+
   return (
     <div>
       <h1>Single Project</h1>
@@ -47,9 +58,25 @@ export default function SingleProject() {
           <p>{data.projectDescription}</p>
           <p className="text-muted">{data.projectDescription}</p>
           <ul className="text-muted">{data.projectCategory}</ul>
-         
-        </div>
 
+          <button
+            className="btn btn-primary"
+            onClick={() => history.push("/project")}
+          >
+            Go Back
+          </button>
+
+          <button
+            className="btn btn-danger"
+            onClick={() => handelClick(id)}
+          >
+            Delete
+          </button>
+
+          <Link to={`/project/edit/${id}`}>
+            <button className="btn btn-primary">Update Project</button>
+          </Link>
+        </div>
       )}
     </div>
   );
