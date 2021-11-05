@@ -13,9 +13,11 @@ import { MdOutlineLogout } from "react-icons/md";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
 import userAvatar from "../image/user.jpg";
+import { useLogout} from "../hook/useLogout"
 
 const NavBar = () => {
-  const { toggleTheme, isLightTheme, isLogin ,user} = useContext(ThemeContext);
+  const { toggleTheme, isLightTheme, isLogin, user } = useContext(ThemeContext);
+  const {logout} = useLogout()
 
   return (
     <div>
@@ -77,7 +79,7 @@ const NavBar = () => {
                     <Link to="#">Setting</Link>
                   </li>
                   <li className="dropdown-item">
-                    <Link to="#">Logout</Link>
+                   <button onClick={logout}>Logout</button>
                   </li>
                 </ul>
               </div>
