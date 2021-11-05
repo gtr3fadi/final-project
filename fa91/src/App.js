@@ -12,6 +12,7 @@ import SingleProject from "./component/SingleProject";
 import UpdateProject from "./component/UpdateProject";
 import PostProject from "./component/PostProject/PostProject";
 import LogIn from "./component/LogIn";
+import SignUp from "./component/SignUp";
 
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/project/edit/:id" component={UpdateProject} />
             <Route exact path="/postproject" component={PostProject} />
             <Route exact path="/login" component={LogIn} />
+            <Route exact path="/signup" component={SignUp} />
             <Route path="*">
               <Redirect to="/" />
             </Route>
