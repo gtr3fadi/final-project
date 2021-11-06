@@ -1,61 +1,63 @@
 import React, { useState } from "react";
+import { useLogin } from "./hook/useLogin";
 
+export default function LogIn() {
+  const { login, error, isPending } = useLogin();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const LogIn = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+    console.log(email, password);
+  };
 
-    const [instialestate, setInitialState] = useState({
-        email: "",
-        password: "",
-        error: ""
-    });
-
-    const [state, setState] = useState(instialestate);
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setState({
-            ...state,
-            [name]: value
-        });
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (state.email === " " || state.password === " ") {
-            setState({
-                ...state,
-                error: "Please enter all fields"
-            });
-        } else {        
-            setState({
-                ...state,
-                error: ""
-            });
-        }
-    }
-
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 mt-5 mx-auto">
-                    <form noValidate onSubmit={handleSubmit}>
-                        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                        <div className="form-group">
-                            <label htmlFor="email">Email address</label>
-                            <input type="email" className="form-control" id="email" name="email" value={state.email} onChange={handleChange} placeholder="Enter email" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" id="password" name="password" value={state.password} onChange={handleChange} placeholder="Password" />
-                        </div>
-                        <button type="submit" className="btn btn-lg btn-primary btn-block">Sign in</button>
-                        <p className="text-center mt-3">Don't have an account? <a href="/register">Sign up</a></p>
-                        <p className="text-center">{state.error}</p>
-                    </form>
-                </div>
-            </div>
+  return (
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
         </div>
-    );
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {!isPending && (
+          <button type="submit" className="btn btn-primary">
+            Log In
+          </button>
+        )}
+        {isPending && (
+          <button type="submit" className="btn btn-primary" disabled >
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Loading...
+          </button>
+        )}
+        {error && <div className="alert alert-danger">{error}</div>}
+      </form>
+    </div>
+  );
 }
-
-export default LogIn;

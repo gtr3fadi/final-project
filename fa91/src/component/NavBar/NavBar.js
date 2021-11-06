@@ -13,11 +13,14 @@ import { MdOutlineLogout } from "react-icons/md";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
 import userAvatar from "../image/user.jpg";
-import { useLogout} from "../hook/useLogout"
+import { useLogout } from "../hook/useLogout"
+import { useAuthContext } from "../hook/useAuthContext";
 
 const NavBar = () => {
-  const { toggleTheme, isLightTheme, isLogin, user } = useContext(ThemeContext);
-  const {logout} = useLogout()
+  const {user}=useAuthContext()
+  const { logout } = useLogout()
+  
+  const { toggleTheme, isLightTheme} = useContext(ThemeContext);
 
   return (
     <div>
@@ -51,7 +54,7 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-            {isLogin && (
+            {user && (
               <li>
                 <Link to="#">
                   my project
@@ -63,9 +66,9 @@ const NavBar = () => {
         </div>
 
         <div className="user-tools col col-lg-2">
-          {isLogin && (
+          {user && (
             <div className="user-login">
-              <div className="user-name">{user}</div>
+              <div className="user-name">Hello , {user.displayName}</div>
               <div className="user-avatar">
                 <img src={userAvatar} alt="avatar" />
               </div>
@@ -85,10 +88,10 @@ const NavBar = () => {
               </div>
             </div>
           )}
-          {!isLogin && (
+          {!user && (
             <span className="user-tools-text">
-              <Link to="#">Login</Link>
-              <Link to="#">Sign Up</Link>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
             </span>
           )}
         </div>
