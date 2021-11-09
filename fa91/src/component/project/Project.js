@@ -1,41 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { projectFirestore } from "../../firebase/firebase";
+import { useCollection } from "../hook/useCollection";
 
 export default function Project() {
-  const [data, setData] = useState(null);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    setIsPending(true);
-    const unsub = projectFirestore.collection("Projects").onSnapshot(
-      (snapshot) => {
-        if (snapshot.empty) {
-          setError("No Projects Found");
-          setIsPending(false);
-        } else {
-          let result = [];
-          snapshot.forEach((doc) => {
-            result.push({
-              id: doc.id,
-              ...doc.data(),
-            });
-          });
-          setData(result);
-          setIsPending(false);
-        }
-      },
-      (error) => {
-        setError(error.message);
-        setIsPending(false);
-      }
-    );
-
-    return () => {
-      unsub();
-    };
-  }, []);
+  const { data, isPending, error } = useCollection("projects");
 
   const handelClick = (id) => {
     projectFirestore.collection("Projects").doc(id).delete();
@@ -57,9 +26,7 @@ export default function Project() {
                 <div className="project-description">
                   {item.projectDescription}
                 </div>
-                <div className="project-image">
-                  <img src={item.projectImage} alt="project" />
-                </div>
+                {/* <div className="project-created-at">{item.createdAt}</div> */}
                 <div>
                   <Link to={`/project/${item.id}`}>View Project</Link>
                 </div>
