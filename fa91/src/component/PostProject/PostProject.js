@@ -9,6 +9,7 @@ export default function PostProject() {
   const { addDocument, response } = useFirestore("projects");
   const { user } = useAuthContext();
   const history = useHistory();
+  const [isPending, setIsPending] = useState(false);
 
  
 
@@ -64,13 +65,17 @@ export default function PostProject() {
   };
 
   console.log(project);
-  const handelSubmit = (e) => {
+  const handelSubmit =async (e) => {
     e.preventDefault();
-    addDocument(project);
+    setIsPending(true);
+    await addDocument(project);
+    if(!response.error){
 
     alert("Project added successfully");
 
-    history.push("/myproject");
+      history.push("/myproject");
+    }
+
   };
 
   return (
@@ -229,12 +234,20 @@ export default function PostProject() {
                     onChange={(e) => setProjectTags(e.target.value)}
                   />
                   <div className="text-center m-auto mt-4">
-                    <button
-                      type="submit"
-                      className="btn btn-primary m-auto text-capitalize text-xl-center "
-                    >
-                      create a project
-                    </button>
+                    {!isPending && (
+                      <button
+                        type="submit"
+                        className="btn btn-primary m-auto text-capitalize text-xl-center "
+                      >
+                        create a project
+                      </button>
+                    )}
+                    {isPending && (
+                      <button className="btn btn-primary m-auto text-capitalize text-xl-center ">
+                        <span className="spinner-border spinner-border-sm"></span>
+                        creat...
+                      </button>)}
+                      
                   </div>
                 </div>
               </form>
