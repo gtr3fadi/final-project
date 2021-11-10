@@ -56,7 +56,7 @@ const NavBar = () => {
 
             {user && (
               <li>
-                <Link to="#">
+                <Link to="/myproject">
                   my project
                   <BsFileEarmarkPerson className="mb-2 fa-icon" />
                 </Link>

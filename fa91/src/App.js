@@ -17,6 +17,7 @@ import Project from "./component/project/Project";
 import SingleProject from "./component/SingleProject";
 import UpdateProject from "./component/UpdateProject";
 import PostProject from "./component/PostProject/PostProject";
+import MyProject from "./component/MyProject";
 import LogIn from "./component/LogIn";
 import SignUp from "./component/SignUp";
 import { useAuthContext } from "./component/hook/useAuthContext";
@@ -35,7 +36,12 @@ function App() {
               <Route exact path="/project" component={Project} />
               <Route exact path="/project/:id" component={SingleProject} />
               <Route exact path="/project/edit/:id" component={UpdateProject} />
-              <Route exact path="/postproject" component={PostProject} />
+              <Route exact path="/postproject" >
+                {user ? <PostProject /> : <Redirect to="/login" />}
+                </Route>
+              <Route exact path="/myproject">
+                {user ? <MyProject /> : <Redirect to="/login" />}
+                </Route>
               <Route path="/login">
                 {user ? <Redirect to="/" /> : <LogIn />}
               </Route>

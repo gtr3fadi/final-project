@@ -19,6 +19,13 @@ const firestoreReducer = (state, action) => {
         error: null,
         success: true,
       }
+    case "DELETED_DOCUMENT":
+      return {
+        document: action.payload,
+        isPending: false,
+        error: null,
+        success: true,
+      }
     case "ERROR":
       return {
         document: null,
@@ -61,10 +68,30 @@ export const useFirestore = (collection) => {
   };
 
   // update document
-  const updateDocument = (id) => {};
+  const updateDocument = async (id) =>  {
+    dispatch({ type: "PENDING" })
+    try {
+      const updatedDocument = await ref.doc(id).update({
+        updatedAt: timestamp.fromDate(new Date()),
+      })
+      dispatchNotCancelled({ type: 'ADDED_DOCUMENT', payload: updatedDocument })
+    } catch (error) {
+      dispatchNotCancelled({ type: "ERROR", payload: error })
+    }
+  };
 
   // delete document
-  const deleteDocument =  (id) => {};
+  const deleteDocument = async (id) => {
+    prompt('Are you sure you want to delete this document?', 'Yes')
+    dispatch({ type: "PENDING" })
+    try {
+      const deleteDocument=  await ref.doc(id).delete()
+      dispatchNotCancelled({ type: "DELETED_DOCUMENT", payload: deleteDocument })
+    } catch (error) {
+      dispatchNotCancelled({ type: "ERROR", payload: error })
+    }
+
+  };
 
   //clenup function
 

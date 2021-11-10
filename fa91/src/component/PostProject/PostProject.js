@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link ,useHistory} from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
@@ -10,6 +10,8 @@ export default function PostProject() {
   const { addDocument, response } = useFirestore("projects");
   const { user } = useAuthContext();
   const uid = user.uid;
+  const displayName = user.displayName;
+  const history = useHistory();
   
   console.log (uid);
 
@@ -59,6 +61,7 @@ export default function PostProject() {
   const handelSubmit = (e) => {
     e.preventDefault();
     addDocument({
+      displayName,
       uid,
       projectName,
       projectDescription,
@@ -67,6 +70,13 @@ export default function PostProject() {
       projectDuration
      
     });
+
+    alert("Project added successfully");
+
+    
+      history.push("/myproject");
+      
+    
 
 
   };
