@@ -9,8 +9,7 @@ export default function Project() {
   const { documents: data, error } = useCollection("projects", [
     "createdAt",
     "desc",
-  ]); 
-  
+  ]);
 
   const handelClick = (id) => {
     projectFirestore.collection("Projects").doc(id).delete();
@@ -21,7 +20,7 @@ export default function Project() {
     (
       <div>
         <h1>Project</h1>
-        
+
         {error && <p>Error: {error.message}</p>}
         {data && <div>Total Projects: {data.length}</div>}
         {data && (
@@ -35,7 +34,7 @@ export default function Project() {
                     Created At: {project.createdAt.toDate().toLocaleString()}
                   </p>
                   <p className="project-item-createdAt">
-                    Created By: {project.displayName}
+                    Created By: {project.createdBy.displayName}
                   </p>
                 </div>
                 <div>
@@ -47,7 +46,6 @@ export default function Project() {
               </div>
             ))}
           </div>
-
         )}
       </div>
     )

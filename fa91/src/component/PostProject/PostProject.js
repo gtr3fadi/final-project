@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { Link ,useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
-
+import { timestamp } from "../../firebase/firebase";
 
 export default function PostProject() {
-
   const { addDocument, response } = useFirestore("projects");
   const { user } = useAuthContext();
-  const uid = user.uid;
-  const displayName = user.displayName;
   const history = useHistory();
-  
-  console.log (uid);
 
  
+
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectCategory, setProjectCategory] = useState([]);
@@ -34,12 +30,11 @@ export default function PostProject() {
     if (e.target.value === "") {
       alert("Please enter a category");
     }
-    if(e.target.value && !projectCategory.includes(e.target.value)){
+    if (e.target.value && !projectCategory.includes(e.target.value)) {
       setProjectCategory([...projectCategory, e.target.value]);
     } else {
       alert("You can't add the same category twice");
     }
-    
   };
 
   const handelRemoveCategory = (e) => {
@@ -50,28 +45,32 @@ export default function PostProject() {
       );
     }
   };
+  
+  const createdBy = {
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    uid :user.uid
+  }
 
+  const project = {
+    projectName,
+    projectDescription,
+    projectCategory,
+    budget,
+    projectDuration: timestamp.fromDate(new Date(projectDuration)),
+    comments: [],
+    createdBy,
+    uid: user.uid,
+  };
+
+  console.log(project);
   const handelSubmit = (e) => {
     e.preventDefault();
-    addDocument({
-      displayName,
-      uid,
-      projectName,
-      projectDescription,
-      projectCategory,
-      budget,
-      projectDuration
-     
-    });
+    addDocument(project);
 
     alert("Project added successfully");
 
-    
-      history.push("/myproject");
-      
-    
-
-
+    history.push("/myproject");
   };
 
   return (
@@ -229,9 +228,11 @@ export default function PostProject() {
                     value={projectTags}
                     onChange={(e) => setProjectTags(e.target.value)}
                   />
-                  <div className="text-center m-auto mt-4"
-                  >
-                    <button type="submit" className="btn btn-primary m-auto text-capitalize text-xl-center ">
+                  <div className="text-center m-auto mt-4">
+                    <button
+                      type="submit"
+                      className="btn btn-primary m-auto text-capitalize text-xl-center "
+                    >
                       create a project
                     </button>
                   </div>
