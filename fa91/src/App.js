@@ -22,6 +22,7 @@ import LogIn from "./component/LogIn";
 import SignUp from "./component/SignUp";
 import { useAuthContext } from "./component/hook/useAuthContext";
 
+
 function App() {
   const { AuthIsReady, user } = useAuthContext();
   return (
@@ -52,6 +53,7 @@ function App() {
                 <Redirect to="/" />
               </Route>
             </Switch>
+            
           </BrowserRouter>
         </ThemeContextProvider>
       )}

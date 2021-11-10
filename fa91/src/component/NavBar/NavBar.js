@@ -12,13 +12,13 @@ import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
-import userAvatar from "../image/user.jpg";
 import { useLogout } from "../hook/useLogout"
 import { useAuthContext } from "../hook/useAuthContext";
+import Avatar from "../Avatar";
 
 const NavBar = () => {
   const {user}=useAuthContext()
-  const { logout } = useLogout()
+  const { logout, isPending , error  } = useLogout()
   
   const { toggleTheme, isLightTheme} = useContext(ThemeContext);
 
@@ -28,8 +28,9 @@ const NavBar = () => {
         <div className="bars-toggle col">
           <FaBars className="bars" />
         </div>
-        <NavLink exact className="brand col  " to="/">
-          FrLncr.ME
+        <NavLink exact className="brand col brand"
+          to="/">
+          Div.Space
         </NavLink>
 
         <div className=" col-lg-7 ">
@@ -69,9 +70,9 @@ const NavBar = () => {
           {user && (
             <div className="user-login">
               <div className="user-name">Hello , {user.displayName}</div>
-              <div className="user-avatar">
-                <img src={userAvatar} alt="avatar" />
-              </div>
+              
+                <Avatar src={user.photoURL} />
+              
               <div className="user-dropdown">
                 <BsThreeDotsVertical size="25px" className="threeDots" />
                 <ul className="dropdown-menu">
@@ -82,7 +83,16 @@ const NavBar = () => {
                     <Link to="#">Setting</Link>
                   </li>
                   <li className="dropdown-item">
-                   <button onClick={logout}>Logout</button>
+                    {!isPending && (
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={logout}
+                      >
+                        Logout
+                      </button>
+                    )}
+                    {isPending && <div>Logging out...</div>}
+                    {error && <div>{error}</div>}
                   </li>
                 </ul>
               </div>

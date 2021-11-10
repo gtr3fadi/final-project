@@ -21,8 +21,6 @@ export default function PostProject() {
   const [projectCategory, setProjectCategory] = useState([]);
   const [budget, setBudget] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
-  const [projectSkills, setProjectSkills] = useState([]);
-  const [projectImage, setProjectImage] = useState("");
   const [projectTags, setProjectTags] = useState("");
 
   const handelAddCategory = (e) => {
@@ -41,12 +39,7 @@ export default function PostProject() {
     } else {
       alert("You can't add the same category twice");
     }
-    // if (e.target.value && !projectCategory.includes(e.target.value)) {
-    //   setProjectCategory([...projectCategory, e.target.value]);
-    //   console.log(projectCategory);
-    // } else {
-    //   alert("Category already exist");
-    // }
+    
   };
 
   const handelRemoveCategory = (e) => {
@@ -84,44 +77,15 @@ export default function PostProject() {
   return (
     <div>
       {user && (
-        <div className="container">
+        <div className="container m-auto my-5">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <Link to="/" className="btn btn-light">
-                <i className="fas fa-arrow-left"></i> Back To Dashboard
-              </Link>
               <h1 className="display-4 text-center">Add Project</h1>
               <p className="lead text-center">
                 Create a project and share with the world
               </p>
 
-              <form
-                onSubmit={handelSubmit}
-                className="mt-5"
-                // onSubmit={async (e) => {
-                //   e.preventDefault();
-                //   setProjectCategory(
-                //     projectCategory
-                //   );
-                //   console.log(projectCategory);
-                //   const doc = {
-                //     projectCategory,
-                //     projectName,
-                //     projectDescription,
-                //     budget,
-                //     projectDuration,
-                //     projectTags,
-                //     projectImage,
-                //   };
-                //   console.log(doc);
-                //   try {
-                //     await projectFirestore.collection("Projects").add(doc);
-                //     alert("Project added successfully");
-                //   } catch (error) {
-                //     alert(error.message);
-                //   }
-                // }}
-              >
+              <form onSubmit={handelSubmit} className="mt-5">
                 <div className="form-group">
                   <label htmlFor="projectName">Project Name</label>
                   <input
@@ -131,7 +95,6 @@ export default function PostProject() {
                     name="projectName"
                     value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
-                    
                   />
                   <label htmlFor="projectDescription">
                     Project Description
@@ -142,7 +105,6 @@ export default function PostProject() {
                     name="projectDescription"
                     value={projectDescription}
                     onChange={(e) => setProjectDescription(e.target.value)}
-                    
                   ></textarea>
                   <label htmlFor="projectCategory">Project Category</label>
                   <div>
@@ -245,21 +207,18 @@ export default function PostProject() {
                     name="budget"
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
-                    
                   />
 
                   <label htmlFor="projectduration">
                     Project Duration (days)
                   </label>
                   <input
-                    type="number"
-                    min="1"
+                    type="date"
                     className="form-control form-control-lg"
                     placeholder="Project Duration"
                     name="projectduration"
                     value={projectDuration}
                     onChange={(e) => setProjectDuration(e.target.value)}
-                    
                   />
                   <label htmlFor="projectTags">Project Tags</label>
                   <input
@@ -270,18 +229,11 @@ export default function PostProject() {
                     value={projectTags}
                     onChange={(e) => setProjectTags(e.target.value)}
                   />
-                  <input
-                    type="submit"
-                    className="btn btn-info btn-block mt-4"
-                  />
-                  <div className="form-group">
-                    <label htmlFor="projectImage">Project Image</label>
-                    <input
-                      type="file"
-                      className="form-control form-control-lg"
-                      placeholder="Project Image"
-                      name="projectImage"
-                    />
+                  <div className="text-center m-auto mt-4"
+                  >
+                    <button type="submit" className="btn btn-primary m-auto text-capitalize text-xl-center ">
+                      create a project
+                    </button>
                   </div>
                 </div>
               </form>
@@ -304,8 +256,7 @@ export default function PostProject() {
 
                 <hr className="my-4" />
                 <p>
-                  Don't have an account?{" "}
-                  <Link to="/register">Register</Link>
+                  Don't have an account? <Link to="/register">Register</Link>
                 </p>
 
                 <p className="lead">
@@ -323,13 +274,9 @@ export default function PostProject() {
                 <p className="lead">
                   <Link to="/contact">Contact</Link>
                 </p>
-
               </div>
-              
             </div>
-            
           </div>
-          
         </div>
       )}
     </div>
