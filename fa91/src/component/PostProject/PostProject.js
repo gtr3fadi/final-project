@@ -4,6 +4,7 @@ import { ThemeContext } from "../../Context/ThemeContext";
 import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
 import { timestamp } from "../../firebase/firebase";
+import Select from "react-select";
 
 export default function PostProject() {
   const { addDocument, response } = useFirestore("projects");
@@ -11,10 +12,62 @@ export default function PostProject() {
   const history = useHistory();
   const [isPending, setIsPending] = useState(false);
 
- 
+  const categories = [
+    { value: "html", label: "HTML", className: "bg-danger" },
+    { value: "css", label: "CSS" },
+    { value: "javascript", label: "Javascript" },
+    { value: "react", label: "React" },
+    { value: "vue", label: "Vue" },
+    { value: "angular", label: "Angular" },
+    { value: "nodejs", label: "Nodejs" },
+    { value: "express", label: "Express" },
+    { value: "mongodb", label: "MongoDB" },
+    { value: "mysql", label: "MySQL" },
+    { value: "sql", label: "SQL" },
+    { value: "php", label: "PHP" },
+    { value: "laravel", label: "Laravel" },
+    { value: "django", label: "Django" },
+    { value: "flask", label: "Flask" },
+    { value: "django", label: "Django" },
+    { value: "python", label: "Python" },
+    { value: "java", label: "Java" },
+    { value: "c", label: "C" },
+    { value: "c++", label: "C++" },
+    { value: "c#", label: "C#" },
+    { value: "ruby", label: "Ruby" },
+    { value: "swift", label: "Swift" },
+    { value: "kotlin", label: "Kotlin" },
+    { value: "php", label: "PHP" },
+    { value: "laravel", label: "Laravel" },
+    { value: "html", label: "HTML" },
+    { value: "css", label: "CSS" },
+    { value: "javascript", label: "Javascript" },
+    { value: "react", label: "React" },
+    { value: "vue", label: "Vue" },
+    { value: "angular", label: "Angular" },
+    { value: "nodejs", label: "Nodejs" },
+    { value: "express", label: "Express" },
+    { value: "mongodb", label: "MongoDB" },
+    { value: "mysql", label: "MySQL" },
+    { value: "sql", label: "SQL" },
+    { value: "php", label: "PHP" },
+    { value: "laravel", label: "Laravel" },
+    { value: "django", label: "Django" },
+    { value: "flask", label: "Flask" },
+    { value: "django", label: "Django" },
+    { value: "python", label: "Python" },
+    { value: "java", label: "Java" },
+    { value: "c", label: "C" },
+    { value: "c++", label: "C++" },
+    { value: "c#", label: "C#" },
+    { value: "ruby", label: "Ruby" },
+    { value: "swift", label: "Swift" },
+    { value: "kotlin", label: "Kotlin" },
+  ];
 
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
+  const [projectType, setProjectType] = useState("frontend");
   const [projectCategory, setProjectCategory] = useState([]);
   const [budget, setBudget] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
@@ -22,19 +75,26 @@ export default function PostProject() {
 
   const handelAddCategory = (e) => {
     e.preventDefault();
-    if (projectCategory.length < 3) {
-      setProjectCategory([...projectCategory, e.target.value]);
+    if (e.target.value === "") {
+      alert("Please enter a category");
+      return;
     }
     if (projectCategory.length === 3) {
       alert("You can't add more than 3 categories");
+      return;
     }
-    if (e.target.value === "") {
-      alert("Please enter a category");
+
+    if (projectCategory.includes(e.target.value)) {
+      alert("You can't add same category");
+      return;
     }
+
+    if (projectCategory.length < 3) {
+      setProjectCategory([...projectCategory, e.target.value]);
+    }
+
     if (e.target.value && !projectCategory.includes(e.target.value)) {
       setProjectCategory([...projectCategory, e.target.value]);
-    } else {
-      alert("You can't add the same category twice");
     }
   };
 
@@ -46,12 +106,12 @@ export default function PostProject() {
       );
     }
   };
-  
+
   const createdBy = {
     displayName: user.displayName,
     photoURL: user.photoURL,
-    uid :user.uid
-  }
+    uid: user.uid,
+  };
 
   const project = {
     projectName,
@@ -65,17 +125,18 @@ export default function PostProject() {
   };
 
   console.log(project);
-  const handelSubmit =async (e) => {
+
+  console.log(projectType);
+
+  const handelSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
     await addDocument(project);
-    if(!response.error){
-
-    alert("Project added successfully");
+    if (!response.error) {
+      alert("Project added successfully");
 
       history.push("/myproject");
     }
-
   };
 
   return (
@@ -110,22 +171,85 @@ export default function PostProject() {
                     value={projectDescription}
                     onChange={(e) => setProjectDescription(e.target.value)}
                   ></textarea>
-                  <label htmlFor="projectCategory">Project Category</label>
-                  <div>
-                    {projectCategory &&
-                      projectCategory.map((category) => (
-                        <span className="badge badge-pill badge-secondary m-1">
-                          <button
-                            onClick={handelRemoveCategory}
-                            className="btn btn-danger btn-sm"
-                          >
-                            {category}
+                  // cheke box for categories frontend, backend, database,
+                  fullstack
+                  <label>
+                    <span> Project Type </span>
+                    <br />
+                    <div className="btn-group  m-auto  mb-2 ">
+                      <input
+                        type="radio"
+                        className="btn-check m-1"
+                        name="projectType"
+                        id="frontend"
+                        value="frontend"
+                        onChange={(e) => setProjectType(e.target.value)}
+                        cheched={projectType === "frontend"}
+                      />
+                      <label htmlFor="frontend" className="btn btn-secondary">
+                        Frontend
+                      </label>
+                      <input
+                        type="radio"
+                        className="btn-check"
+                        name="projectType"
+                        id="backend"
+                        value="backend"
+                        onChange={(e) => setProjectType(e.target.value)}
+                        cheched={projectType === "backend"}
+                        autoComplete="off"
+                      />
+                      <label htmlFor="backend" className="btn btn-secondary">
+                        Backend
+                      </label>
 
-                            <i className="fas fa-times  ms-2"></i>
-                          </button>
-                        </span>
-                      ))}
-                  </div>
+                      <input
+                        type="radio"
+                        className="btn-check"
+                        name="projectType"
+                        id="fullstack"
+                        value="fullstack"
+                        onChange={(e) => setProjectType(e.target.value)}
+                        cheched={projectType === "fullstack"}
+                        autoComplete="off"
+                      />
+                      <label htmlFor="fullstack" className="btn btn-secondary">
+                        Fullstack
+                      </label>
+                      <input
+                        type="radio"
+                        className="btn-check"
+                        name="projectType"
+                        id="other"
+                        value="other"
+                        onChange={(e) => setProjectType(e.target.value)}
+                        cheched={projectType === "other"}
+                        autoComplete="off"
+                      />
+                      <label htmlFor="other" className="btn btn-secondary">
+                        Other
+                      </label>
+                    </div>
+                  </label>
+                  <br />
+                  <label>
+                    <span> Project Type</span>
+                    <br />
+                    <Select
+                      className="w-100"
+                      options={categories}
+                      onChange={(e) => setProjectType(e.value)}
+                    />
+                  </label>
+                  <Select
+                    defaultValue={[categories[2], categories[3]]}
+                    isMulti
+                    name="colors"
+                    options={categories}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
+                  <label htmlFor="projectCategory">Project Category</label>
                   <select
                     className="form-control form-control-lg"
                     name="projectCategory"
@@ -202,6 +326,21 @@ export default function PostProject() {
                       Unity Package Manifest Asset Bundle Manifest Asset Bundle
                     </option>
                   </select>
+                  <div>
+                    {projectCategory &&
+                      projectCategory.map((category) => (
+                        <span className="badge badge-pill badge-secondary m-1">
+                          <button
+                            onClick={handelRemoveCategory}
+                            className="btn btn-danger btn-sm"
+                          >
+                            {category}
+
+                            <i className="fas fa-times  ms-2"></i>
+                          </button>
+                        </span>
+                      ))}
+                  </div>
                   <label htmlFor="budget">Budget (Dollars $ ) </label>
                   <input
                     type="number"
@@ -212,7 +351,6 @@ export default function PostProject() {
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
                   />
-
                   <label htmlFor="projectduration">
                     Project Duration (days)
                   </label>
@@ -246,8 +384,8 @@ export default function PostProject() {
                       <button className="btn btn-primary m-auto text-capitalize text-xl-center ">
                         <span className="spinner-border spinner-border-sm"></span>
                         creat...
-                      </button>)}
-                      
+                      </button>
+                    )}
                   </div>
                 </div>
               </form>

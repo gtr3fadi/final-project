@@ -51,6 +51,7 @@ export default function ProjectComment({project}) {
                   <small className="text-muted me-1">
                     <i
                       className="fas fa-trash-alt"
+                      style={{ color: "red" }}
                       onClick={() => {
                         updateDocumentField(project.id, {
                           comments: project.comments.filter(
@@ -60,25 +61,26 @@ export default function ProjectComment({project}) {
                       }}
                     ></i>
                   </small>
-                 <small className="text-muted">
-                  <i
-                    class="fas fa-edit"
-                    onClick={() => {
-                      setNewComment(comment.content);
-                      updateDocumentField(project.id, {
-                        comments: project.comments.filter(
-                          (com) => com.id !== comment.id
-                        ),
-                      });
-                    }}
-                  ></i>
-                </small>
+                  <small className="text-muted">
+                    <i
+                      className="fas fa-edit"
+                      style={{ color: "blue" }}
+                      onClick={() => {
+                        setNewComment(comment.content);
+                        updateDocumentField(project.id, {
+                          comments: project.comments.filter(
+                            (com) => com.id !== comment.id
+                          ),
+                        });
+                      }}
+                    ></i>
+                  </small>
                 </div>
                 <div className="media-body d-flex justify-content-start align-items-center   ">
                   <small className="text-muted">
                     <i className="fas fa-clock me-1"></i>
                   </small>
-                  <p className="text-muted m-0">
+                  <p className="text-muted m-0 small">
                     {formatDistanceToNow(comment.createdAt.toDate(), {
                       addSuffix: true,
                     })}
