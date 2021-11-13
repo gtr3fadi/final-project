@@ -26,6 +26,13 @@ const firestoreReducer = (state, action) => {
         error: null,
         success: true,
       }
+    case "UPDATE_DOCUMENT":
+      return {
+        document: action.payload,
+        isPending: false,
+        error: null,
+        success: true,
+      }
     case "ERROR":
       return {
         document: null,
@@ -76,9 +83,29 @@ export const useFirestore = (collection) => {
       })
       dispatchNotCancelled({ type: 'ADDED_DOCUMENT', payload: updatedDocument })
     } catch (error) {
+      console.log(error);
       dispatchNotCancelled({ type: "ERROR", payload: error })
     }
   };
+
+  // update document for specific field (comments)
+
+  const updateDocumentField = async (id, update) => {
+    dispatch({ type: "PENDING" })
+    try {
+      const updatedDocument = await ref.doc(id).update( update )
+      dispatchNotCancelled({ type: 'UPDATE_DOCUMENT', payload: updatedDocument })
+      return updatedDocument
+    } catch (error) {
+      console.log(error);
+      dispatchNotCancelled({ type: "ERROR", payload: error })
+    }
+  };
+
+
+
+
+
 
   // delete document
   const deleteDocument = async (id) => {
@@ -99,5 +126,11 @@ export const useFirestore = (collection) => {
     return () =>  setIsCancelled(true);
   }, []);
 
-  return { addDocument, updateDocument, deleteDocument, response };
+  return {
+    addDocument,
+    updateDocument,
+    deleteDocument,
+    updateDocumentField,
+    response,
+  };
 };
