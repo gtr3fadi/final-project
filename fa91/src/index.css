@@ -64,6 +64,47 @@ code {
     monospace;
 }
 
+/* Animation */
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,50px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0,50px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+.animated {
+    animation-duration: 2.2s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 2.2s;
+    -webkit-animation-fill-mode: both
+}
+
+.animatedFadeInUp {
+    opacity: 0
+}
+
+.fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp ;
+    -webkit-animation-name: fadeInUp;
+}
+
 .mean{
   /* background-color: #191A19; */
   background-color: var(--bg);
