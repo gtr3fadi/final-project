@@ -48,33 +48,39 @@ export default function ProjectComment({project}) {
                 <div className="media-body d-flex justify-content-start align-items-center   ">
                   <Avatar src={comment.PhotoURL} />
                   <h6 className="m-0  mx-1">{comment.displayName}</h6>
-                  <small className="text-muted me-1">
-                    <i
-                      className="fas fa-trash-alt"
-                      style={{ color: "red" }}
-                      onClick={() => {
-                        updateDocumentField(project.id, {
-                          comments: project.comments.filter(
-                            (com) => com.id !== comment.id
-                          ),
-                        });
-                      }}
-                    ></i>
-                  </small>
-                  <small className="text-muted">
-                    <i
-                      className="fas fa-edit"
-                      style={{ color: "blue" }}
-                      onClick={() => {
-                        setNewComment(comment.content);
-                        updateDocumentField(project.id, {
-                          comments: project.comments.filter(
-                            (com) => com.id !== comment.id
-                          ),
-                        });
-                      }}
-                    ></i>
-                  </small>
+                  {comment.userId === user.uid ? (
+                    <>
+                      <small className="text-muted me-1">
+                        <i
+                          className="fas fa-trash-alt"
+                          style={{ color: "red" }}
+                          onClick={() => {
+                            updateDocumentField(project.id, {
+                              comments: project.comments.filter(
+                                (com) => com.id !== comment.id
+                              ),
+                            });
+                          }}
+                        ></i>
+                      </small>
+                      <small className="text-muted">
+                        <i
+                          className="fas fa-edit"
+                          style={{ color: "blue" }}
+                          onClick={() => {
+                            setNewComment(comment.content);
+                            updateDocumentField(project.id, {
+                              comments: project.comments.filter(
+                                (com) => com.id !== comment.id
+                              ),
+                            });
+                          }}
+                        ></i>
+                      </small>
+                    </>
+                  ) : (null
+                    
+                  )}
                 </div>
                 <div className="media-body d-flex justify-content-start align-items-center   ">
                   <small className="text-muted">
@@ -95,17 +101,19 @@ export default function ProjectComment({project}) {
           ))}
         </ul>
 
-        <form onSubmit={handleSubmit} className="form-group">
-          <textarea
-            required
-            onChange={(e) => setNewComment(e.target.value)}
-            value={newComment}
-            className="form-control"
-            placeholder="Write a comment..."
-          ></textarea>
+        {user && (
+          <form onSubmit={handleSubmit} className="form-group">
+            <textarea
+              required
+              onChange={(e) => setNewComment(e.target.value)}
+              value={newComment}
+              className="form-control"
+              placeholder="Write a comment..."
+            ></textarea>
 
-          <button className="btn btn-primary mt-2">Add Comment</button>
-        </form>
+            <button className="btn btn-primary mt-2">Add Comment</button>
+          </form>
+        )}
       </div>
     );
 }

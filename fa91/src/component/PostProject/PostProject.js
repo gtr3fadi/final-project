@@ -72,6 +72,7 @@ export default function PostProject() {
     comments: [],
     createdBy,
     uid: user.uid,
+    bidd: ""
   };
 
   console.log(project);

@@ -35,7 +35,9 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/project" component={Project} />
-              <Route exact path="/project/:id" component={SingleProject} />
+              <Route exact path="/project/:id">
+                {user ? <SingleProject /> : <Redirect to="/login" />}
+              </Route>
               <Route exact path="/project/edit/:id" component={UpdateProject} />
               <Route exact path="/postproject" >
                 {user ? <PostProject /> : <Redirect to="/login" />}
