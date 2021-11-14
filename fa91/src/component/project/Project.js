@@ -29,6 +29,8 @@ export default function Project() {
       return project.projectType === "fullstack";
     } else if (currentFilter === "other") {
       return project.projectType === "other";
+    }else if(currentFilter === "mine"){
+      return project.uid === user.uid;
     }
   }) : [];
 

@@ -4,43 +4,34 @@ import { projectFirestore } from "../firebase/firebase";
 import { useCollection } from "./hook/useCollection";
 import { useAuthContext } from "./hook/useAuthContext";
 import { useFirestore } from "./hook/useFirestore";
+import  ProjectList  from "./project/ProjectList";
 
 const MyProject = () => {
     const {deleteDocument,updateDocument , response }= useFirestore("projects");
     const { user } = useAuthContext();
     const { documents: data, error } = useCollection(
       "projects",
-      ["createdAt", "desc"],
-      ["uid", "==", user.uid]
-    );
+      ["createdAt", "desc"]
+  );
+  const filteredData =data ? data.filter((item) => item.uid === user.uid) : [];
     
 
     return (
-      <div>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
         <h1>My Projects</h1>
         {error && <p>Error: {error.message}</p>}
-        {data && <div>Total Projects: {data.length}</div>}
-        {data &&
-          data.map((project) => (
-            <div key={project.id}>
-              <h2 className="project-title">{project.projectName}</h2>
-              <p>{project.projectDescription}</p>
-              <div>
-                <h5> created by {user.displayName}</h5>
-              </div>
-              <button
-                className="btn btn-danger"
-                onClick={() => deleteDocument(project.id)}
-              >
-                Delete
-              </button>
-              // update
-              <Link to={`/project/edit/${project.id}`}>
-                <button className="btn btn-primary">Update</button>
-              </Link>
-              <hr />
+        {data && <ProjectList data={filteredData} />}
+        {!data && (
+          <div className="text-center">
+            <div className="spinner-border text-primary" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
-          ))}
+          </div>
+        )}
+          </div>
+        </div>
       </div>
     );
 }

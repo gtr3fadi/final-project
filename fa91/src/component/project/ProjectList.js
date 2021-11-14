@@ -6,9 +6,10 @@ export default function ProjectList({ data }) {
   return (
     <div>
       {data && <h3> Projects Total : ({data.length})</h3>}
+      {data.length===0 && <h3 className="text-center">There is no projects posted  in this category</h3>}
       {data &&
         data.map((project) => (
-          <Link to={`/project/${project.id}`} key={project.id}>
+          
             <div className="card my-3 bg-light " key={project.id}>
               <div className="card-body ">
                 <h5 className="card-title text-primary text-center text-capitalize">
@@ -49,6 +50,10 @@ export default function ProjectList({ data }) {
                     {project.projectDescription}
                   </p>
                 )}
+                <p className="card-text">
+                  <span className="text-capitalize font-weight-bold"> Budget :</span>
+                  {project.budget} $
+                </p>
 
                 <p className="card-text">
                   <span className="font-weight-bold"> Project Skills : </span>
@@ -58,6 +63,7 @@ export default function ProjectList({ data }) {
                     </span>
                   ))}
                 </p>
+
               </div>
               <div className="card-footer d-flex justify-content-between align-items-center ">
                 <p className="card-text text-right">
@@ -74,11 +80,14 @@ export default function ProjectList({ data }) {
                   </small>
                 </p>
                 <p>
-                  <small className="text-muted"> Bidded : (0)</small>
+                  <small className="text-muted"> Bidded : ({project.bidd.length})</small>
                 </p>
+                <Link to={`/project/${project.id}`} className="btn btn-primary">
+                  View Project
+                </Link>
               </div>
             </div>
-          </Link>
+         
         ))}
     </div>
   );

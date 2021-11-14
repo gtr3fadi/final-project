@@ -1,5 +1,8 @@
 import Avatar from "./Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { useAuthContext } from "./hook/useAuthContext";
+import { useFirestore } from "./hook/useFirestore";
+import { timestamp } from "../firebase/firebase";
 
 
 
@@ -8,6 +11,46 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 
 export default function ProjectSummary({ project }) {
+
+      const { response, updateDocumentField } = useFirestore("projects");
+
+
+  const { user } = useAuthContext();
+  
+  const ToggleClick = async () => {
+    
+
+    const biddToAdd = {
+      user: user.uid,
+      createdAt: timestamp.fromDate(new Date()),
+      project: project.id,
+      biddId: user.uid + timestamp.fromDate(new Date()),
+      displayName: user.displayName,
+      photoURL: user.photoURL
+    };
+
+
+
+
+    await updateDocumentField(project.id, {
+      bidd: [...project.bidd, biddToAdd]
+    }
+
+      )
+  }
+
+
+  const ToggleClickReomvebidder = async () => {
+    await updateDocumentField(project.id, {
+      bidd: project.bidd.filter(bidd => bidd.user !== user.uid)
+    })
+  }
+
+      
+
+
+
+
     return (
       <div className="project-summary mt-5">
         <div className="card my-3 bg-light " key={project.id}>
@@ -70,11 +113,30 @@ export default function ProjectSummary({ project }) {
               </small>
             </p>
             <p className="m-0">
-              <small className="text-muted"> Bidded : (0)</small>
+              <small className="text-muted">
+                {" "}
+                Bidded :({project.bidd.length} ){" "}
+              </small>
             </p>
-           <button className="btn btn-primary">
-                Bidd it
-                </button>
+            {project.bidd.filter((b) => {
+              return b.user === user.uid;
+            }
+            ).length === 0 ? (
+              <button
+                className="btn btn-success btn-sm"
+                onClick={ToggleClick}
+                >
+                  Bid
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={ToggleClickReomvebidder}
+                >
+                  Bidded
+              </button>
+            )}
+              
           </div>
         </div>
       </div>

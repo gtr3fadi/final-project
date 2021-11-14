@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory,Redirect } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
@@ -11,8 +11,6 @@ export default function PostProject() {
   const { user } = useAuthContext();
   const history = useHistory();
   const [isPending, setIsPending] = useState(false);
-
-
 
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
@@ -62,6 +60,8 @@ export default function PostProject() {
     uid: user.uid,
   };
 
+  
+
   const project = {
     projectName,
     projectDescription,
@@ -72,7 +72,7 @@ export default function PostProject() {
     comments: [],
     createdBy,
     uid: user.uid,
-    bidd: ""
+    bidd: []
   };
 
   console.log(project);
@@ -83,8 +83,8 @@ export default function PostProject() {
     e.preventDefault();
     setIsPending(true);
     await addDocument(project);
-    if (!response.error) { 
-alert("Project added successfully");
+    if (!response.error) {
+      alert("Project added successfully");
 
       history.push("/myproject");
     }
@@ -325,7 +325,7 @@ alert("Project added successfully");
                     </div>
                   )}
                   {projectDuration && (
-                     <div className="text-center m-auto mt-4 animated animatedFadeInUp fadeInUp">
+                    <div className="text-center m-auto mt-4 animated animatedFadeInUp fadeInUp">
                       {!isPending && (
                         <button
                           type="submit"
@@ -342,7 +342,6 @@ alert("Project added successfully");
                       )}
                     </div>
                   )}
-                 
                 </div>
               </form>
             </div>
