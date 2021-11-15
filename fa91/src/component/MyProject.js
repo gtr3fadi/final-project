@@ -17,10 +17,10 @@ const MyProject = () => {
     
 
     return (
-      <div className="container">
+      <div className="container my-5 p-3">
         <div className="row">
           <div className="col-md-12">
-        <h1>My Projects</h1>
+        <h1 className="text-center"    >My Projects</h1>
         {error && <p>Error: {error.message}</p>}
         {data && <ProjectList data={filteredData} />}
         {!data && (

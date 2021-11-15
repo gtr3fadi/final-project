@@ -1,10 +1,33 @@
 import { useAuthContext } from "../hook/useAuthContext";
 import { useCollection } from "../hook/useCollection";
-import Avatar from "../Avatar";
+import ProfileAvatar from "./ProfileAvatar";
 import { useState, useEffect } from "react";
-import "./Profile.css";
+import { useFirestore } from "../hook/useFirestore";
 
 export default function Profile() {
+  const { updateDocumentField, response } = useFirestore("users");
+  const { user } = useAuthContext();
+  const { documents, error } = useCollection("users");
+  const doc = documents
+    ? documents.filter((doc) => doc.id === user.uid)[0]
+    : null;
+
+  const [career, setCareer] = useState("");
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  if (!doc) {
+    return (
+      <div className="spinner-border text-primary" role="status">
+        {" "}
+        <span className="sr-only">Loading...</span>{" "}
+      </div>
+    );
+  }
+
+  console.log(doc);
+
   return (
     <div className="container mt-5 pt-4">
       <div className="row">
@@ -13,13 +36,41 @@ export default function Profile() {
             <div className="card">
               <div className="card-body text-center bg-primary rounded-top">
                 <div className="user-box">
-                  <img
-                    src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                    alt="user avatar"
-                  />
+                  <ProfileAvatar src={doc.photoURL} />;
                 </div>
-                <h5 className="mb-1 text-white">Jhon Doe</h5>
-                <h6 className="text-light">UI/UX Engineer</h6>
+                <h5 className="mb-1 text-white text-capitalize">
+                  {doc.fullName}
+                </h5>
+                <h6 className="mb-1 text-white ">@{doc.displayName}</h6>
+                {doc.career && (
+                  <h6 className="text-light text-capitalize">
+                    <i className="fas fa-briefcase "> </i> {doc.career}
+                  </h6>
+                )}
+
+                {!doc.career && (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      updateDocumentField(doc.id, {
+                        career: career,
+                      });
+                    }}
+                  >
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="career"
+                        placeholder="Enter your career"
+                        value={career}
+                        onChange={(e) => setCareer(e.target.value)}
+                      />
+
+                      <button className="btn btn-primary ">Update</button>
+                    </div>
+                  </form>
+                )}
               </div>
               <div className="card-body">
                 <ul className="list-group shadow-none">
@@ -28,6 +79,7 @@ export default function Profile() {
                       <i className="fa fa-phone-square"></i>
                     </div>
                     <div className="list-details">
+                      <i class="fab fa-whatsapp fa-lg text-success"></i>
                       <span>9910XXXXXX</span>
                       <small>Mobile Number</small>
                     </div>

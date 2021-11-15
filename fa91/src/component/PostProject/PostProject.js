@@ -93,7 +93,7 @@ export default function PostProject() {
   return (
     <div>
       {user && (
-        <div className="container m-auto my-5">
+        <div className="container m-auto my-5 p-2">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Add Project</h1>
