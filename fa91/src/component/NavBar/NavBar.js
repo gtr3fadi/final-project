@@ -77,7 +77,7 @@ const NavBar = () => {
                 <BsThreeDotsVertical size="25px" className="threeDots" />
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
-                    <Link to="#">viwe profile</Link>
+                    <Link to="/profile">viwe profile</Link>
                   </li>
                   <li className="dropdown-item">
                     <Link to="#">Setting</Link>

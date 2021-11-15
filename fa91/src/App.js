@@ -21,6 +21,7 @@ import MyProject from "./component/MyProject";
 import LogIn from "./component/LogIn";
 import SignUp from "./component/SignUp";
 import { useAuthContext } from "./component/hook/useAuthContext";
+import Profile from "./component/Profile/Profile";
 
 
 function App() {
@@ -31,9 +32,11 @@ function App() {
         <ThemeContextProvider>
           <BrowserRouter>
             <NavBar />
-            <Home />
+            
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" >
+                <Home />
+              </Route>
               <Route exact path="/project" component={Project} />
               <Route exact path="/project/:id">
                 {user ? <SingleProject /> : <Redirect to="/login" />}
@@ -50,6 +53,9 @@ function App() {
               </Route>
               <Route path="/signup">
                 {user ? <Redirect to="/" /> : <SignUp />}
+              </Route>
+              <Route exact path="/profile">
+                {user ? <Profile /> : <Redirect to="/login" />}
               </Route>
               <Route path="*">
                 <Redirect to="/" />
