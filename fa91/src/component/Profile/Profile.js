@@ -3,8 +3,14 @@ import { useCollection } from "../hook/useCollection";
 import ProfileAvatar from "./ProfileAvatar";
 import { useState, useEffect } from "react";
 import { useFirestore } from "../hook/useFirestore";
+import { useParams } from "react-router";
+import ProfileProject from "./ProfileProject";
+import Select from "react-select";
+import { webDevList } from "./Skills";
 
 export default function Profile() {
+  const { id } = useParams();
+
   const { updateDocumentField, response } = useFirestore("users");
   const { user } = useAuthContext();
   const { documents, error } = useCollection("users");
@@ -13,6 +19,16 @@ export default function Profile() {
     : null;
 
   const [career, setCareer] = useState("");
+  const [about, setAbout] = useState("");
+  const [skills, setSkills] = useState("");
+  const [selectValue, setSelectValue] = useState([]);
+  console.log(selectValue);
+
+  const sk = selectValue.map((item) => {
+    return item.value;
+  });
+
+  console.log(sk);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -26,12 +42,14 @@ export default function Profile() {
     );
   }
 
+  // fetching the user data projects from the database
+
   console.log(doc);
 
   return (
-    <div className="container mt-5 pt-4">
-      <div className="row">
-        <div className="col-lg-4">
+    <div className="container py-5">
+      <div className="row ">
+        <div className="col-lg-4 mt-5 mb-2">
           <div className="profile-card-4 z-depth-3">
             <div className="card">
               <div className="card-body text-center bg-primary rounded-top">
@@ -75,37 +93,26 @@ export default function Profile() {
               <div className="card-body">
                 <ul className="list-group shadow-none">
                   <li className="list-group-item">
-                    <div className="list-icon">
-                      <i className="fa fa-phone-square"></i>
-                    </div>
                     <div className="list-details">
-                      <i class="fab fa-whatsapp fa-lg text-success"></i>
+                      <i className="fab fa-whatsapp fa-lg text-success"></i>
                       <span>9910XXXXXX</span>
-                      <small>Mobile Number</small>
                     </div>
                   </li>
                   <li className="list-group-item">
-                    <div className="list-icon">
-                      <i className="fa fa-envelope"></i>
-                    </div>
                     <div className="list-details">
-                      <span>info@example.com</span>
-                      <small>Email Address</small>
+                      <i className="fas fa-envelope fa-lg text-primary"></i>
+                      <span>{doc.email}</span>
                     </div>
                   </li>
                   <li className="list-group-item">
-                    <div className="list-icon">
-                      <i className="fa fa-globe"></i>
-                    </div>
                     <div className="list-details">
-                      <span>www.example.com</span>
-                      <small>Website Address</small>
+                      <i className="fas fa-map-marker-alt fa-lg text-danger"></i>
                     </div>
                   </li>
                 </ul>
                 <div className="row text-center mt-4">
                   <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">154</h4>
+                    <ProfileProject id={doc.id} />
                     <small className="mb-0 font-weight-bold">Projects</small>
                   </div>
                   <div className="col p-2">
@@ -119,35 +126,37 @@ export default function Profile() {
                 </div>
               </div>
               <div className="card-footer text-center">
-                <a
-                  href="javascript:void()"
-                  className="btn-social btn-facebook waves-effect waves-light m-1"
-                >
-                  <i className="fa fa-facebook"></i>
-                </a>
-                <a
-                  href="javascript:void()"
-                  className="btn-social btn-google-plus waves-effect waves-light m-1"
-                >
-                  <i className="fa fa-google-plus"></i>
-                </a>
-                <a
-                  href="javascript:void()"
-                  className="list-inline-item btn-social btn-behance waves-effect waves-light"
-                >
-                  <i className="fa fa-behance"></i>
-                </a>
-                <a
-                  href="javascript:void()"
-                  className="list-inline-item btn-social btn-dribbble waves-effect waves-light"
-                >
-                  <i className="fa fa-dribbble"></i>
-                </a>
+                <div className="row">
+                  <div className="col-6">
+                    <button className="btn btn-primary btn-block">
+                      <i className="fas fa-user-friends"></i> Follow
+                    </button>
+                    <small className="text-muted">
+                      <i className="fas fa-user-friends"></i> Follow
+                    </small>
+                  </div>
+                  <div className="col-6">
+                    <button className="btn btn-primary btn-block">
+                      <i className="fas fa-comment-alt"></i> Message
+                    </button>
+                    <small className="text-muted">
+                      <i className="fas fa-comment-alt"></i> Message
+                    </small>
+                  </div>
+                  <div className="col-12">
+                    <i className="fas fa-portrait me-1"></i>
+                    member since{" "}
+                    <span className="text-muted">
+                      {new Date(doc.createdAt.toDate()).toDateString()}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-lg-8">
+
+        <div className="col-lg-8 mt-5 mb-2">
           <div className="card z-depth-3">
             <div className="card-body">
               <ul className="nav nav-pills nav-pills-primary nav-justified">
@@ -190,13 +199,68 @@ export default function Profile() {
                   <h5 className="mb-3">User Profile</h5>
                   <div className="row">
                     <div className="col-md-6">
-                      <h6>About</h6>
-                      <p>Web Designer, UI/UX Engineer</p>
-                      <h6>Hobbies</h6>
-                      <p>
-                        Indie music, skiing and hiking. I love the great
-                        outdoors.
-                      </p>
+                      <h6 className="font-weight-bold">About Me</h6>
+                      {doc.about && (
+                        <p className=" text-capitalize ">{doc.about}</p>
+                      )}
+                      {!doc.about && (
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            updateDocumentField(doc.id, {
+                              about: about,
+                            });
+                          }}
+                        >
+                          <div className="form-group">
+                            <textarea
+                              className="form-control"
+                              name="about"
+                              placeholder="Enter your about"
+                              value={about}
+                              onChange={(e) => setAbout(e.target.value)}
+                            ></textarea>
+                            <button className="btn btn-primary ">Update</button>
+                          </div>
+                        </form>
+                      )}
+
+                      <hr />
+                      <h6 className="font-weight-bold">My Skills</h6>
+                      {doc.skills &&
+                        doc.skills.map((skill) => (
+                          <span className="badge badge-pill badge-secondary m-1">
+                            <button className="btn btn-danger btn-sm">
+                              {skill}
+                            </button>
+                          </span>
+                        ))}
+
+                      {!doc.skills && (
+                        <>
+                          <Select
+                            classNamePrefix="select"
+                            defaultValue={selectValue}
+                            isMulti
+                            name="color"
+                            options={webDevList}
+                            onChange={(opt) => setSelectValue(opt)}
+                          />
+
+                          <form
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              updateDocumentField(doc.id, {
+                                skills: sk,
+                              });
+                            }}
+                          >
+                            <button className="btn btn-primary ">Update</button>
+                          </form>
+                        </>
+                      )}
+
+                      <hr />
                     </div>
                     <div className="col-md-6">
                       <h6>Recent badges</h6>

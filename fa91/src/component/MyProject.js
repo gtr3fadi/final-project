@@ -4,9 +4,16 @@ import { projectFirestore } from "../firebase/firebase";
 import { useCollection } from "./hook/useCollection";
 import { useAuthContext } from "./hook/useAuthContext";
 import { useFirestore } from "./hook/useFirestore";
-import  ProjectList  from "./project/ProjectList";
+import ProjectList from "./project/ProjectList";
+import { useParams } from "react-router";
+
 
 const MyProject = () => {
+
+  
+
+
+
     const {deleteDocument,updateDocument , response }= useFirestore("projects");
     const { user } = useAuthContext();
     const { documents: data, error } = useCollection(

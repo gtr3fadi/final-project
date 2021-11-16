@@ -44,6 +44,8 @@ export const useSignUp = () => {
         photoURL: imgUrl,
         uid: res.user.uid,
         fullName,
+        email,
+        createdAt: new Date(),
       });
         
 
