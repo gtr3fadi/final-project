@@ -14,9 +14,9 @@ export default function ProjectFilter({currentFilter,changeFilter}) {
 
 
     return (
-        <div>
+        <div className="container">
             <h4 className="text-center">Filter By</h4>
-            <div className=" d-flex align-items-center justify-content-center" role="group" aria-label="Basic example">
+            <div className=" d-flex align-items-center justify-content-center " role="group" aria-label="Basic example">
                 {FilterList.map(filter => (
                     <button
                         onClick={() => handelClick(filter)}

@@ -23,7 +23,6 @@ import SignUp from "./component/SignUp";
 import { useAuthContext } from "./component/hook/useAuthContext";
 import Profile from "./component/Profile/Profile";
 
-
 function App() {
   const { AuthIsReady, user } = useAuthContext();
   return (
@@ -32,9 +31,9 @@ function App() {
         <ThemeContextProvider>
           <BrowserRouter>
             <NavBar />
-            
+
             <Switch>
-              <Route exact path="/" >
+              <Route exact path="/">
                 <Home />
               </Route>
               <Route exact path="/project" component={Project} />
@@ -42,12 +41,12 @@ function App() {
                 {user ? <SingleProject /> : <Redirect to="/login" />}
               </Route>
               <Route exact path="/project/edit/:id" component={UpdateProject} />
-              <Route exact path="/postproject" >
+              <Route exact path="/postproject">
                 {user ? <PostProject /> : <Redirect to="/login" />}
-                </Route>
+              </Route>
               <Route exact path="/myproject">
                 {user ? <MyProject /> : <Redirect to="/login" />}
-                </Route>
+              </Route>
               <Route path="/login">
                 {user ? <Redirect to="/" /> : <LogIn />}
               </Route>
@@ -61,7 +60,6 @@ function App() {
                 <Redirect to="/" />
               </Route>
             </Switch>
-            
           </BrowserRouter>
         </ThemeContextProvider>
       )}
