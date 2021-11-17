@@ -22,6 +22,7 @@ import LogIn from "./component/LogIn";
 import SignUp from "./component/SignUp";
 import { useAuthContext } from "./component/hook/useAuthContext";
 import Profile from "./component/Profile/Profile";
+import SideBar from "./component/SideBar/SideBar";
 
 function App() {
   const { AuthIsReady, user } = useAuthContext();
@@ -31,6 +32,7 @@ function App() {
         <ThemeContextProvider>
           <BrowserRouter>
             <NavBar />
+            <SideBar />
 
             <Switch>
               <Route exact path="/">
@@ -53,7 +55,7 @@ function App() {
               <Route path="/signup">
                 {user ? <Redirect to="/" /> : <SignUp />}
               </Route>
-              <Route exact path="/profile">
+              <Route exact path="/profile/:id">
                 {user ? <Profile /> : <Redirect to="/login" />}
               </Route>
               <Route path="*">

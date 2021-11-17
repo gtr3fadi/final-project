@@ -5,20 +5,21 @@ import { useState, useEffect } from "react";
 import { useFirestore } from "../hook/useFirestore";
 import { useParams } from "react-router";
 import ProfileProject from "./ProfileProject";
+import { useDocument } from "../hook/useDoucment";
 
 import UserProfile from "./UserProfile";
 
 export default function Profile() {
   const { id } = useParams();
-const [career, setCareer] = useState("");
+  const [career, setCareer] = useState("");
   const { updateDocumentField, response } = useFirestore("users");
   const { user } = useAuthContext();
-  const { documents, error } = useCollection("users");
-  const doc = documents
-    ? documents.filter((doc) => doc.id === user.uid)[0]
-    : null;
+  // const { documents, error } = useCollection("users");
+  // const doc = documents
+  //   ? documents.filter((doc) => doc.id === id)[0]
+  //   : null;
 
-
+  const { doc, isPending, error } = useDocument("users", id);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -33,25 +34,43 @@ const [career, setCareer] = useState("");
   }
 
   const toggoleFollow = async () => {
-    const followingToAdd = {
+    const followerToAdd = {
       id: user.uid,
       displayName: user.displayName,
       photoURL: user.photoURL,
-    }
-    if (doc.following.filter(following => following.id === user.uid).length === 0) {
+    };
+    const followingToAdd = {
+      id: id,
+      displayName: doc.displayName,
+      photoURL: doc.photoURL,
+    };
+    if (
+      doc.followers.filter((followers) => followers.id === user.uid).length ===
+      0
+    ) {
       await updateDocumentField(doc.id, {
-        following: doc.following ? [...doc.following, followingToAdd] : [followingToAdd],
-      })
+        followers: doc.followers
+          ? [...doc.followers, followerToAdd]
+          : [followerToAdd],
+      });
+      await updateDocumentField(user.uid, {
+        following: doc.following
+          ? [...doc.following, followingToAdd]
+          : [followingToAdd],
+      });
     } else {
       await updateDocumentField(doc.id, {
-        following: doc.following.filter(following => following.id !== user.uid),
-      })
+        followers: doc.followers.filter(
+          (followers) => followers.id !== user.uid
+        ),
+      });
+      await updateDocumentField(user.uid, {
+        following: doc.following.filter(
+          (following) => following.id !== id
+        ),
+      });
     }
-
-      
-   
   };
-
 
   // fetching the user data projects from the database
 
@@ -104,12 +123,15 @@ const [career, setCareer] = useState("");
               <div className="card-body">
                 <div className="row mb-4">
                   <div className="col-6">
-                    {doc.following.filter(
-                      (following) => following.id === user.uid
+                    
+
+                    {doc.followers.filter(
+                      (followers) => followers.id === user.uid
                     ).length === 0 ? (
                       <button
                         className="btn btn-primary btn-block text-capitalize"
-                        onClick={toggoleFollow}
+                          onClick={toggoleFollow}
+                          disabled={user.uid === doc.id}
                       >
                         Follow <i className="fas fa-user-plus"></i>
                       </button>
@@ -120,9 +142,7 @@ const [career, setCareer] = useState("");
                       >
                         Unfollow <i className="fas fa-user-minus"></i>
                       </button>
-                    )}
-
-
+                    )}  
                   </div>
                   <div className="col-6">
                     <button className="btn btn-primary btn-block">
@@ -155,12 +175,12 @@ const [career, setCareer] = useState("");
                     <small className="mb-0 font-weight-bold">Projects</small>
                   </div>
                   <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">2.2k</h4>
+                    <h4 className="mb-1 line-height-5">{doc.followers.length}</h4>
                     <small className="mb-0 font-weight-bold">Followers</small>
                   </div>
                   <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">9.1k</h4>
-                    <small className="mb-0 font-weight-bold">Views</small>
+                    <h4 className="mb-1 line-height-5">{doc.following.length}</h4>
+                    <small className="mb-0 font-weight-bold">Following</small>
                   </div>
                 </div>
               </div>

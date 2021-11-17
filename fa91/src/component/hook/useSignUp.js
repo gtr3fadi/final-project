@@ -46,6 +46,8 @@ export const useSignUp = () => {
         fullName,
         email,
         createdAt: new Date(),
+        following: [],
+        followers: [],
       });
         
 

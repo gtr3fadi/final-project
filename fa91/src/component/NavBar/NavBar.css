@@ -120,6 +120,10 @@
   text-transform: capitalize;
 }
 
+.navbar ul li a .active {
+  background-color: black;
+}
+
 .navbar .user-tools {
   padding: 0px 10px;
 }

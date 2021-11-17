@@ -20,10 +20,15 @@ export default function ProjectList({ data }) {
               </h5>
               <div className="row d-flex justify-content-between align-items-center">
                 <p className="card-text col-4 m-0 d-flex justify-content-start align-items-center">
-                  <Avatar src={project.createdBy.photoURL} />
-                  <span className="text-capitalize ms-1 font-weight-bold">
-                    {project.createdBy.displayName}
-                  </span>
+                  <Link
+                    to={`/profile/${project.createdBy.uid}`}
+                    className="d-flex justify-content-start align-items-center"
+                  >
+                    <Avatar src={project.createdBy.photoURL} />
+                    <span className="text-capitalize ms-1 font-weight-bold">
+                      {project.createdBy.displayName}
+                    </span>
+                  </Link>
                 </p>
                 {project.projectDuration.toDate() < new Date() ? (
                   <p className="card-text col-8 m-0 d-flex justify-content-end align-items-center">

@@ -20,7 +20,13 @@ const NavBar = () => {
   const {user}=useAuthContext()
   const { logout, isPending , error  } = useLogout()
   
-  const { toggleTheme, isLightTheme} = useContext(ThemeContext);
+  const { toggleTheme, isLightTheme } = useContext(ThemeContext);
+  
+  const menuBarToggle = () => {
+    const menuBar = document.querySelector(".menu-bar");
+    menuBar.classList.toggle("open");
+  };
+
 
   return (
     <div>
@@ -28,8 +34,7 @@ const NavBar = () => {
         <div className="bars-toggle col">
           <FaBars className="bars" />
         </div>
-        <NavLink exact className="brand col brand"
-          to="/">
+        <NavLink exact className="brand col brand" to="/">
           Div.Space
         </NavLink>
 
@@ -70,14 +75,14 @@ const NavBar = () => {
           {user && (
             <div className="user-login">
               <div className="user-name">Hello , {user.displayName}</div>
-              
-                <Avatar src={user.photoURL} />
-              
+
+              <Avatar src={user.photoURL} />
+
               <div className="user-dropdown">
                 <BsThreeDotsVertical size="25px" className="threeDots" />
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
-                    <Link to="/profile">viwe profile</Link>
+                    <Link to={`/profile/${user.uid}`}>viwe profile</Link>
                   </li>
                   <li className="dropdown-item">
                     <Link to="#">Setting</Link>
@@ -120,6 +125,7 @@ const NavBar = () => {
           </button>
         </div>
       </nav>
+
     </div>
   );
 };
