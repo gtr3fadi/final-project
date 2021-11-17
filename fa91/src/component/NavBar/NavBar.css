@@ -36,7 +36,8 @@
   left: 0;
   right: 0;
   padding: 0px;
-  z-index: 9999;
+  z-index: 9998;
+  height: 51px;
   border-bottom: 1px solid var(--color-headings);
 }
 

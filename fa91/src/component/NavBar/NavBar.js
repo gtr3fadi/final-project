@@ -31,12 +31,10 @@ const NavBar = () => {
   return (
     <div>
       <nav className="navbar">
-        <div className="bars-toggle col">
-          <FaBars className="bars" />
-        </div>
-        <NavLink exact className="brand col brand" to="/">
-          Div.Space
-        </NavLink>
+        <div style={{
+          width: "260px"
+        }}></div>
+       
 
         <div className=" col-lg-7 ">
           <ul className="nav-links d-none d-lg-flex ">
