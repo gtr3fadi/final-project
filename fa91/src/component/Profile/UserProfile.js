@@ -6,29 +6,54 @@ import { useCollection } from "../hook/useCollection";
 import { useFirestore } from "../hook/useFirestore";
 
 export default function UserProfile({ doc }) {
-    const { user } = useAuthContext();
-      const { updateDocumentField, response } = useFirestore("users");
+  const { user } = useAuthContext();
+  const { updateDocumentField, response } = useFirestore("users");
 
+  const [about, setAbout] = useState("");
+  const [skills, setSkills] = useState("");
+  const [selectValue, setSelectValue] = useState([]);
+  console.log(selectValue);
 
+  const sk = selectValue.map((item) => {
+    return item.value;
+  });
 
+  console.log(sk);
 
-      
-      const [about, setAbout] = useState("");
-      const [skills, setSkills] = useState("");
-      const [selectValue, setSelectValue] = useState([]);
-      console.log(selectValue);
+  const [RecentWorkTitle, setRecentWorkTitle] = useState("");
+  const [RecentWorkError, setRecentWorkError] = useState(null);
+  const [RecentWorkLink, setRecentWorkLink] = useState("");
+  const [RecentWorkDescription, setRecentWorkDescription] = useState("");
 
-      const sk = selectValue.map((item) => {
-        return item.value;
-      });
+ 
 
-      console.log(sk);
-
-
-
-
-
-
+  const handelRecentWorkSubmit = async (e) => {
+    e.preventDefault();
+    if (!RecentWorkTitle) {
+      setRecentWorkError("Please enter a title");
+      return;
+    }
+    if (!RecentWorkLink) {
+      setRecentWorkError("Please enter a link");
+      return;
+    }
+    if (!RecentWorkDescription) {
+      setRecentWorkError("Please enter a description");
+      return;
+    }
+    setRecentWorkError(null);
+    const data = {
+      title: RecentWorkTitle,
+      link: RecentWorkLink,
+      description: RecentWorkDescription,
+    };
+    await updateDocumentField(doc.id, {
+      recentWork: doc.recentWork ? [...doc.recentWork, data] : [data],
+    });
+    setRecentWorkTitle("");
+    setRecentWorkLink("");
+    setRecentWorkDescription("");
+  };
 
   return (
     <>
@@ -95,7 +120,7 @@ export default function UserProfile({ doc }) {
           <hr />
         </div>
         <div className="col-md-6">
-          <h6>Recent badges</h6>
+          <h6>Recent </h6>
           <a href="javascript:void();" className="badge badge-dark badge-pill">
             html5
           </a>
@@ -134,40 +159,70 @@ export default function UserProfile({ doc }) {
         <div className="col-md-12">
           <h5 className="mt-2 mb-3">
             <span className="fa fa-clock-o ion-clock float-right"></span> Recent
-            Activity
+            Works
           </h5>
+
+          {user.uid === doc.id && (
+            <form onSubmit={handelRecentWorkSubmit}>
+              <div className="form-group">
+                {RecentWorkError && (
+                  <p className="text-danger">{RecentWorkError}</p>
+                )}
+                <label>
+                  <span className="fa fa-pencil">Title</span>
+                  <input
+                    placeholder="Enter Title"
+                    value={RecentWorkTitle}
+                    onChange={(e) => setRecentWorkTitle(e.target.value)}
+                    type="text"
+                    className="form-control"
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  <span className="fa fa-pencil">Link</span>
+                  <input
+                    placeholder="https://example.com"
+                    pattern="https://.*"
+                    type="url"
+                    value={RecentWorkLink}
+                    onChange={(e) => setRecentWorkLink(e.target.value)}
+                    className="form-control"
+                  />
+                </label>
+              </div>
+
+              <div className="form-group">
+                <label>
+                  <span className="fa fa-pencil">Description</span>
+                  <textarea
+                    placeholder="Enter Description"
+                    type="text"
+                    value={RecentWorkDescription}
+                    onChange={(e) => setRecentWorkDescription(e.target.value)}
+                    className="form-control"
+                  />
+                </label>
+              </div>
+              <button className="btn btn-primary" type="submit">
+                Add
+              </button>
+            </form>
+          )}
+
           <table className="table table-hover table-striped">
             <tbody>
-              <tr>
-                <td>
-                  <strong>Abby</strong> joined ACME Project Team in{" "}
-                  <strong>`Collaboration`</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Gary</strong> deleted My Board1 in{" "}
-                  <strong>`Discussions`</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Kensington</strong> deleted MyBoard3 in{" "}
-                  <strong>`Discussions`</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>John</strong> deleted My Board1 in{" "}
-                  <strong>`Discussions`</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Skell</strong> deleted his post Look at Why this is..
-                  in <strong>`Discussions`</strong>
-                </td>
-              </tr>
+              {doc.recentWork &&
+                doc.recentWork.map((work) => (
+                  <tr>
+                    <td>
+                      <strong>{work.title}</strong> <br />
+                      <p className="text-muted">{work.description}</p>
+                      <a href={work.link}>{work.link}</a>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

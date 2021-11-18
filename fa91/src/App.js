@@ -24,6 +24,7 @@ import { useAuthContext } from "./component/hook/useAuthContext";
 import Profile from "./component/Profile/Profile";
 import SideBar from "./component/SideBar/SideBar";
 import FindFreelancer from "./component/FindFreelancer/FindFreelancer";
+import FollowerList from "./component/Follow/FollowerList";
 
 function App() {
   const { AuthIsReady, user } = useAuthContext();
@@ -68,6 +69,7 @@ function App() {
                 <Redirect to="/" />
               </Route>
             </Switch>
+            <FollowerList/>
           </BrowserRouter>
         </ThemeContextProvider>
       )}

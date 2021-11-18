@@ -23,6 +23,7 @@ export default function SignUp() {
     }
 
     const handelChangeFile = (e) => {
+        e.preventDefault()
         setThumbnail(null)
         let selected = e.target.files[0]
         if (!selected) {

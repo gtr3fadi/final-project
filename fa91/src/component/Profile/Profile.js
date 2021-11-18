@@ -65,9 +65,7 @@ export default function Profile() {
         ),
       });
       await updateDocumentField(user.uid, {
-        following: doc.following.filter(
-          (following) => following.id !== id
-        ),
+        following: doc.following.filter((following) => following.id !== id),
       });
     }
   };
@@ -83,9 +81,8 @@ export default function Profile() {
           <div className="profile-card-4 z-depth-3">
             <div className="card">
               <div className="card-body text-center bg-primary rounded-top">
-                <div className="user-box">
-                  <ProfileAvatar src={doc.photoURL} />;
-                </div>
+                <div className="user-box"></div>
+                <ProfileAvatar src={doc.photoURL} online={doc.online} />
                 <h5 className="mb-1 text-white text-capitalize">
                   {doc.fullName}
                 </h5>
@@ -95,7 +92,6 @@ export default function Profile() {
                     <i className="fas fa-briefcase "> </i> {doc.career}
                   </h6>
                 )}
-
                 {!doc.career && (
                   <form
                     onSubmit={(e) => {
@@ -123,15 +119,13 @@ export default function Profile() {
               <div className="card-body">
                 <div className="row mb-4">
                   <div className="col-6">
-                    
-
                     {doc.followers.filter(
                       (followers) => followers.id === user.uid
                     ).length === 0 ? (
                       <button
                         className="btn btn-primary btn-block text-capitalize"
-                          onClick={toggoleFollow}
-                          disabled={user.uid === doc.id}
+                        onClick={toggoleFollow}
+                        disabled={user.uid === doc.id}
                       >
                         Follow <i className="fas fa-user-plus"></i>
                       </button>
@@ -142,7 +136,7 @@ export default function Profile() {
                       >
                         Unfollow <i className="fas fa-user-minus"></i>
                       </button>
-                    )}  
+                    )}
                   </div>
                   <div className="col-6">
                     <button className="btn btn-primary btn-block">
@@ -175,11 +169,15 @@ export default function Profile() {
                     <small className="mb-0 font-weight-bold">Projects</small>
                   </div>
                   <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">{doc.followers.length}</h4>
+                    <h4 className="mb-1 line-height-5">
+                      {doc.followers.length}
+                    </h4>
                     <small className="mb-0 font-weight-bold">Followers</small>
                   </div>
                   <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">{doc.following.length}</h4>
+                    <h4 className="mb-1 line-height-5">
+                      {doc.following.length}
+                    </h4>
                     <small className="mb-0 font-weight-bold">Following</small>
                   </div>
                 </div>

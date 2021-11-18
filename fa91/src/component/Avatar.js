@@ -16,7 +16,8 @@ export default function Avatar({ src }) {
             <img src={src} alt="avatar" style={{
                 width: "100%",
                 height: "100%",
-            }}/>
+            }} />
+            
         </div>
     )
 }

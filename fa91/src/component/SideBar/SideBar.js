@@ -2,15 +2,18 @@ import { Link } from "react-router-dom";
 import "./SideBar.css";
 import { useAuthContext } from ".././hook/useAuthContext";
 import { useCollection } from "../hook/useCollection";
+import { useLogout } from "../hook/useLogout";
 
 
 export default function SideBar() {
   const { user } = useAuthContext();
-  
+  const {logout} = useLogout();
   const { documents, error } = useCollection("users");
   if (!documents) return <p className="spinner">Loading...</p>;
 
   const doc = user ? documents.find(doc => doc.id === user.uid) : null;
+
+  const DivSpace = `<DivSpace/>`;
 
   
 
@@ -29,7 +32,7 @@ export default function SideBar() {
               document.querySelector(".sidebar").classList.toggle("closeNav");
             }}
           ></i>
-          <span className="logo_name fst-italic ">Div Space</span>
+          <span className="logo_name fst-italic ">{DivSpace}</span>
         </div>
         <hr
           className="m-0 "
@@ -127,47 +130,72 @@ export default function SideBar() {
               </li>
             </ul>
           </li>
-          <li>
-            <div className="iocn-link">
-              <Link to="#">
-                <i class="fas fa-user-circle    "></i>
-                <span className="link_name">View Profile </span>
+          {user && (
+            <li>
+              <div className="iocn-link">
+                <Link to={`/profile/${user.uid}`}>
+                  <i class="fas fa-user-circle    "></i>
+                  <span className="link_name">View Profile </span>
+                </Link>
+              </div>
+              <ul className="sub-menu">
+                <li>
+                  <Link className="link_name" to={`/profile/${user.uid}`}>
+                    View Profile
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+          {user && (
+            <li>
+              <Link to="#" onClick={logout}>
+                <i className="fas fa-sign-out-alt    "></i>
+                <span className="link_name">Log out</span>
               </Link>
-            </div>
-            <ul className="sub-menu">
-              <li>
-                <Link className="link_name" to="#">
-                  View Profile
-                </Link>
-              </li>
-              {/* <li>
-                <Link to="#">UI Face</Link>
-              </li>
-              <li>
-                <Link to="#">Pigments</Link>
-              </li>
-              <li>
-                <Link to="#">Box Icons</Link>
-              </li> */}
-            </ul>
-          </li>
+              <ul className="sub-menu blank">
+                <li>
+                  <Link className="link_name" to="#" onClick={logout}>
+                    Log out
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+          {!user && (
+            <li>
+              <Link to="/login">
+                <i className="fas fa-sign-in-alt    "></i>
+                <span className="link_name">Log in</span>
+              </Link>
+              <ul className="sub-menu blank">
+                <li>
+                  <Link className="link_name" to="/login">
+                    Log in
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+          {!user && (
+            <li>
+              <Link to="/signup">
+                <i className="fas fa-sign-in-alt    "></i>
+                <span className="link_name">sign up</span>
+              </Link>
+              <ul className="sub-menu blank">
+                <li>
+                  <Link className="link_name" to="/signup">
+                    sign up
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+
           <li>
             <Link to="#">
-            <i className="fas fa-sign-out-alt    "></i>
-              <span className="link_name">Log out</span>
-            </Link>
-            <ul className="sub-menu blank">
-              <li>
-                <Link className="link_name" to="#">
-                  Log out
-                </Link>
-              </li>
-            </ul>
-          </li>
-         
-          <li>
-            <Link to="#">
-            <i className="fas fa-cogs    "></i>
+              <i className="fas fa-cogs    "></i>
               <span className="link_name">Setting</span>
             </Link>
             <ul className="sub-menu blank">
