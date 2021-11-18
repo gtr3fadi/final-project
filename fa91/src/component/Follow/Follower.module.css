@@ -1,0 +1,49 @@
+
+
+.followerlist{
+    position: fixed;
+    top:60px;
+    right:0;
+    width:170px;
+    max-height: calc(100vh - 60px);
+    z-index: 9999;
+}
+
+.followerlistHeader{
+    height: 50px;
+    cursor: pointer;
+    width: calc(100% - 10px);
+    margin-right: 10px;
+       box-shadow: 6px 5px 10px rgba(0,0,0,0.3);
+   border-radius: 15px;
+   background :rgba(71, 47, 47, 0.1);
+   border-top:1px solid rgba(255,255,255,0.5);
+   border-left: 1px solid rgba(255,255,255,0.5);
+   backdrop-filter: blur(5px);
+
+  
+}
+.followerlistHeaderTitle{
+    font-size: 14px;
+    font-weight: bold;
+    color: #1266f1;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.followerlistBody{
+    margin-top: 10px;
+    margin-right: 10px;
+    height: calc(100vh - 130px);
+    width: calc(100% - 10px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 6px 5px 10px rgba(0,0,0,0.3);
+   border-radius: 15px;
+   background :rgba(71, 47, 47, 0.1);
+   border-top:1px solid rgba(255,255,255,0.5);
+   border-left: 1px solid rgba(255,255,255,0.5);
+   backdrop-filter: blur(5px);
+   
+
+}
+

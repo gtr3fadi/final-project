@@ -29,14 +29,13 @@ import FollowerList from "./component/Follow/FollowerList";
 function App() {
   const { AuthIsReady, user } = useAuthContext();
   return (
-    <div className="App" style={{
-      position: "relative",
-    }}>
+    <div className="App">
       {AuthIsReady && (
         <ThemeContextProvider>
           <BrowserRouter>
             <NavBar />
             <SideBar />
+            <FollowerList />
 
             <Switch>
               <Route exact path="/">
@@ -69,7 +68,6 @@ function App() {
                 <Redirect to="/" />
               </Route>
             </Switch>
-            <FollowerList/>
           </BrowserRouter>
         </ThemeContextProvider>
       )}
