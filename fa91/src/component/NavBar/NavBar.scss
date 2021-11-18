@@ -20,7 +20,7 @@
   padding: 0;
 }
 
-.fa-icon{
+.fa-icon {
   font-size: 1.5rem;
   color: var(--color-headings);
   margin-left: 5px;
@@ -42,7 +42,7 @@
   border-bottom: 1px solid var(--color-headings);
 
   .bars-toggle {
-    margin: 0px ;
+    margin: 0px;
     @include flexCenter();
 
     .bars {
@@ -62,11 +62,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    margin: 0px ;
+    margin: 0px;
     margin-left: 15px;
     list-style: none;
     padding: 10px 0px;
-    
+
     li {
       margin-right: 10px;
       transition: all 0.3s ease-in-out;
@@ -91,19 +91,15 @@
         text-decoration: none;
         color: var(--color-text);
         font-size: 16px;
-        
+
         cursor: pointer;
         text-transform: capitalize;
-        .active{
-        background-color: black;
-        }
       }
-      
-        
-      
+      a.active {
+        background-color: black;
       }
     }
-  
+  }
 
   .user-tools {
     padding: 0px 10px;
@@ -141,29 +137,26 @@
         &:hover {
           .threeDots {
             color: var(--color-headings);
-            
           }
-          .dropdown-menu{
+          .dropdown-menu {
             display: block;
           }
-
-         
         }
-         .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: -500%;
-            width: 100%;
-            padding: 20px;
-            background-color: var(--bg-panel)!important;
-            display: none;
-            transition: 1s ease-in-out;
-            border: 1px solid var(--color-headings);
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          right: -500%;
+          width: 100%;
+          padding: 20px;
+          background-color: var(--bg-panel) !important;
+          display: none;
+          transition: 1s ease-in-out;
+          border: 1px solid var(--color-headings);
 
-            .dropdown-item {
-              background-color: var(--bg-panel);
-            }
+          .dropdown-item {
+            background-color: var(--bg-panel);
           }
+        }
       }
     }
 

@@ -121,8 +121,8 @@
   text-transform: capitalize;
 }
 
-.navbar ul li a .active {
-  background-color: black;
+a.active ~ .navbar ul li::after {
+  width: 100%;
 }
 
 .navbar .user-tools {

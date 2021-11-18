@@ -52,7 +52,7 @@ const NavBar = () => {
             </li>
 
             <li>
-              <NavLink to="#">
+              <NavLink to="/findfreelancer" >
                 Find a Freelancer
                 <FaUsers className="mb-2 fa-icon" />
               </NavLink>

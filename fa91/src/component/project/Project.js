@@ -18,30 +18,30 @@ export default function Project() {
     setCurrentFilter(filter);
   };
 
-  const filteredData = data ? data.filter((project) => {
-    if (currentFilter === "all") {
-      return true;
-    } else if (currentFilter === "frontend") {
-      return project.projectType === "frontend";
-    } else if (currentFilter === "backend") {
-      return project.projectType === "backend";
-    } else if (currentFilter === "fullstack") {
-      return project.projectType === "fullstack";
-    } else if (currentFilter === "other") {
-      return project.projectType === "other";
-    }else if(currentFilter === "mine"){
-      return project.uid === user.uid;
-    }
-  }) : [];
-
-
+  const filteredData = data
+    ? data.filter((project) => {
+        if (currentFilter === "all") {
+          return true;
+        } else if (currentFilter === "frontend") {
+          return project.projectType === "frontend";
+        } else if (currentFilter === "backend") {
+          return project.projectType === "backend";
+        } else if (currentFilter === "fullstack") {
+          return project.projectType === "fullstack";
+        } else if (currentFilter === "other") {
+          return project.projectType === "other";
+        } else if (currentFilter === "mine") {
+          return project.uid === user.uid;
+        }
+      })
+    : [];
 
   const handelClick = (id) => {
     projectFirestore.collection("Projects").doc(id).delete();
   };
 
   return (
-    <div className="container my-4 p-5">
+    <div className="container my-4 py-5 ">
       <div className="row">
         <div className="col-md-12">
           <h2 className="text-center">Projects</h2>
@@ -57,12 +57,13 @@ export default function Project() {
               {data && (
                 <ProjectList data={filteredData} handelClick={handelClick} />
               )}
-              {!data && <div className="text-center">
-                <div className="spinner-border text-primary"  role="status">
-                  <span className="sr-only">Loading...</span>
+              {!data && (
+                <div className="text-center">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
                 </div>
-              </div>}
-              
+              )}
             </div>
           </div>
         </div>

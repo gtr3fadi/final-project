@@ -1,19 +1,27 @@
 import { Link } from "react-router-dom";
 import "./SideBar.css";
 import { useAuthContext } from ".././hook/useAuthContext";
-import { useDocument } from "../hook/useDoucment";
-import Avatar from "../Avatar";
+import { useCollection } from "../hook/useCollection";
+
 
 export default function SideBar() {
   const { user } = useAuthContext();
-  const { doc, error, isPending } = useDocument("users", user.uid);
-  if (!doc) return null;
+  
+  const { documents, error } = useCollection("users");
+  if (!documents) return <p className="spinner">Loading...</p>;
+
+  const doc = user ? documents.find(doc => doc.id === user.uid) : null;
+
+  
+
+  
+  
 
   
 
   return (
-    <div className=" mt-5 pt-5">
-      <div className="sidebar">
+    <>
+      <div className="sidebar closeNav">
         <div className="logo-details">
           <i
             className="fa fa-bars text-light"
@@ -30,29 +38,27 @@ export default function SideBar() {
           }}
         />
         <ul className="nav-links">
+          {user && (
+            <li>
+              <Link to="/myproject">
+                <i className="fa fa-home"></i>
+                <span className="link_name">My Projects</span>
+              </Link>
+              <ul className="sub-menu blank">
+                <li>
+                  <Link className="link_name" to="/myproject">
+                    My Projects
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
           <li>
-            <Link to="/myproject">
-              <i className="fa fa-home"></i>
-              <span className="link_name">My Projects</span>
-            </Link>
-            <ul className="sub-menu blank">
-              <li>
-                <Link className="link_name" to="/myproject">
-                  My Projects
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <div className="iocn-link" >
+            <div className="iocn-link">
               <Link to="/project">
                 <i class="fas fa-project-diagram    "></i>
                 <span className="link_name">Projects</span>
               </Link>
-                          <i className="fa fa-angle-down arrow"
-                             
-                                
-                          ></i>
             </div>
             <ul className="sub-menu">
               <li>
@@ -60,7 +66,7 @@ export default function SideBar() {
                   Projects
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="#">HTML & CSS</Link>
               </li>
               <li>
@@ -68,24 +74,23 @@ export default function SideBar() {
               </li>
               <li>
                 <Link to="#">PHP & MySQL</Link>
-              </li>
+              </li> */}
             </ul>
           </li>
           <li>
             <div className="iocn-link">
-              <Link to="#">
-                <i className="fa fa-book"></i>
-                <span className="link_name">Posts</span>
+              <Link to="/postproject">
+                <i className="fas fa-sticky-note    "></i>
+                <span className="link_name">Post A Project </span>
               </Link>
-              <i className="bx bxs-chevron-down arrow"></i>
             </div>
             <ul className="sub-menu">
               <li>
-                <Link className="link_name" to="#">
-                  Posts
+                <Link className="link_name" to="/postproject">
+                  Post A Project
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="#">Web Design</Link>
               </li>
               <li>
@@ -93,31 +98,31 @@ export default function SideBar() {
               </li>
               <li>
                 <Link to="#">Card Design</Link>
-              </li>
+              </li> */}
             </ul>
           </li>
           <li>
             <Link to="#">
-              <i className="bx bx-pie-chart-alt-2"></i>
-              <span className="link_name">Analytics</span>
+              <i className="fas fa-search-dollar    "></i>
+              <span className="link_name">Find A Freelancer</span>
             </Link>
             <ul className="sub-menu blank">
               <li>
                 <Link className="link_name" to="#">
-                  Analytics
+                  Find A Freelancer
                 </Link>
               </li>
             </ul>
           </li>
           <li>
             <Link to="#">
-              <i className="bx bx-line-chart"></i>
-              <span className="link_name">Chart</span>
+              <i className="fa fa-users" aria-hidden="true"></i>
+              <span className="link_name">My Follower</span>
             </Link>
             <ul className="sub-menu blank">
               <li>
                 <Link className="link_name" to="#">
-                  Chart
+                  My Follower
                 </Link>
               </li>
             </ul>
@@ -125,18 +130,17 @@ export default function SideBar() {
           <li>
             <div className="iocn-link">
               <Link to="#">
-                <i className="bx bx-plug"></i>
-                <span className="link_name">Plugins</span>
+                <i class="fas fa-user-circle    "></i>
+                <span className="link_name">View Profile </span>
               </Link>
-              <i className="bx bxs-chevron-down arrow"></i>
             </div>
             <ul className="sub-menu">
               <li>
                 <Link className="link_name" to="#">
-                  Plugins
+                  View Profile
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="#">UI Face</Link>
               </li>
               <li>
@@ -144,38 +148,26 @@ export default function SideBar() {
               </li>
               <li>
                 <Link to="#">Box Icons</Link>
-              </li>
+              </li> */}
             </ul>
           </li>
           <li>
             <Link to="#">
-              <i className="bx bx-compass"></i>
-              <span className="link_name">Explore</span>
+            <i className="fas fa-sign-out-alt    "></i>
+              <span className="link_name">Log out</span>
             </Link>
             <ul className="sub-menu blank">
               <li>
                 <Link className="link_name" to="#">
-                  Explore
+                  Log out
                 </Link>
               </li>
             </ul>
           </li>
+         
           <li>
             <Link to="#">
-              <i className="bx bx-history"></i>
-              <span className="link_name">History</span>
-            </Link>
-            <ul className="sub-menu blank">
-              <li>
-                <Link className="link_name" to="#">
-                  History
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <Link to="#">
-              <i className="bx bx-cog"></i>
+            <i className="fas fa-cogs    "></i>
               <span className="link_name">Setting</span>
             </Link>
             <ul className="sub-menu blank">
@@ -187,31 +179,33 @@ export default function SideBar() {
             </ul>
           </li>
           <li>
-            <Link to={`/profile/${user.uid}`}>
-              <div className="profile-details">
-                <div className="profile-content">
-                  <img src={doc.photoURL} alt="profile" />
-                </div>
-                <div className="name-job">
-                  <div className="profile_name text-capitalize">
-                    {doc.fullName}
+            {user && (
+              <Link to={`/profile/${user.uid}`}>
+                <div className="profile-details">
+                  <div className="profile-content">
+                    <img src={doc.photoURL} alt="profile" />
                   </div>
-                  <div className="job text-capitalize">
-                    {doc.career && doc.career}
+                  <div className="name-job">
+                    <div className="profile_name text-capitalize">
+                      {doc.fullName}
+                    </div>
+                    <div className="job text-capitalize">
+                      {doc.career && doc.career}
+                    </div>
                   </div>
+                  <i className="fa fa-logout"></i>
                 </div>
-                <i className="bx bx-log-out"></i>
-              </div>
-            </Link>
+              </Link>
+            )}
           </li>
         </ul>
       </div>
-      <section className="home-section">
-        <div className="home-content">
-          <i className="bx bx-menu"></i>
-          <span className="text">Drop Down Sidebar</span>
-        </div>
-      </section>
-    </div>
+      <section
+        className="home-section"
+        onClick={() =>
+          document.querySelector(".sidebar").classList.toggle("closeNav")
+        }
+      ></section>
+    </>
   );
 }

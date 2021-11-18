@@ -23,11 +23,14 @@ import SignUp from "./component/SignUp";
 import { useAuthContext } from "./component/hook/useAuthContext";
 import Profile from "./component/Profile/Profile";
 import SideBar from "./component/SideBar/SideBar";
+import FindFreelancer from "./component/FindFreelancer/FindFreelancer";
 
 function App() {
   const { AuthIsReady, user } = useAuthContext();
   return (
-    <div className="App">
+    <div className="App" style={{
+      position: "relative",
+    }}>
       {AuthIsReady && (
         <ThemeContextProvider>
           <BrowserRouter>
@@ -57,6 +60,9 @@ function App() {
               </Route>
               <Route exact path="/profile/:id">
                 {user ? <Profile /> : <Redirect to="/login" />}
+              </Route>
+              <Route exact path="/findfreelancer">
+                {user ? <FindFreelancer /> : <Redirect to="/login" />}
               </Route>
               <Route path="*">
                 <Redirect to="/" />
