@@ -4,13 +4,13 @@
     position: fixed;
     top:60px;
     right:0;
-    width:170px;
+    width:150px;
     max-height: calc(100vh - 60px);
     z-index: 9999;
 }
 
 .followerlistHeader{
-    height: 50px;
+    height: 40px;
     cursor: pointer;
     width: calc(100% - 10px);
     margin-right: 10px;
@@ -20,15 +20,17 @@
    border-top:1px solid rgba(255,255,255,0.5);
    border-left: 1px solid rgba(255,255,255,0.5);
    backdrop-filter: blur(5px);
+   display: flex;
+    justify-content: center;
+    align-items: center;
 
   
 }
 .followerlistHeaderTitle{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     color: #1266f1;
-    padding-left: 10px;
-    padding-top: 10px;
+    margin : 0;
 }
 .followerlistBody{
     margin-top: 10px;
@@ -44,6 +46,16 @@
    border-left: 1px solid rgba(255,255,255,0.5);
    backdrop-filter: blur(5px);
    
+
+}
+
+.online{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #90EE02;
+    margin-right: 5px;
+    border: 1px solid #2d3a19;
 
 }
 

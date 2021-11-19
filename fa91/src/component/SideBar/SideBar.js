@@ -28,8 +28,24 @@ export default function SideBar() {
         <div className="logo-details">
           <i
             className="fa fa-bars text-light"
-            onClick={() => {
+            onDoubleClick={() => {
               document.querySelector(".sidebar").classList.toggle("closeNav");
+            }}
+            onClick={() => {
+              if (
+                document
+                  .querySelector(".sidebar")
+                  .classList.contains("closeNav")
+              ) {
+                document
+                  .querySelector(".sidebar")
+                  .setAttribute("class", "sidebar hideNav");
+              }
+              else{
+                document
+                  .querySelector(".sidebar")
+                  .setAttribute("class", "sidebar closeNav");
+              }
             }}
           ></i>
           <span className="logo_name fst-italic ">{DivSpace}</span>
@@ -228,12 +244,12 @@ export default function SideBar() {
           </li>
         </ul>
       </div>
-      <section
+      {/* <section
         className="home-section"
         onClick={() =>
           document.querySelector(".sidebar").classList.toggle("closeNav")
         }
-      ></section>
+      ></section> */}
     </>
   );
 }

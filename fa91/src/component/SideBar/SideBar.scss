@@ -12,7 +12,7 @@
   left: 0;
   height: 100%;
   width: 260px;
-  background: #303030;
+
   z-index: 9999;
   transition: all 0.5s ease;
 
@@ -21,6 +21,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    background: #303030;
 
     i {
       font-size: 30px;
@@ -89,7 +90,6 @@
       .sub-menu {
         padding: 6px 6px 14px 80px;
         margin-top: -10px;
-        background: #303030;
         display: none;
         a {
           color: #fff;
@@ -261,4 +261,45 @@
 }
 .sidebar.closeNav ~ .home-section {
   display: none;
+}
+
+.sidebar.hideNav {
+  width: 0px;
+
+  .logo-details {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    i {
+      font-size: 30px;
+      color: black !important;
+      height: 50px;
+      min-width: 50px;
+      text-align: center;
+      line-height: 50px;
+    }
+    .logo_name {
+      font-size: 22px;
+      color: #1266f1;
+      font-weight: 600;
+      transition: 0.3s ease;
+      transition-delay: 0.1s;
+      position: absolute;
+      top: 5px;
+      left: 100px;
+      width: 250px;
+    }
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .home-section {
+    display: none;
+    width: 0px;
+    height: 0px;
+  }
 }

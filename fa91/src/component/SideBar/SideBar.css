@@ -333,4 +333,52 @@
 .sidebar.closeNav ~ .home-section {
   display: none;
 }
+
+.sidebar.hideNav {
+  width: 0px;
+}
+
+.sidebar.hideNav .logo-details {
+  height: 50px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sidebar.hideNav .logo-details i {
+  font-size: 30px;
+  color: black !important;
+  height: 50px;
+  min-width: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.sidebar.hideNav .logo-details .logo_name {
+  font-size: 22px;
+  color: #1266f1;
+  font-weight: 600;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
+  position: absolute;
+  top: 5px;
+  left: 100px;
+  width: 250px;
+}
+
+.sidebar.hideNav .nav-links {
+  display: none;
+}
+
+.sidebar.hideNav .home-section {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
 /*# sourceMappingURL=SideBar.css.map */

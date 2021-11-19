@@ -20,7 +20,7 @@ export default function FindFreelancer() {
 
     return (
         // card for freelancer
-        <div className="container">
+        <div className="container mt-5 pt-2">
             <div className="row">
                 {data && data.map(user => {
                     return (
