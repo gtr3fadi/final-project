@@ -14,24 +14,28 @@ export default function ProjectFilter({currentFilter,changeFilter}) {
 
 
     return (
-        <div className="container">
-            <h4 className="text-center">Filter By</h4>
-            <div className=" d-flex align-items-center justify-content-center " role="group" aria-label="Basic example">
-                {FilterList.map(filter => (
-                    <button
-                        onClick={() => handelClick(filter)}
-                        className={currentFilter === filter ? "btn me-1 btn-secondary active" : "btn me-1 btn-secondary"}
-                        type="button"
-                        key={filter}
-                    >
-                        {filter}
-                    </button>
-                ))}
-
-
-
+      <div className="container">
+        <h4 className="text-center">Filter By</h4>
+        <nav className="row justify-content-center">
+          {FilterList.map((filter) => (
+            <div className="col d-flex justify-content-center align-items-center" key={filter}>
+              <span className="badge badge-pill badge-secondary m-1">
+                <button
+                  onClick={() => handelClick(filter)}
+                  className={
+                    currentFilter === filter
+                      ? " btn btn-primary btn-sm active"
+                      : " btn btn-danger btn-sm"
+                  }
+                  type="button"
+                  key={filter}
+                >
+                  {filter}
+                </button>
+              </span>
             </div>
-            
-        </div>
-    )
+          ))}
+        </nav>
+      </div>
+    );
 }

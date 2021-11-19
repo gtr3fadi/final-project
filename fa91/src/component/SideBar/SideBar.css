@@ -11,9 +11,8 @@
   position: fixed;
   top: 0%;
   left: 0;
-  height: 100%;
+  height: 100vh;
   width: 260px;
-  background: #303030;
   z-index: 9999;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -28,6 +27,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background: #303030;
 }
 
 .sidebar .logo-details i {
@@ -50,13 +50,21 @@
   position: absolute;
   top: 5px;
   left: 100px;
-  width: 250px;
+  width: 145px;
+  cursor: pointer;
 }
 
 .sidebar .nav-links {
-  height: 100%;
+  height: calc(100vh - 50px);
   padding: 20px 0 150px 0;
   overflow: auto;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -o-backdrop-filter: blur(10px);
+  -webkit-box-shadow: 0px 25px 45px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 25px 45px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar .nav-links::-webkit-scrollbar {
@@ -72,6 +80,15 @@
 
 .sidebar .nav-links li:hover {
   background: #1266f1;
+  color: #fff;
+}
+
+.sidebar .nav-links li:hover i {
+  color: #fff;
+}
+
+.sidebar .nav-links li:hover a .link_name {
+  color: #fff;
 }
 
 .sidebar .nav-links li:hover .sub-menu.blank {
@@ -97,7 +114,7 @@
   min-width: 50px;
   text-align: center;
   line-height: 50px;
-  color: #fff;
+  color: #1266f1;
   font-size: 20px;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
@@ -117,7 +134,7 @@
 .sidebar .nav-links li a .link_name {
   font-size: 18px;
   font-weight: 400;
-  color: #fff;
+  color: #000;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
@@ -125,7 +142,6 @@
 .sidebar .nav-links li .sub-menu {
   padding: 6px 6px 14px 80px;
   margin-top: -10px;
-  background: #303030;
   display: none;
 }
 
@@ -231,7 +247,7 @@
   position: absolute;
   top: 5px;
   left: 100px;
-  width: 250px;
+  width: 145px;
   color: #1266f1;
 }
 
@@ -250,6 +266,14 @@
 .sidebar.closeNav .nav-links li a .link_name {
   opacity: 0;
   pointer-events: none;
+}
+
+.sidebar.closeNav .nav-links li i {
+  color: #1266f1;
+}
+
+.sidebar.closeNav .nav-links li i:hover {
+  color: #fff;
 }
 
 .sidebar.closeNav .nav-links li .sub-menu {
@@ -285,7 +309,8 @@
 
 .sidebar.closeNav .profile-details {
   background: none;
-  width: 78px;
+  width: 55px;
+  background: #000;
 }
 
 .sidebar.closeNav .profile-details img {
@@ -369,7 +394,7 @@
   position: absolute;
   top: 5px;
   left: 100px;
-  width: 250px;
+  width: 145px;
 }
 
 .sidebar.hideNav .nav-links {

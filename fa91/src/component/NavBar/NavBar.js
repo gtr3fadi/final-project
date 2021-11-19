@@ -31,10 +31,11 @@ const NavBar = () => {
   return (
     <div>
       <nav className="navbar">
-        <div style={{
-          width: "260px"
-        }}></div>
-       
+        <div
+          style={{
+            width: "260px",
+          }}
+        ></div>
 
         <div className=" col-lg-7 ">
           <ul className="nav-links d-none d-lg-flex ">
@@ -52,53 +53,25 @@ const NavBar = () => {
             </li>
 
             <li>
-              <NavLink to="/findfreelancer" >
+              <NavLink to="/findfreelancer">
                 Find a Freelancer
                 <FaUsers className="mb-2 fa-icon" />
               </NavLink>
             </li>
-
-            {user && (
-              <li>
-                <Link to="/myproject">
-                  my project
-                  <BsFileEarmarkPerson className="mb-2 fa-icon" />
-                </Link>
-              </li>
-            )}
           </ul>
         </div>
 
         <div className="user-tools col col-lg-2">
           {user && (
             <div className="user-login">
-              <div className="user-name">Hello , {user.displayName}</div>
-
-              <Avatar src={user.photoURL} />
-
-              <div className="user-dropdown">
-                <BsThreeDotsVertical size="25px" className="threeDots" />
-                <ul className="dropdown-menu">
-                  <li className="dropdown-item">
-                    <Link to={`/profile/${user.uid}`}>viwe profile</Link>
-                  </li>
-                  <li className="dropdown-item">
-                    <Link to="#">Setting</Link>
-                  </li>
-                  <li className="dropdown-item">
-                    {!isPending && (
-                      <button
-                        className="btn btn-outline-danger"
-                        onClick={logout}
-                      >
-                        Logout
-                      </button>
-                    )}
-                    {isPending && <div>Logging out...</div>}
-                    {error && <div>{error}</div>}
-                  </li>
-                </ul>
+              <div className="user-name d-none d-md-flex">
+                {" "}
+                {user.displayName}
               </div>
+
+              <Link to={`/profile/${user.uid}`}>
+                <Avatar src={user.photoURL} />
+              </Link>
             </div>
           )}
           {!user && (
@@ -109,21 +82,22 @@ const NavBar = () => {
           )}
         </div>
 
-        <div className="theme-toggle col">
-          <button onClick={toggleTheme}>
-            {isLightTheme ? (
-              <span className="theme-toggle-text">
-                <FaMoon color="black" /> Dark
-              </span>
-            ) : (
-              <span className="theme-toggle-text">
-                <FaSun color="yellow " /> Light
-              </span>
-            )}
-          </button>
-        </div>
+        {user && (
+          <div className="theme-toggle col">
+            <button onClick={toggleTheme}>
+              {isLightTheme ? (
+                <span className="theme-toggle-text">
+                  <FaMoon color="black" /> Dark
+                </span>
+              ) : (
+                <span className="theme-toggle-text">
+                  <FaSun color="yellow " /> Light
+                </span>
+              )}
+            </button>
+          </div>
+        )}
       </nav>
-
     </div>
   );
 };

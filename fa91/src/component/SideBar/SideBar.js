@@ -24,7 +24,7 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="sidebar closeNav">
+      <div className="sidebar hideNav">
         <div className="logo-details">
           <i
             className="fa fa-bars text-light"
@@ -40,20 +40,22 @@ export default function SideBar() {
                 document
                   .querySelector(".sidebar")
                   .setAttribute("class", "sidebar hideNav");
-              }
-              else{
+              } else {
                 document
                   .querySelector(".sidebar")
                   .setAttribute("class", "sidebar closeNav");
               }
             }}
           ></i>
-          <span className="logo_name fst-italic ">{DivSpace}</span>
+          <span className="logo_name fst-italic ">
+            <Link to="/">{DivSpace}</Link>
+          </span>
         </div>
         <hr
           className="m-0 "
           style={{
             border: "1px solid #fff",
+            width: "100%",
           }}
         />
         <ul className="nav-links">
@@ -121,13 +123,13 @@ export default function SideBar() {
             </ul>
           </li>
           <li>
-            <Link to="#">
+            <Link to="/findfreelancer">
               <i className="fas fa-search-dollar    "></i>
               <span className="link_name">Find A Freelancer</span>
             </Link>
             <ul className="sub-menu blank">
               <li>
-                <Link className="link_name" to="#">
+                <Link className="link_name" to="/findfreelancer">
                   Find A Freelancer
                 </Link>
               </li>

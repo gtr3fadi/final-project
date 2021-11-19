@@ -75,8 +75,8 @@ export default function ProjectList({ data }) {
                 ))}
               </p>
             </div>
-            <div className="card-footer d-flex justify-content-between align-items-center ">
-              <p className="card-text text-right">
+            <div className="card-footer row justify-content-center">
+              <p className="card-text text-right small col-4">
                 <small className="text-muted">
                   Posted :{" "}
                   {formatDistanceToNow(project.createdAt.toDate(), {
@@ -84,18 +84,18 @@ export default function ProjectList({ data }) {
                   })}
                 </small>
               </p>
-              <p>
+              <p className="col-4 small">
                 <small className="text-muted">
                   Comments : ({project.comments.length})
                 </small>
               </p>
-              <p>
+              <p className="col-4 small">
                 <small className="text-muted">
                   {" "}
                   Bidded : ({project.bidd.length})
                 </small>
               </p>
-              <Link to={`/project/${project.id}`} className="btn btn-primary">
+              <Link to={`/project/${project.id}`} className="btn btn-primary col-5">
                 View Project
               </Link>
             </div>

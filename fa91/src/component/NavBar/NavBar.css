@@ -87,6 +87,7 @@
   margin-left: 15px;
   list-style: none;
   padding: 10px 0px;
+  padding-left: 40px;
 }
 
 .navbar ul li {
@@ -122,11 +123,12 @@
 }
 
 .navbar ul li a.active {
-  background-color: black;
+  color: var(--color-headings);
+  font-size: larger;
 }
 
 .navbar .user-tools {
-  padding: 0px 10px;
+  padding: 0px;
 }
 
 .navbar .user-tools .user-login {

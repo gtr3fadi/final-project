@@ -53,10 +53,10 @@ function App() {
                 {user ? <MyProject /> : <Redirect to="/login" />}
               </Route>
               <Route path="/login">
-                {user ? <Redirect to="/" /> : <LogIn />}
+                {user ? <Redirect to="/project" /> : <LogIn />}
               </Route>
               <Route path="/signup">
-                {user ? <Redirect to="/" /> : <SignUp />}
+                {user ? <Redirect to="/project" /> : <SignUp />}
               </Route>
               <Route exact path="/profile/:id">
                 {user ? <Profile /> : <Redirect to="/login" />}
