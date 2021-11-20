@@ -6,12 +6,19 @@ import { useFirestore } from "../hook/useFirestore";
 import { useParams } from "react-router";
 import ProfileProject from "./ProfileProject";
 import { useDocument } from "../hook/useDoucment";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+
 
 import UserProfile from "./UserProfile";
+import EditeProfile from "./EditeProfile";
 
 export default function Profile() {
   const { id } = useParams();
   const [career, setCareer] = useState("");
+  const [education, setEducation] = useState("");
+  const [whatsApp, setWhatsApp] = useState("");
+  const [country, setCountry] = useState("");
+  const [show, setShow] = useState(true);
   const { updateDocumentField, response } = useFirestore("users");
   const { user } = useAuthContext();
   // const { documents, error } = useCollection("users");
@@ -92,7 +99,7 @@ export default function Profile() {
                     <i className="fas fa-briefcase "> </i> {doc.career}
                   </h6>
                 )}
-                {!doc.career && (
+                {!doc.career && user.uid === doc.id && (
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
@@ -148,18 +155,70 @@ export default function Profile() {
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fab fa-whatsapp fa-lg text-success"></i>
-                      <span>9910XXXXXX</span>
+                      {doc.whatsApp && (
+                        <span className="text-success"> {doc.whatsApp}</span>
+                      )}
+                      {!doc.whatsApp && user.uid === doc.id && (
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            updateDocumentField(doc.id, {
+                              whatsApp: whatsApp,
+                            });
+                          }}
+                        >
+                          <div className="form-group">
+                            <input
+                              type="phone"
+                              className="form-control"
+                              name="whatsapp"
+                              placeholder="Enter your whatsapp number"
+                              value={whatsApp}
+                              onChange={(e) => setWhatsApp(e.target.value)}
+                            />
+                            <button className="btn btn-primary ">Update</button>
+                          </div>
+                        </form>
+                      )}
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fas fa-envelope fa-lg text-primary"></i>
-                      <span>{doc.email}</span>
+                      <span> {doc.email}</span>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fas fa-map-marker-alt fa-lg text-danger"></i>
+                      {doc.country && (
+                        <span className="text-danger text-capitalize">
+                          {" "}
+                          {doc.country}
+                        </span>
+                      )}
+                      {!doc.country && user.uid === doc.id && (
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            updateDocumentField(doc.id, {
+                              country: country,
+                            });
+                          }}
+                        >
+                          <div className="form-group">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="country"
+                              placeholder="Enter your country"
+                              value={country}
+                              onChange={(e) => setCountry(e.target.value)}
+                            />
+                            <button className="btn btn-primary ">Update</button>
+                          </div>
+                        </form>
+                      )}
                     </div>
                   </li>
                 </ul>
@@ -200,257 +259,26 @@ export default function Profile() {
         <div className="col-lg-8 mt-5 mb-2">
           <div className="card z-depth-3">
             <div className="card-body">
-              <ul className="nav nav-pills nav-pills-primary nav-justified">
-                <li className="nav-item">
-                  <a
-                    href="javascript:void();"
-                    data-target="#profile"
-                    data-toggle="pill"
-                    className="nav-link active show"
+              <div className="row">
+                <div className="col-6">
+                  <button
+                    className="btn btn-primary btn-block"
+                    onClick={() => setShow(true)}
                   >
-                    <i className="icon-user"></i>{" "}
-                    <span className="hidden-xs">Profile</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    href="javascript:void();"
-                    data-target="#messages"
-                    data-toggle="pill"
-                    className="nav-link"
-                  >
-                    <i className="icon-envelope-open"></i>{" "}
-                    <span className="hidden-xs">Messages</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    href="javascript:void();"
-                    data-target="#edit"
-                    data-toggle="pill"
-                    className="nav-link"
-                  >
-                    <i className="icon-note"></i>{" "}
-                    <span className="hidden-xs">Edit</span>
-                  </a>
-                </li>
-              </ul>
-
-              <div className="tab-content p-3">
-                <div className="tab-pane active show " id="profile">
-                  <UserProfile doc={doc} />
+                    profile <i className="fas fa-user-circle"></i>
+                  </button>
                 </div>
-
-                <div className="tab-pane " id="messages">
-                  <div
-                    className="alert alert-info alert-dismissible"
-                    role="alert"
+                <div className="col-6">
+                  <button
+                    className="btn btn-primary btn-block"
+                    onClick={() => setShow(false)}
                   >
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="alert"
-                    >
-                      ×
-                    </button>
-                    <div className="alert-icon">
-                      <i className="icon-info"></i>
-                    </div>
-                    <div className="alert-message">
-                      <span>
-                        <strong>Info!</strong> Lorem Ipsum is simply dummy text.
-                      </span>
-                    </div>
-                  </div>
-                  <table className="table table-hover table-striped">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <span className="float-right font-weight-bold">
-                            3 hrs ago
-                          </span>{" "}
-                          Here is your a link to the latest summary report from
-                          the..
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span className="float-right font-weight-bold">
-                            Yesterday
-                          </span>{" "}
-                          There has been a request on your account since that
-                          was..
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span className="float-right font-weight-bold">
-                            9/10
-                          </span>{" "}
-                          Porttitor vitae ultrices quis, dapibus id dolor. Morbi
-                          venenatis lacinia rhoncus.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span className="float-right font-weight-bold">
-                            9/4
-                          </span>{" "}
-                          Vestibulum tincidunt ullamcorper eros eget luctus.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span className="float-right font-weight-bold">
-                            9/4
-                          </span>{" "}
-                          Maxamillion ais the fix for tibulum tincidunt
-                          ullamcorper eros.
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    edit profile <i className="fas fa-user-edit"></i>
+                  </button>
                 </div>
-
-                <div className="tab-pane " id="edit">
-                  <form>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        First name
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="Mark"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Last name
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="Jhonsan"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Email
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="email"
-                          value="mark@example.com"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Change profile
-                      </label>
-                      <div className="col-lg-9">
-                        <input className="form-control" type="file" />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Website
-                      </label>
-                      <div className="col-lg-9">
-                        <input className="form-control" type="url" value="" />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Address
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value=""
-                          placeholder="Street"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label"></label>
-                      <div className="col-lg-6">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value=""
-                          placeholder="City"
-                        />
-                      </div>
-                      <div className="col-lg-3">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value=""
-                          placeholder="State"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Username
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="jhonsanmark"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Password
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="password"
-                          value="11111122333"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">
-                        Confirm password
-                      </label>
-                      <div className="col-lg-9">
-                        <input
-                          className="form-control"
-                          type="password"
-                          value="11111122333"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label"></label>
-                      <div className="col-lg-9">
-                        <input
-                          type="reset"
-                          className="btn btn-secondary"
-                          value="Cancel"
-                        />
-                        <input
-                          type="button"
-                          className="btn btn-primary"
-                          value="Save Changes"
-                        />
-                      </div>
-                    </div>
-                  </form>
+                <div className="col-12">
+                  {show && <UserProfile doc={doc} />}
+                  {!show && <EditeProfile doc={doc} />}
                 </div>
               </div>
             </div>
