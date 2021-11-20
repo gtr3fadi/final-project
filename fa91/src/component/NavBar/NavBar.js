@@ -63,16 +63,16 @@ const NavBar = () => {
 
         <div className="user-tools col col-lg-2">
           {user && (
+              <Link to={`/profile/${user.uid}`}>
             <div className="user-login">
               <div className="user-name d-none d-md-flex">
                 {" "}
                 {user.displayName}
               </div>
 
-              <Link to={`/profile/${user.uid}`}>
                 <Avatar src={user.photoURL} />
-              </Link>
             </div>
+              </Link>
           )}
           {!user && (
             <span className="user-tools-text">

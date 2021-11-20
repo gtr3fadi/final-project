@@ -1,158 +1,150 @@
 import { useState } from "react";
+import Select from "react-select";
+import { webDevList } from "./Skills";
 
 
 
 
 
-export default function EditeProfile({ doc }) {
-    const [fullName, setFullName] = useState(doc.fullName);
-    const [displayName, setDisplayName] = useState(doc.displayName);
-    const [career, setCareer] = useState(doc.career);
-    const [whatsApp, setWhatsApp] = useState(doc.whatsApp);
-    const [country, setCountry] = useState(doc.country);
-    const [about, setAbout] = useState(doc.about);
-    const [skills, setSkills] = useState(doc.skills.map(skill => skill.name));
-
-    
 
 
+export default function EditeProfile({ doc, updateDocumentField, saveChanges }) {
+  const [fullName, setFullName] = useState(doc.fullName);
+  const [displayName, setDisplayName] = useState(doc.displayName);
+  const [career, setCareer] = useState(doc.career);
+  const [whatsApp, setWhatsApp] = useState(doc.whatsApp);
+  const [country, setCountry] = useState(doc.country);
+  const [about, setAbout] = useState(doc.about);
+  const [skills, setSkills] = useState(
+    doc.skills.map((skill) => {
+      return { value: skill, label: skill };
+    })
+  );
 
-    return (
-      <div>
-        <form>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Full Name
-            </label>
-            <div className="col-lg-9">
-              <input className="form-control" type="text" value={fullName} />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Display Name
-            </label>
-            <div className="col-lg-9">
-              <input className="form-control" type="text" value={displayName} />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              career
-            </label>
-            <div className="col-lg-9">
-              <input className="form-control" type="text" value={career} />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Email
-            </label>
-            <div className="col-lg-9">
-              <input
-                className="form-control"
-                type="email"
-                value="mark@example.com"
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Change profile
-            </label>
-            <div className="col-lg-9">
-              <input className="form-control" type="file" />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Website
-            </label>
-            <div className="col-lg-9">
-              <input className="form-control" type="url" value="" />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Address
-            </label>
-            <div className="col-lg-9">
-              <input
-                className="form-control"
-                type="text"
-                value=""
-                placeholder="Street"
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label"></label>
-            <div className="col-lg-6">
-              <input
-                className="form-control"
-                type="text"
-                value=""
-                placeholder="City"
-              />
-            </div>
-            <div className="col-lg-3">
-              <input
-                className="form-control"
-                type="text"
-                value=""
-                placeholder="State"
-              />
-            </div>
-          </div>
+  const sk = skills.map((skill) => {
+    return skill.value;
+  });
 
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Username
-            </label>
-            <div className="col-lg-9">
-              <input className="form-control" type="text" value="jhonsanmark" />
-            </div>
+  console.log(skills);
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    await updateDocumentField(doc.id, {
+      fullName,
+      career,
+      about,
+      skills: sk,
+      whatsApp,
+      country,
+    });
+    saveChanges(true);
+  };
+
+  const handelCancel = (e) => {
+    e.preventDefault();
+    setFullName(doc.fullName);
+    saveChanges(true);
+  };
+
+  return (
+    <div className="mt-3">
+      <form onSubmit={handelSubmit}>
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label">
+            Full Name
+          </label>
+          <div className="col-lg-9">
+            <input
+              onChange={(e) => setFullName(e.target.value)}
+              className="form-control"
+              type="text"
+              value={fullName}
+            />
           </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Password
-            </label>
-            <div className="col-lg-9">
-              <input
-                className="form-control"
-                type="password"
-                value="11111122333"
-              />
-            </div>
+        </div>
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label">
+            career
+          </label>
+          <div className="col-lg-9">
+            <input
+              onChange={(e) => setCareer(e.target.value)}
+              className="form-control"
+              type="text"
+              value={career}
+            />
           </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label">
-              Confirm password
-            </label>
-            <div className="col-lg-9">
-              <input
-                className="form-control"
-                type="password"
-                value="11111122333"
-              />
-            </div>
+        </div>
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label">
+            about
+          </label>
+          <div className="col-lg-9">
+            <textarea
+              onChange={(e) => setAbout(e.target.value)}
+              className="form-control"
+              type="text"
+              value={about}
+            />
           </div>
-          <div className="form-group row">
-            <label className="col-lg-3 col-form-label form-control-label"></label>
-            <div className="col-lg-9">
-              <input
-                type="reset"
-                className="btn btn-secondary"
-                value="Cancel"
-              />
-              <input
-                type="button"
-                className="btn btn-primary"
-                value="Save Changes"
-              />
-            </div>
+        </div>
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label">
+            whats app
+          </label>
+          <div className="col-lg-9">
+            <input
+              onChange={(e) => setWhatsApp(e.target.value)}
+              className="form-control"
+              type="phone"
+              value={whatsApp}
+            />
           </div>
-        </form>
-      </div>
-    );
+        </div>
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label">
+            country
+          </label>
+          <div className="col-lg-9">
+            <input
+              onChange={(e) => setCountry(e.target.value)}
+              className="form-control"
+              type="text"
+              value={country}
+            />
+          </div>
+        </div>
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label">
+            skills
+          </label>
+          <div className="col-lg-9">
+            <Select
+              options={webDevList}
+              isMulti
+              defaultValue={skills}
+              onChange={(e) => setSkills(e)}
+            />
+          </div>
+        </div>
+
+        <div className="form-group row my-1">
+          <label className="col-lg-3 col-form-label form-control-label"></label>
+          <div className="col-lg-9 ">
+            <input
+              onClick={handelCancel}
+              type="reset"
+              className="btn btn-secondary m-1"
+              value="Cancel"
+            />
+            <input
+              type="submit"
+              className="btn btn-primary m-1"
+              value="Save Changes"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  );
 }

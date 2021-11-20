@@ -76,6 +76,13 @@ export default function Profile() {
     }
   };
 
+
+// Edit Profile function after save changes set show to false
+  const saveChanges = (Boolean) => {
+    setShow(Boolean);
+  };
+
+
   // fetching the user data projects from the database
 
   console.log(doc);
@@ -93,6 +100,11 @@ export default function Profile() {
                   {doc.fullName}
                 </h5>
                 <h6 className="mb-1 text-white ">@{doc.displayName}</h6>
+                {!doc.about && (
+                  <p className="text-white">
+                    no career added yet
+                  </p>
+                )}
                 {doc.career && (
                   <h6 className="text-light text-capitalize">
                     <i className="fas fa-briefcase "> </i> {doc.career}
@@ -154,6 +166,11 @@ export default function Profile() {
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fab fa-whatsapp fa-lg text-success"></i>
+                      {!doc.whatsApp && (
+                        <span className="text-muted small">
+                           no whatsapp added yet
+                        </span>
+                      )}
                       {doc.whatsApp && (
                         <span className="text-success"> {doc.whatsApp}</span>
                       )}
@@ -190,6 +207,11 @@ export default function Profile() {
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fas fa-map-marker-alt fa-lg text-danger"></i>
+                      {!doc.country && (
+                        <span className="text-muted small">
+                          no country added yet
+                        </span>
+                      )}
                       {doc.country && (
                         <span className="text-danger text-capitalize">
                           {" "}
@@ -258,7 +280,7 @@ export default function Profile() {
         <div className="col-lg-8 mt-5 mb-2">
           <div className="card z-depth-3">
             <div className="card-body">
-              <div className="row">
+              <div className="row justify-content-around mb-1 ">
                 <div className="col-6">
                   <button
                     className="btn btn-primary btn-block"
@@ -267,17 +289,25 @@ export default function Profile() {
                     profile <i className="fas fa-user-circle"></i>
                   </button>
                 </div>
-                <div className="col-6">
-                  <button
-                    className="btn btn-primary btn-block"
-                    onClick={() => setShow(false)}
-                  >
-                    edit profile <i className="fas fa-user-edit"></i>
-                  </button>
-                </div>
+                {user.uid === doc.id && (
+                  <div className="col-6">
+                    <button
+                      className="btn btn-primary btn-block"
+                      onClick={() => setShow(false)}
+                    >
+                      edit profile <i className="fas fa-user-edit"></i>
+                    </button>
+                  </div>
+                )}
                 <div className="col-12">
                   {show && <UserProfile doc={doc} />}
-                  {!show && <EditeProfile doc={doc} />}
+                  {!show && user.uid === doc.id && (
+                    <EditeProfile
+                      doc={doc}
+                      updateDocumentField={updateDocumentField}
+                      saveChanges={saveChanges}
+                    />
+                  )}
                 </div>
               </div>
             </div>

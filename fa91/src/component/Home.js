@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const divSpace = `<DivSpace/>`
-const logo="</>"
-
+const divSpace = `<DivSpace/>`;
+const logo = "</>";
 
 const Home = () => {
-
   return (
     <div>
-      <motion.div animate={{scale:1}} initial={{scale:0}} transition={{duration:1}}
+      <motion.div
+        animate={{ scale: 1 }}
+        initial={{ scale: 0 }}
+        transition={{ duration: 1 }}
         className="logo"
         style={{
           margin: "70px auto",
@@ -38,7 +39,7 @@ const Home = () => {
           fontSize: "70px",
           fontStyle: "italic",
           textAlign: "center",
-          color : "#1266f1",
+          color: "#1266f1",
         }}
       >
         {divSpace}

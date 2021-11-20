@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuthContext } from "../hook/useAuthContext";
 import { useCollection } from "../hook/useCollection";
 import { useFirestore } from "../hook/useFirestore";
+import { v4 as uuidv4 } from "uuid";
 
 export default function UserProfile({ doc }) {
   const { user } = useAuthContext();
@@ -25,8 +26,6 @@ export default function UserProfile({ doc }) {
   const [RecentWorkLink, setRecentWorkLink] = useState("");
   const [RecentWorkDescription, setRecentWorkDescription] = useState("");
 
- 
-
   const handelRecentWorkSubmit = async (e) => {
     e.preventDefault();
     if (!RecentWorkTitle) {
@@ -46,6 +45,7 @@ export default function UserProfile({ doc }) {
       title: RecentWorkTitle,
       link: RecentWorkLink,
       description: RecentWorkDescription,
+      id: uuidv4(),
     };
     await updateDocumentField(doc.id, {
       recentWork: doc.recentWork ? [...doc.recentWork, data] : [data],
@@ -57,7 +57,8 @@ export default function UserProfile({ doc }) {
 
   return (
     <>
-      <h5 className="mb-3">User Profile</h5>
+      <h5 className="mt-3">User Profile</h5>
+      <hr />
       <div className="row">
         <div className="col-md-6">
           <h6 className="font-weight-bold">About Me</h6>
@@ -205,21 +206,41 @@ export default function UserProfile({ doc }) {
                   />
                 </label>
               </div>
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-primary my-2" type="submit">
                 Add
               </button>
             </form>
           )}
+          <hr />
 
           <table className="table table-hover table-striped">
             <tbody>
+              {!doc.recentWork && (
+                <tr>
+                  <td>No Recent Work Added Yet</td>
+                </tr>
+              )}
               {doc.recentWork &&
                 doc.recentWork.map((work) => (
                   <tr>
                     <td>
+                      {doc.id === user.uid && (
+                        <i
+                          onClick={() => {
+                            updateDocumentField(doc.id, {
+                              recentWork: doc.recentWork.filter(
+                                (w) => w.id !== work.id
+                              ),
+                            });
+                          }}
+                          className="fa fa-times float-end text-danger "
+                        ></i>
+                      )}
                       <strong>{work.title}</strong> <br />
                       <p className="text-muted">{work.description}</p>
-                      <a href={work.link}>{work.link}</a>
+                      <a href={work.link} target="_blank">
+                        {work.link}
+                      </a>
                     </td>
                   </tr>
                 ))}
