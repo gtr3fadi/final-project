@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const divSpace = `<DivSpace/>`
 const logo="</>"
@@ -8,11 +9,10 @@ const Home = () => {
 
   return (
     <div>
-      <div
+      <motion.div animate={{scale:1}} initial={{scale:0}} transition={{duration:1}}
         className="logo"
         style={{
-          margin: "0px auto",
-          marginTop: "70px",
+          margin: "70px auto",
           width: "250px",
           height: "250px",
           borderRadius: "50%",
@@ -27,7 +27,7 @@ const Home = () => {
         }}
       >
         {logo}
-      </div>
+      </motion.div>
       <div
         className="logoName"
         style={{

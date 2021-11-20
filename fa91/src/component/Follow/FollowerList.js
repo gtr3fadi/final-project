@@ -4,6 +4,7 @@ import { useCollection } from "../hook/useCollection";
 import { useState } from "react";
 import sty from "./Follower.module.css";
 import { Link } from "react-router-dom";
+import{motion} from "framer-motion"
 
 
 
@@ -42,7 +43,8 @@ export default function FollowerList() {
             </div>
           </div>
           {show && (
-            <div className={sty.followerlistBody}>
+            <motion.div animate={{x:0}} initial={{x:100}} transition={{duration:1}}
+              className={sty.followerlistBody}>
               {followers.map((doc) => (
                 <div
                   className="follower-list-item"
@@ -65,7 +67,7 @@ export default function FollowerList() {
                   </p>
                 </div>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
       )}

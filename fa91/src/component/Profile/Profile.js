@@ -8,7 +8,6 @@ import ProfileProject from "./ProfileProject";
 import { useDocument } from "../hook/useDoucment";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 
-
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
 
