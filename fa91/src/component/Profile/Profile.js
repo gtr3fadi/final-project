@@ -100,7 +100,7 @@ export default function Profile() {
                   {doc.fullName}
                 </h5>
                 <h6 className="mb-1 text-white ">@{doc.displayName}</h6>
-                {!doc.about && (
+                {!doc.about && user.uid !==doc.id && (
                   <p className="text-white">
                     no career added yet
                   </p>
@@ -137,9 +137,8 @@ export default function Profile() {
               <div className="card-body">
                 <div className="row mb-4">
                   <div className="col-6">
-                    {doc.followers.filter(
-                      (followers) => followers.id === user.uid
-                    ).length === 0 ? (
+                    {doc.followers.map(follower => follower.id).filter( follow => follow == user.uid).length === 0 ? (
+                      
                       <button
                         className="btn btn-primary btn-block text-capitalize"
                         onClick={toggoleFollow}
@@ -166,7 +165,7 @@ export default function Profile() {
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fab fa-whatsapp fa-lg text-success"></i>
-                      {!doc.whatsApp && (
+                      {!doc.whatsApp && user.uid !== doc.id && (
                         <span className="text-muted small">
                            no whatsapp added yet
                         </span>
@@ -207,7 +206,7 @@ export default function Profile() {
                   <li className="list-group-item">
                     <div className="list-details">
                       <i className="fas fa-map-marker-alt fa-lg text-danger"></i>
-                      {!doc.country && (
+                      {!doc.country && user.uid !== doc.id && (
                         <span className="text-muted small">
                           no country added yet
                         </span>

@@ -21,6 +21,31 @@ export default function FollowerList() {
 
   const userDoc = documents && user ? documents.find(doc => doc.id === user.uid) : null;
   const followers = userDoc ? userDoc.followers : null;
+  const following = userDoc ? userDoc.following : null;
+
+  
+
+  const follow = followers && following ? [...followers, ...following] : null;
+  const follower = follow ? follow.map(doc => doc.id): null;
+  // remove duplicates
+  const unique = follower ? [...new Set(follower)] : null;
+  const uniqueDoc = unique && documents ? documents.filter(doc => unique.includes(doc.id)) : null;
+  const followerList = uniqueDoc ? uniqueDoc.filter(doc => doc.id !== user.uid) : null;
+
+console.log(follow)
+console.log(follower)
+  console.log(unique)
+  console.log(uniqueDoc)
+  
+  console.log(followerList)
+
+
+  
+  
+ 
+  
+
+  
 
   const handelOnline = (id) => {
     const userDoc = documents && user ? documents.find(doc => doc.id === id) : null;
@@ -34,31 +59,35 @@ export default function FollowerList() {
 
   return (
     <>
-      {user && followers && (
+      {user && followerList && (
         <div className={sty.followerlist} onClick={() => setShow(!show)}>
           <div className={sty.followerlistHeader}>
             <div className={sty.followerlistHeaderTitle}>
               <i className="fas fa-user-friends me-1"></i>
-              Followers 
+              Followers
             </div>
           </div>
           {show && (
-            <motion.div animate={{x:0}} initial={{x:100}} transition={{duration:1}}
-              className={sty.followerlistBody}>
-              {followers.map((doc) => (
+            <motion.div
+              animate={{ x: 0 }}
+              initial={{ x: 100 }}
+              transition={{ duration: 1 }}
+              className={sty.followerlistBody}
+            >
+              {followerList.map((doc) => (
                 <div
                   className="follower-list-item"
-                  key={doc.id}
+                  key={doc.uid}
                   style={{
                     padding: "10px",
                   }}
                 >
                   <p className="d-flex justify-content-around align-items-center">
                     <Link
-                      to={`/profile/${doc.id}`}
+                      to={`/profile/${doc.uid}`}
                       className="d-flex justify-content-between align-items-center"
                     >
-                      {documents && documents.find(doc => doc.id === doc.id).online && <span className={sty.online}></span>}
+                      {doc.online ? <span className={sty.online}></span> : null}
                       <span className="text-capitalize ms-1 font-weight-bold">
                         {doc.displayName}
                       </span>

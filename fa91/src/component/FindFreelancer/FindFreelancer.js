@@ -8,13 +8,23 @@ import { format } from "date-fns";
 export default function FindFreelancer() {
   const { isLightTheme } = useThemeContext();
   const { user } = useAuthContext();
-  const { documents: data, error } = useCollection("users");
+  const { documents, error } = useCollection("users");
   if (error) {
     return <div>Error</div>;
   }
-  if (!data) {
+  if (!documents) {
     return <div>Loading</div>;
   }
+
+  const data =
+    documents &&
+    documents
+      .map((doc) => doc)
+      .filter(
+        (doc) => doc.career && doc.career && doc.skills && doc.skills.length > 0
+      );
+
+  console.log(data);
 
   return (
     // card for freelancer

@@ -63,7 +63,10 @@ export default function UserProfile({ doc }) {
         <div className="col-md-6">
           <h6 className="font-weight-bold">About Me</h6>
           {doc.about && <p className=" text-capitalize ">{doc.about}</p>}
-          {!doc.about && (
+          {!doc.about && user.uid !== doc.id && (
+            <span className="text-muted">Not Added yet</span>
+          )}
+          {!doc.about && user.uid === doc.id && (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -93,8 +96,10 @@ export default function UserProfile({ doc }) {
                 <button className="btn btn-danger btn-sm">{skill}</button>
               </span>
             ))}
-
-          {!doc.skills && (
+          {!doc.skills && user.uid !== doc.id && (
+            <span className="text-muted">Not Added yet</span>
+          )}
+          {!doc.skills && user.uid === doc.id && (
             <>
               <Select
                 classNamePrefix="select"
