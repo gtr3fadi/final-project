@@ -1,19 +1,36 @@
 import { Link } from "react-router-dom";
 import Avatar from "../Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { useThemeContext } from "../hook/useThemeContext";
 
 export default function ProjectList({ data }) {
+  const { isLightTheme } = useThemeContext();
   return (
     <div>
-      {data && <h3> Projects Total : ({data.length})</h3>}
+      {data && <h3
+        className={`${isLightTheme ? "text-dark" : "text-light"} text-center my-2`}
+      > Projects Total : ({data.length})</h3>}
       {data.length === 0 && (
-        <h3 className="text-center">
+        <h3
+          className=""
+          className={
+            isLightTheme ? "text-dark text-muted text-center" : "text-light text-muted text-center"
+          }
+        >
           There is no projects posted in this category
         </h3>
       )}
       {data &&
         data.map((project) => (
-          <div className="card my-3 bg-light " key={project.id}>
+          <div
+            className="card my-3 bg-light "
+            className={
+              isLightTheme
+                ? "bg-light  shadow card  my-3 p-2 "
+                : "bg-dark card text-light  my-3 p-2 shadow bg-dark  bg-opacity-50 bg-gradient"
+            }
+            key={project.id}
+          >
             <div className="card-body ">
               <h5 className="card-title text-primary text-center text-capitalize">
                 {project.projectName}
@@ -48,12 +65,12 @@ export default function ProjectList({ data }) {
               </div>
               <hr />
               {project.projectDuration.toDate() < new Date() ? (
-                <p className="note note-danger">
+                <p>
                   <strong>Description :</strong>
                   {project.projectDescription}
                 </p>
               ) : (
-                <p className="note note-primary">
+                <p>
                   <strong>Description :</strong>
                   {project.projectDescription}
                 </p>
@@ -95,7 +112,10 @@ export default function ProjectList({ data }) {
                   Bidded : ({project.bidd.length})
                 </small>
               </p>
-              <Link to={`/project/${project.id}`} className="btn btn-primary col-5">
+              <Link
+                to={`/project/${project.id}`}
+                className="btn btn-primary col-5"
+              >
                 View Project
               </Link>
             </div>

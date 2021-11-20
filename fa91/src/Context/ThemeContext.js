@@ -4,8 +4,7 @@ export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
   const [isLightTheme, setIsLightTheme] = useState(true);
-  const [isLogin, setIsLogin] = useState(true);
-  const [user, setUser] = useState("Fadi Ayoub");
+
 
   const tran = () => {
     document.documentElement.classList.add("transition");
@@ -27,7 +26,7 @@ const ThemeContextProvider = (props) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ toggleTheme, isLightTheme, isLogin, user }}>
+    <ThemeContext.Provider value={{ toggleTheme, isLightTheme }}>
       {props.children}
     </ThemeContext.Provider>
   );

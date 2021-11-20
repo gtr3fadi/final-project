@@ -1,10 +1,12 @@
 import { useCollection } from "../hook/useCollection";
 import { useAuthContext } from "../hook/useAuthContext";
+import { useThemeContext } from "../hook/useThemeContext";
 import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function FindFreelancer() {
+  const { isLightTheme } = useThemeContext();
   const { user } = useAuthContext();
   const { documents: data, error } = useCollection("users");
   if (error) {
@@ -17,41 +19,59 @@ export default function FindFreelancer() {
   return (
     // card for freelancer
     <div className="container mt-5 pt-5">
-      <div className="row">
+      <div className="row row-cols-md-2 row-cols-1 row-cols-lg-3   justify-content-around ">
         {data &&
           data.map((user) => {
             return (
-              <div className="col-md-6">
-                <div className="card mb-4 box-shadow">
-                  <div className="card-body">
+              <div className="col ">
+                <div
+                  className={
+                    isLightTheme
+                      ? "card mb-4 p-0  bg-light   shadow "
+                      : "card mb-4  p-0 text-light shadow bg-dark  bg-opacity-25 bg-gradient"
+                  }
+                >
+                  <div
+                    className="card-body pb-3"
+                    style={{
+                      cursor: "context-menu",
+                    }}
+                  >
                     <div className="row">
-                      <div className="col-md-4">
+                      <div className="col-12 text-center">
                         <img
                           src={user.photoURL}
-                          className="img-fluid rounded-circle border border-3"
+                          className="img-fluid w-50 rounded-circle border border-1 shadow"
                           alt="..."
                         />
                       </div>
-                      <div className="col-md-8">
-                        <h5 className="card-title text-capitalize mb-0">
+                      <div className="col-12 text-center">
+                        <h5 className="card-title text-capitalize mb-0 mt-2">
                           {user.fullName}
                         </h5>
-                        <p className="card-text m-0 ">@{user.displayName}</p>
-                        <p className="card-text text-capitalize mb-0 mt-2">
-                          {user.career}
+                        <p className="card-text m-0 text-muted ">
+                          @{user.displayName}
                         </p>
                         <p
-                          className="card-text mt-0"
+                          className="card-text text-capitalize mb-0  text-light rounded-6 "
+                          style={{
+                            backgroundColor: "#e91e63",
+                          }}
+                        >
+                          {user.career}
+                        </p>
+                        <h6
+                          className="card-text mt-1"
                           style={{
                             minHeight: "50px",
                           }}
                         >
                           {user.about.substring(0, 50)}....
-                        </p>
+                        </h6>
                         <h5 className="card-title text-capitalize">
                           top skills
                         </h5>
-                        <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-around align-items-center">
                           {user.skills
                             .map((skill) => {
                               return (
@@ -64,15 +84,14 @@ export default function FindFreelancer() {
                         </div>
                       </div>
                       <hr className="my-2" />
-                      <div className="row">
-                        <div className="col-md-12">
-                          <Link
-                            to={`/profile/${user.uid}`}
-                            className="btn btn-primary"
-                          >
-                            Viwe
-                          </Link>
-                        </div>
+
+                      <div className="col-12 text-center">
+                        <Link
+                          to={`/profile/${user.uid}`}
+                          className="btn btn-primary"
+                        >
+                          Viwe Profile
+                        </Link>
                       </div>
                     </div>
                   </div>

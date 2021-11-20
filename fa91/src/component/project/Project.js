@@ -4,8 +4,10 @@ import { useCollection } from "../hook/useCollection";
 import { useAuthContext } from "../hook/useAuthContext";
 import ProjectFilter from "./ProjectFilter";
 import ProjectList from "./ProjectList";
+import { useThemeContext } from "../hook/useThemeContext";
 
 export default function Project() {
+  const { isLightTheme } = useThemeContext();
   const { user } = useAuthContext();
   const { documents: data, error } = useCollection("projects", [
     "createdAt",
@@ -44,7 +46,8 @@ export default function Project() {
     <div className="container my-4 py-5 ">
       <div className="row">
         <div className="col-md-12">
-          <h2 className="text-center">Projects</h2>
+          <h2 className={`${isLightTheme? "text-dark" : "text-white"} text-center`}
+          >Projects</h2>
           <div className="row">
             <div className="col-md-12">
               {error && <div>{error}</div>}
