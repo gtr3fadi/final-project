@@ -63,16 +63,19 @@ const NavBar = () => {
 
         <div className="user-tools col col-lg-2">
           {user && (
+            
               <Link to={`/profile/${user.uid}`}>
-            <div className="user-login">
-              <div className="user-name d-none d-md-flex">
-                {" "}
-                {user.displayName}
-              </div>
+                <div className="user-login">
+                  <div className="user-name d-none d-md-flex">
+                    {" "}
+                    {user.displayName}
+                  </div>
 
-                <Avatar src={user.photoURL} />
-            </div>
+                  <Avatar src={user.photoURL} />
+                </div>
               </Link>
+              
+            
           )}
           {!user && (
             <span className="user-tools-text">
@@ -87,11 +90,11 @@ const NavBar = () => {
             <button onClick={toggleTheme}>
               {isLightTheme ? (
                 <span className="theme-toggle-text">
-                  <FaMoon color="black" /> Dark
+                  <FaMoon color="black" /> 
                 </span>
               ) : (
                 <span className="theme-toggle-text">
-                  <FaSun color="yellow " /> Light
+                  <FaSun color="yellow " /> 
                 </span>
               )}
             </button>

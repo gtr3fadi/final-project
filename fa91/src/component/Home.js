@@ -6,7 +6,18 @@ const logo = "</>";
 
 const Home = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        width: "100vw",
+        backgroundColor: "white",
+        overflow: "hidden",
+      }}
+    >
       <motion.div
         animate={{ scale: 1 }}
         initial={{ scale: 0 }}
@@ -29,7 +40,10 @@ const Home = () => {
       >
         {logo}
       </motion.div>
-      <div
+      <motion.div
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
         className="logoName"
         style={{
           margin: "0px auto",
@@ -43,7 +57,7 @@ const Home = () => {
         }}
       >
         {divSpace}
-      </div>
+      </motion.div>
     </div>
   );
 };

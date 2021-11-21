@@ -96,10 +96,10 @@ export default function UserProfile({ doc }) {
                 <button className="btn btn-danger btn-sm">{skill}</button>
               </span>
             ))}
-          {!doc.skills && user.uid !== doc.id && (
+          { doc.skills.length===0 && user.uid !== doc.id && (
             <span className="text-muted">Not Added yet</span>
           )}
-          {!doc.skills && user.uid === doc.id && (
+          {doc.skills.length ===0    && user.uid === doc.id && (
             <>
               <Select
                 classNamePrefix="select"

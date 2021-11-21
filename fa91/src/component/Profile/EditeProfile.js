@@ -11,15 +11,15 @@ import { webDevList } from "./Skills";
 export default function EditeProfile({ doc, updateDocumentField, saveChanges }) {
   const [fullName, setFullName] = useState(doc.fullName);
   const [displayName, setDisplayName] = useState(doc.displayName);
-  const [career, setCareer] = useState(doc.career);
-  const [whatsApp, setWhatsApp] = useState(doc.whatsApp);
-  const [country, setCountry] = useState(doc.country);
-  const [about, setAbout] = useState(doc.about);
-  const [skills, setSkills] = useState(
+  const [career, setCareer] = useState(doc.career ? doc.career : "");
+  const [whatsApp, setWhatsApp] = useState(doc.whatsApp ? doc.whatsApp : "");
+  const [country, setCountry] = useState(doc.country ? doc.country : "");
+  const [about, setAbout] = useState(doc.about ? doc.about : "");
+  const [skills, setSkills] = useState(doc.skills ? 
     doc.skills.map((skill) => {
       return { value: skill, label: skill };
-    })
-  );
+    }) : []);
+  
 
   const sk = skills.map((skill) => {
     return skill.value;
