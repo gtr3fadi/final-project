@@ -85,7 +85,7 @@ const NavBar = () => {
           )}
         </div>
 
-        {user && (
+        
           <div className="theme-toggle col">
             <button onClick={toggleTheme}>
               {isLightTheme ? (
@@ -99,7 +99,7 @@ const NavBar = () => {
               )}
             </button>
           </div>
-        )}
+        
       </nav>
     </div>
   );

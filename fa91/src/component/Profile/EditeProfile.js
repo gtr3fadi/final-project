@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import { webDevList } from "./Skills";
+import { useThemeContext } from "../hook/useThemeContext";
 
 
 
@@ -9,6 +10,8 @@ import { webDevList } from "./Skills";
 
 
 export default function EditeProfile({ doc, updateDocumentField, saveChanges }) {
+const{isLightTheme} = useThemeContext();
+
   const [fullName, setFullName] = useState(doc.fullName);
   const [displayName, setDisplayName] = useState(doc.displayName);
   const [career, setCareer] = useState(doc.career ? doc.career : "");
@@ -47,7 +50,8 @@ export default function EditeProfile({ doc, updateDocumentField, saveChanges }) 
   };
 
   return (
-    <div className="mt-3">
+    <div className="mt-3"
+    >
       <form onSubmit={handelSubmit}>
         <div className="form-group row my-1">
           <label className="col-lg-3 col-form-label form-control-label">

@@ -27,7 +27,7 @@ export default function ProjectList({ data }) {
             className={
               isLightTheme
                 ? "bg-light  shadow card  my-3 p-2 "
-                : "bg-dark card text-light  my-3 p-2 shadow bg-dark  bg-opacity-50 bg-gradient"
+                : "bg-dark card text-light  my-3 p-2 shadow bg-dark  bg-opacity-75 bg-gradient"
             }
             key={project.id}
           >

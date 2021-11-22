@@ -14,7 +14,6 @@ const Home = () => {
         alignItems: "center",
         height: "100vh",
         width: "100vw",
-        backgroundColor: "white",
         overflow: "hidden",
       }}
     >

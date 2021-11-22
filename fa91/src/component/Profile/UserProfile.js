@@ -5,8 +5,11 @@ import { useAuthContext } from "../hook/useAuthContext";
 import { useCollection } from "../hook/useCollection";
 import { useFirestore } from "../hook/useFirestore";
 import { v4 as uuidv4 } from "uuid";
+import { useThemeContext } from "../hook/useThemeContext";
 
 export default function UserProfile({ doc }) {
+  const { isLightTheme } = useThemeContext();
+
   const { user } = useAuthContext();
   const { updateDocumentField, response } = useFirestore("users");
 
@@ -218,11 +221,14 @@ export default function UserProfile({ doc }) {
           )}
           <hr />
 
-          <table className="table table-hover table-striped">
+          <table className="table table-hover table-striped "
+          >
             <tbody>
               {!doc.recentWork && (
                 <tr>
-                  <td>No Recent Work Added Yet</td>
+                  <td
+                    className={isLightTheme ? "text-muted" : "text-light"}
+                  >No Recent Work Added Yet</td>
                 </tr>
               )}
               {doc.recentWork &&
@@ -241,7 +247,9 @@ export default function UserProfile({ doc }) {
                           className="fa fa-times float-end text-danger "
                         ></i>
                       )}
-                      <strong>{work.title}</strong> <br />
+                      <strong
+                        className={isLightTheme ? "text-dark" : "text-white"}
+                      >{work.title}</strong> <br />
                       <p className="text-muted">{work.description}</p>
                       <a href={work.link} target="_blank">
                         {work.link}

@@ -6,6 +6,7 @@ const ThemeContextProvider = (props) => {
   const [isLightTheme, setIsLightTheme] = useState(true);
 
 
+
   const tran = () => {
     document.documentElement.classList.add("transition");
     window.setTimeout(() => {

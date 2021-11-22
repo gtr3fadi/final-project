@@ -1,4 +1,5 @@
 import { useAuthContext } from "../hook/useAuthContext";
+import {useThemeContext} from "../hook/useThemeContext";
 import { useCollection } from "../hook/useCollection";
 import ProfileAvatar from "./ProfileAvatar";
 import { useState, useEffect } from "react";
@@ -12,6 +13,7 @@ import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
 
 export default function Profile() {
+  const {isLightTheme } = useThemeContext();
   const { id } = useParams();
   const [career, setCareer] = useState("");
   const [education, setEducation] = useState("");
@@ -92,7 +94,7 @@ export default function Profile() {
       <div className="row ">
         <div className="col-lg-4 mt-5 mb-2">
           <div className="profile-card-4 z-depth-3">
-            <div className="card">
+            <div className="card shadow">
               <div className="card-body text-center bg-primary rounded-top">
                 <div className="user-box"></div>
                 <ProfileAvatar src={doc.photoURL} online={doc.online} />
@@ -100,10 +102,8 @@ export default function Profile() {
                   {doc.fullName}
                 </h5>
                 <h6 className="mb-1 text-white ">@{doc.displayName}</h6>
-                {!doc.about && user.uid !==doc.id && (
-                  <p className="text-white">
-                    no career added yet
-                  </p>
+                {!doc.about && user.uid !== doc.id && (
+                  <p className="text-white">no career added yet</p>
                 )}
                 {doc.career && (
                   <h6 className="text-light text-capitalize">
@@ -134,11 +134,13 @@ export default function Profile() {
                   </form>
                 )}
               </div>
-              <div className="card-body">
+              <div className="card-body"
+              >
                 <div className="row mb-4">
                   <div className="col-6">
-                    {doc.followers.map(follower => follower.id).filter( follow => follow == user.uid).length === 0 ? (
-                      
+                    {doc.followers
+                      .map((follower) => follower.id)
+                      .filter((follow) => follow == user.uid).length === 0 ? (
                       <button
                         className="btn btn-primary btn-block text-capitalize"
                         onClick={toggoleFollow}
@@ -167,7 +169,7 @@ export default function Profile() {
                       <i className="fab fa-whatsapp fa-lg text-success"></i>
                       {!doc.whatsApp && user.uid !== doc.id && (
                         <span className="text-muted small">
-                           no whatsapp added yet
+                          no whatsapp added yet
                         </span>
                       )}
                       {doc.whatsApp && (
@@ -277,7 +279,12 @@ export default function Profile() {
         </div>
 
         <div className="col-lg-8 mt-5 mb-2">
-          <div className="card z-depth-3">
+          <div
+           
+            className={`${
+              isLightTheme ? "bg-light text-dark" : "bg-dark text-light shadow"
+            } card bg-opacity-50 bg-gradient z-depth-3`}
+          >
             <div className="card-body">
               <div className="row justify-content-around mb-1 ">
                 <div className="col-6">
