@@ -59,7 +59,7 @@ export default function SignUp() {
             return
         }
         if (!thumbnail) {
-            setThumbnailError("Please upload a profile picture")
+            setThumbnailError("Please upload a thumbnail")
             return
         }
         

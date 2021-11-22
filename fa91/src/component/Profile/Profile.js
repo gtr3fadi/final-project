@@ -41,21 +41,23 @@ export default function Profile() {
     );
   }
 
+  const fa = doc.followers.find(follower => follower.id === user.uid);
+  console.log (fa);
+
+
+
   const toggoleFollow = async () => {
     const followerToAdd = {
       id: user.uid,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
     };
     const followingToAdd = {
       id: id,
-      displayName: doc.displayName,
-      photoURL: doc.photoURL,
     };
+    
     if (
-      doc.followers.filter((followers) => followers.id === user.uid).length ===
-      0
-    ) {
+      !doc.followers ||
+      !doc.followers.find(follower => follower.id === user.uid)) 
+     {
       await updateDocumentField(doc.id, {
         followers: doc.followers
           ? [...doc.followers, followerToAdd]

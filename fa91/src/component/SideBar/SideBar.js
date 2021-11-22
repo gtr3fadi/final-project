@@ -11,7 +11,7 @@ export default function SideBar() {
   const { documents, error } = useCollection("users");
   if (!documents) return <p className="spinner">Loading...</p>;
 
-  const doc = user ? documents.find(doc => doc.id === user.uid) : null;
+  const doc = user && documents ? documents.find(doc => doc.id === user.uid) : null;
 
   const DivSpace = `<DivSpace/>`;
 
@@ -225,11 +225,11 @@ export default function SideBar() {
             </ul>
           </li>
           <li>
-            {user && (
+            {user && doc && (
               <Link to={`/profile/${user.uid}`}>
                 <div className="profile-details">
                   <div className="profile-content">
-                    <img src={doc.photoURL} alt="profile" />
+                      <img src={doc.photoURL} alt="profile" />
                   </div>
                   <div className="name-job">
                     <div className="profile_name text-capitalize">
