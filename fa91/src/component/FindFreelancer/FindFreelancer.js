@@ -28,7 +28,7 @@ export default function FindFreelancer() {
 
   return (
     // card for freelancer
-    <div className="container  pt-2">
+    <div className="container  py-4 mt-5">
       <div className="row row-cols-md-2 row-cols-1 row-cols-lg-3   justify-content-around ">
         {data &&
           data.map((user) => {
