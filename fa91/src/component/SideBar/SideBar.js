@@ -9,7 +9,7 @@ export default function SideBar() {
   const { user } = useAuthContext();
   const {logout} = useLogout();
   const { documents, error } = useCollection("users");
-  if (!documents) return <p className="spinner">Loading...</p>;
+  if (!documents) return <p className="spinner">sidebar Loading...</p>;
 
   const doc = user && documents ? documents.find(doc => doc.id === user.uid) : null;
 

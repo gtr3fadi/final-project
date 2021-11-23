@@ -36,7 +36,7 @@ export default function Profile() {
     return (
       <div className="spinner-border text-primary" role="status">
         {" "}
-        <span className="sr-only">Loading...</span>{" "}
+        <span className="sr-only">profile Loading...</span>{" "}
       </div>
     );
   }
@@ -92,7 +92,7 @@ export default function Profile() {
   console.log(doc);
 
   return (
-    <div className="container py-5">
+    <div className="container py-2">
       <div className="row ">
         <div className="col-lg-4 mt-5 mb-2">
           <div className="profile-card-4 z-depth-3">

@@ -33,7 +33,7 @@ const MyProject = () => {
         {!data && (
           <div className="text-center">
             <div className="spinner-border text-primary" role="status">
-              <span className="sr-only">Loading...</span>
+              <span className="sr-only">My project Loading...</span>
             </div>
           </div>
         )}
