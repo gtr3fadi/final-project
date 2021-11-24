@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory,Redirect } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
@@ -22,15 +22,13 @@ export default function PostProject() {
   const [budget, setBudget] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
 
-    const [skills, setSkills] = useState("");
-    const [selectValue, setSelectValue] = useState([]);
-    console.log(selectValue);
+  const [skills, setSkills] = useState("");
+  const [selectValue, setSelectValue] = useState([]);
+  console.log(selectValue);
 
-    const sk = selectValue.map((item) => {
-      return item.value;
-    });
-
- 
+  const sk = selectValue.map((item) => {
+    return item.value;
+  });
 
   const createdBy = {
     displayName: user.displayName,
@@ -38,22 +36,18 @@ export default function PostProject() {
     uid: user.uid,
   };
 
-  
-
   const project = {
     projectName,
     projectDescription,
     projectType,
-    projectCategory:sk,
+    projectCategory: sk,
     budget,
     projectDuration: timestamp.fromDate(new Date(projectDuration)),
     comments: [],
     createdBy,
     uid: user.uid,
-    bidd: []
+    bidd: [],
   };
-
-  
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -75,7 +69,9 @@ export default function PostProject() {
               <h1
                 className="display-4 text-center"
                 style={{ color: isLightTheme ? "black" : "white" }}
-              >Add Project</h1>
+              >
+                Add Project
+              </h1>
               <p className="lead text-center">
                 Create a project and share with the world
               </p>
@@ -121,7 +117,10 @@ export default function PostProject() {
                           onChange={(e) => setProjectType(e.target.value)}
                           cheched={projectType === "frontend"}
                         />
-                        <label htmlFor="frontend" className="btn btn-secondary px-1   col-3">
+                        <label
+                          htmlFor="frontend"
+                          className="btn btn-secondary px-1   col-3"
+                        >
                           Frontend
                         </label>
                         <input
@@ -134,7 +133,10 @@ export default function PostProject() {
                           cheched={projectType === "backend"}
                           autoComplete="off"
                         />
-                        <label htmlFor="backend" className="btn btn-secondary px-1 col-3">
+                        <label
+                          htmlFor="backend"
+                          className="btn btn-secondary px-1 col-3"
+                        >
                           Backend
                         </label>
 
@@ -164,7 +166,10 @@ export default function PostProject() {
                           cheched={projectType === "other"}
                           autoComplete="off"
                         />
-                        <label htmlFor="other" className="btn btn-secondary px-1  col-2">
+                        <label
+                          htmlFor="other"
+                          className="btn btn-secondary px-1  col-2"
+                        >
                           Other
                         </label>
                       </div>
@@ -178,22 +183,17 @@ export default function PostProject() {
                       <br />
 
                       <Select
-                     
-                            
-                  classNamePrefix="select"
-                  defaultValue={selectValue}
-                  isMulti
-                  name="color"
-                  options={webDevList}
-                  onChange={(opt) => setSelectValue(opt)}
-                />
-                      
+                        classNamePrefix="select"
+                        defaultValue={selectValue}
+                        isMulti
+                        name="color"
+                        options={webDevList}
+                        onChange={(opt) => setSelectValue(opt)}
+                      />
                     </label>
                   )}
 
-                  <div>
-                  
-                  </div>
+                  <div></div>
                   {!sk.length == 0 && (
                     <div className="animated animatedFadeInUp fadeInUp">
                       <label htmlFor="budget">Budget (Dollars $ ) </label>

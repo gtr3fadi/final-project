@@ -41,11 +41,13 @@ export default function ProjectComment({ project }) {
       </h4>
       <ul className="list-unstyled">
         {project.comments.map((comment) => (
-          <li key={comment.id} className="media mb-1  bg-light p-2  "
-            style={{ borderRadius: "10px" }}>
-          
-            <div className="d-flex justify-content-between align-items-center mx-1 mb-0  ">
-              <div className="media-body d-flex justify-content-start align-items-center   ">
+          <li
+            key={comment.id}
+            className="media mb-1  bg-light p-2  "
+            style={{ borderRadius: "10px" }}
+          >
+            <div className="row d-flex justify-content-between align-items-center mx-1 mb-0  ">
+              <div className="media-body col-12 col-md-6 d-flex justify-content-start align-items-center   ">
                 <Avatar src={comment.PhotoURL} />
                 <Link to={`/profile/${comment.userId}`}>
                   <h6 className="m-0  mx-1">{comment.displayName}</h6>
@@ -82,7 +84,7 @@ export default function ProjectComment({ project }) {
                   </>
                 ) : null}
               </div>
-              <div className="media-body d-flex justify-content-start align-items-center   ">
+              <div className="media-body col-12 col-md-6 d-flex justify-content-end align-items-center   ">
                 <small className="text-muted">
                   <i className="fas fa-clock me-1"></i>
                 </small>
@@ -95,19 +97,18 @@ export default function ProjectComment({ project }) {
             </div>
             <hr className="mt-1 mb-1" />
             <div className="media-body">
-              <p className="text-dark small m-0"
+              <p
+                className="text-dark small m-0"
                 style={{
-                  
-                  
                   wordWrap: "break-word",
-                 
+
                   background: "rgba(0,0,0,0.1)",
                   borderRadius: "5px",
                   padding: " 5px 10px ",
                 }}
-                    
-                
-              >{comment.content}</p>
+              >
+                {comment.content}
+              </p>
             </div>
           </li>
         ))}

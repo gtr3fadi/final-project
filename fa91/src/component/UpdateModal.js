@@ -72,7 +72,7 @@ export default function UpdateProject({ data, setUpdateModal }) {
         <div className="row">
           <div className="col-md-8 m-auto">
             <form
-              className="mt-5 mt-md-4"
+              className="mt-1 mt-md-4"
               style={{
                 backgroundColor: "white",
                 border: "1px solid #e5e5e5",
@@ -123,7 +123,7 @@ export default function UpdateProject({ data, setUpdateModal }) {
                     htmlFor="frontend"
                     className={`${
                       projectType === "frontend" ? "active" : ""
-                    } btn btn-secondary col-3 `}
+                    } btn btn-secondary col-md-3 col-6 `}
                   >
                     Frontend
                   </label>
@@ -142,7 +142,7 @@ export default function UpdateProject({ data, setUpdateModal }) {
                     htmlFor="backend"
                     className={`${
                       data.projectType === "backend" ? "active" : ""
-                    } btn btn-secondary col-3 `}
+                    } btn btn-secondary col-md-3 col-6 `}
                   >
                     Backend
                   </label>
@@ -161,7 +161,7 @@ export default function UpdateProject({ data, setUpdateModal }) {
                     htmlFor="fullstack"
                     className={`${
                       projectType === "fullstack" ? "active" : ""
-                    } btn btn-secondary col-4`}
+                    } btn btn-secondary col-md-3 col-6`}
                   >
                     Fullstack
                   </label>
@@ -180,7 +180,7 @@ export default function UpdateProject({ data, setUpdateModal }) {
                     htmlFor="other"
                     className={`${
                       projectType === "other" ? "active" : ""
-                    } btn btn-secondary col-2 `}
+                    } btn btn-secondary col-md-3 col-6 `}
                   >
                     Other
                   </label>
@@ -219,11 +219,14 @@ export default function UpdateProject({ data, setUpdateModal }) {
               </div>
 
               <div className="row justify-content-around px-3 mt-1">
-                <button type="submit" className="btn btn-primary  my-2 col-md-3 col-6">
+                <button
+                  type="submit"
+                  className="btn btn-primary  my-2 col-md-5 col-sm-5 col-12"
+                >
                   Update Project
                 </button>
                 <button
-                  className="btn btn-danger  my-2 col-md-3 col-6"
+                  className="btn btn-danger  my-2 col-md-5 col-12 col-sm-5"
                   onClick={() => setUpdateModal(false)}
                 >
                   Cancel

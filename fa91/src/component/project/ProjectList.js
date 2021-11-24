@@ -135,7 +135,7 @@ export default function ProjectList({ data }) {
              
               <Link
                 to={`/project/${project.id}`}
-                className="btn btn-success col-6 col-md-5 mx-1 "
+                className="btn btn-success col-8 col-md-5 mx-1 "
               >
                 View Project
               </Link>
