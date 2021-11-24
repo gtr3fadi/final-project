@@ -189,7 +189,7 @@ export default function PostProject() {
                   <div>
                   
                   </div>
-                  {!projectCategory.length == 0 && (
+                  {!sk.length == 0 && (
                     <div className="animated animatedFadeInUp fadeInUp">
                       <label htmlFor="budget">Budget (Dollars $ ) </label>
                       <input

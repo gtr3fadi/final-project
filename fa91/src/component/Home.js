@@ -24,8 +24,8 @@ const Home = () => {
         className="logo"
         style={{
           margin: "70px auto",
-          width: "250px",
-          height: "250px",
+          width: "200px",
+          height: "200px",
           borderRadius: "50%",
           display: "flex",
           justifyContent: "center",
@@ -49,10 +49,11 @@ const Home = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          fontSize: "70px",
+          fontSize: "45px",
           fontStyle: "italic",
           textAlign: "center",
           color: "#1266f1",
+          width: "100vw",
         }}
       >
         {divSpace}

@@ -130,16 +130,15 @@ export default function ProjectList({ data }) {
                 </small>
               </p>
               {user && user.uid === project.createdBy.uid && (
-                <Link
+                <div
                   className="btn btn-primary col-6 col-md-5 mx-1 mb-1"
                   onClick={() => setUpdateModal(true)}
-                  to={`/project/update/${project.id}`}
                 >
                   UpDate
-                </Link>
+                </div>
               )}
               {updateModal && (
-                <UpdateModal projectModal={project} setUpdateModal={setUpdateModal} />
+                <UpdateModal data={project} setUpdateModal={setUpdateModal} />
               )}
 
               {user.uid === project.createdBy.uid && (

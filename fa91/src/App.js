@@ -16,7 +16,6 @@ import "./index.css";
 import Home from "./component/Home";
 import Project from "./component/project/Project";
 import SingleProject from "./component/SingleProject";
-import UpdateProject from "./component/UpdateProject";
 import PostProject from "./component/PostProject/PostProject";
 import MyProject from "./component/MyProject";
 import LogIn from "./component/LogIn";
@@ -46,7 +45,6 @@ function App() {
               <Route exact path="/project/:id">
                 {user ? <SingleProject /> : <Redirect to="/login" />}
               </Route>
-              <Route exact path="/project/update/:id" component={UpdateProject} />
               <Route exact path="/postproject">
                 {user ? <PostProject /> : <Redirect to="/login" />}
               </Route>
