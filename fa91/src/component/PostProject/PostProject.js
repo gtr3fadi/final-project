@@ -6,8 +6,10 @@ import { useAuthContext } from "../hook/useAuthContext";
 import { timestamp } from "../../firebase/firebase";
 import Select from "react-select";
 import { webDevList } from "../Profile/Skills";
+import { useThemeContext } from "../hook/useThemeContext";
 
 export default function PostProject() {
+  const { isLightTheme } = useThemeContext();
   const { addDocument, response } = useFirestore("projects");
   const { user } = useAuthContext();
   const history = useHistory();
@@ -70,7 +72,10 @@ export default function PostProject() {
         <div className="container m-auto my-5 p-3">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Add Project</h1>
+              <h1
+                className="display-4 text-center"
+                style={{ color: isLightTheme ? "black" : "white" }}
+              >Add Project</h1>
               <p className="lead text-center">
                 Create a project and share with the world
               </p>
