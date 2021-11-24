@@ -44,8 +44,13 @@ export default function Project() {
     <div className="container  py-2 pt-5 mt-5 ">
       <div className="row">
         <div className="col-md-12">
-          <h2 className={`${isLightTheme? "text-dark" : "text-white"} text-center`}
-          >Projects</h2>
+          <h2
+            className={`${
+              isLightTheme ? "text-dark" : "text-white"
+            } text-center`}
+          >
+            Projects
+          </h2>
           <div className="row">
             <div className="col-md-12">
               {error && <div>{error}</div>}
@@ -55,13 +60,12 @@ export default function Project() {
                   changeFilter={changeFilter}
                 />
               )}
-              {data && (
-                <ProjectList data={filteredData}   />
-              )}
+              {data && <ProjectList data={filteredData} />}
               {!data && (
-                <div className="text-center">
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="sr-only">Loading...</span>
+                <div className="spinerContenar">
+                  <div className="spinner">
+                    <div></div>
+                    <div></div>
                   </div>
                 </div>
               )}

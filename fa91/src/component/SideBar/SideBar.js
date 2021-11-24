@@ -10,7 +10,14 @@ export default function SideBar() {
   const { user } = useAuthContext();
   const {logout} = useLogout();
   const { documents, error } = useCollection("users");
-  if (!documents) return <p className="spinner">sidebar Loading...</p>;
+  if (!documents) return (
+    <div className="spinerContenar">
+      <div className="spinner">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
 
   const doc = user && documents ? documents.find(doc => doc.id === user.uid) : null;
 
@@ -18,7 +25,7 @@ export default function SideBar() {
 
   
 
-  
+ 
   
 
   
@@ -251,12 +258,7 @@ export default function SideBar() {
           </li>
         </ul>
       </motion.div>
-      {/* <section
-        className="home-section"
-        onClick={() =>
-          document.querySelector(".sidebar").classList.toggle("closeNav")
-        }
-      ></section> */}
+  
     </>
   );
 }

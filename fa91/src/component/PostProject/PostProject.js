@@ -234,10 +234,12 @@ export default function PostProject() {
                         </button>
                       )}
                       {isPending && (
-                        <button className="btn btn-primary m-auto text-capitalize text-xl-center ">
-                          <span className="spinner-border spinner-border-sm"></span>
-                          creat...
-                        </button>
+                        <div className="spinerContenar">
+                          <div className="spinner">
+                            <div></div>
+                            <div></div>
+                          </div>
+                        </div>
                       )}
                     </div>
                   )}

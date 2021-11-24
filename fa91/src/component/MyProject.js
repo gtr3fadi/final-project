@@ -27,16 +27,17 @@ const MyProject = () => {
       <div className="container my-5 p-3">
         <div className="row">
           <div className="col-md-12">
-        <h1 className="text-center"    >My Projects</h1>
-        {error && <p>Error: {error.message}</p>}
-        {data && <ProjectList data={filteredData} />}
-        {!data && (
-          <div className="text-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="sr-only">My project Loading...</span>
-            </div>
-          </div>
-        )}
+            <h1 className="text-center">My Projects</h1>
+            {error && <p>Error: {error.message}</p>}
+            {data && <ProjectList data={filteredData} />}
+            {!data && (
+              <div className="spinerContenar">
+                <div className="spinner">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
