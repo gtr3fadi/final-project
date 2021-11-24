@@ -18,7 +18,6 @@ export default function PostProject() {
   const [projectCategory, setProjectCategory] = useState([]);
   const [budget, setBudget] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
-  const [projectTags, setProjectTags] = useState("");
 
   const handelAddCategory = (e) => {
     e.preventDefault();
@@ -75,9 +74,7 @@ export default function PostProject() {
     bidd: []
   };
 
-  console.log(project);
-
-  console.log(projectType);
+  
 
   const handelSubmit = async (e) => {
     e.preventDefault();

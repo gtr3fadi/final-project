@@ -46,7 +46,7 @@ function App() {
               <Route exact path="/project/:id">
                 {user ? <SingleProject /> : <Redirect to="/login" />}
               </Route>
-              <Route exact path="/project/edit/:id" component={UpdateProject} />
+              <Route exact path="/project/update/:id" component={UpdateProject} />
               <Route exact path="/postproject">
                 {user ? <PostProject /> : <Redirect to="/login" />}
               </Route>

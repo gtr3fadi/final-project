@@ -5,11 +5,13 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useThemeContext } from "../hook/useThemeContext";
 import { useAuthContext } from "../hook/useAuthContext";
 import DeleteModal from "./DeleteModal";
+import UpdateModal from "./UpdateModal";
 
 export default function ProjectList({ data }) {
   const { user } = useAuthContext();
   const { isLightTheme } = useThemeContext();
   const [deleteModal, setDeleteModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
 
   return (
     <div>
@@ -130,10 +132,14 @@ export default function ProjectList({ data }) {
               {user && user.uid === project.createdBy.uid && (
                 <Link
                   className="btn btn-primary col-6 col-md-5 mx-1 mb-1"
-                  to={`/project/${project.id}`}
+                  onClick={() => setUpdateModal(true)}
+                  to={`/project/update/${project.id}`}
                 >
                   UpDate
                 </Link>
+              )}
+              {updateModal && (
+                <UpdateModal projectModal={project} setUpdateModal={setUpdateModal} />
               )}
 
               {user.uid === project.createdBy.uid && (
