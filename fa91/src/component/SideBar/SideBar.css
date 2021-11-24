@@ -12,7 +12,7 @@
   top: 0%;
   left: 0;
   height: 100vh;
-  width: 260px;
+  width: 210px;
   z-index: 9999;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -49,7 +49,7 @@
           transition-delay: 0.1s;
   position: absolute;
   top: 5px;
-  left: 100px;
+  left: 60px;
   width: 145px;
   cursor: pointer;
 }
@@ -246,7 +246,7 @@
   opacity: 1;
   position: absolute;
   top: 5px;
-  left: 100px;
+  left: 70px;
   width: 145px;
   color: #1266f1;
 }
@@ -393,7 +393,7 @@
           transition-delay: 0.1s;
   position: absolute;
   top: 5px;
-  left: 100px;
+  left: 70px;
   width: 145px;
 }
 

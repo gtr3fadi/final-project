@@ -3,6 +3,7 @@ import "./SideBar.css";
 import { useAuthContext } from ".././hook/useAuthContext";
 import { useCollection } from "../hook/useCollection";
 import { useLogout } from "../hook/useLogout";
+import { motion } from "framer-motion";
 
 
 export default function SideBar() {
@@ -24,7 +25,11 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="sidebar hideNav">
+      <motion.div
+        initial={{ x: -400 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1 ,  delay:2 }}
+        className="sidebar hideNav">
         <div className="logo-details">
           <i
             className="fa fa-bars text-light"
@@ -245,7 +250,7 @@ export default function SideBar() {
             )}
           </li>
         </ul>
-      </div>
+      </motion.div>
       {/* <section
         className="home-section"
         onClick={() =>

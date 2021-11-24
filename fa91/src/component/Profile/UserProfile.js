@@ -99,32 +99,32 @@ export default function UserProfile({ doc }) {
                 <button className="btn btn-danger btn-sm">{skill}</button>
               </span>
             ))}
-          {!doc.skills  && user.uid !== doc.id && (
+          {!doc.skills && user.uid !== doc.id && (
             <span className="text-muted">Not Added yet</span>
           )}
-          {!doc.skills  && user.uid === doc.id && (
-            <>
-              <Select
-                classNamePrefix="select"
-                defaultValue={selectValue}
-                isMulti
-                name="color"
-                options={webDevList}
-                onChange={(opt) => setSelectValue(opt)}
-              />
+          {!doc.skills || doc.skills.length === 0 && user.uid === doc.id && (  
+              <>
+                <Select
+                  classNamePrefix="select"
+                  defaultValue={selectValue}
+                  isMulti
+                  name="color"
+                  options={webDevList}
+                  onChange={(opt) => setSelectValue(opt)}
+                />
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  updateDocumentField(doc.id, {
-                    skills: sk,
-                  });
-                }}
-              >
-                <button className="btn btn-primary ">Update</button>
-              </form>
-            </>
-          )}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    updateDocumentField(doc.id, {
+                      skills: sk,
+                    });
+                  }}
+                >
+                  <button className="btn btn-primary ">Update</button>
+                </form>
+              </>
+            )}
 
           <hr />
         </div>
@@ -221,14 +221,13 @@ export default function UserProfile({ doc }) {
           )}
           <hr />
 
-          <table className="table table-hover table-striped "
-          >
+          <table className="table table-hover table-striped ">
             <tbody>
               {!doc.recentWork && (
                 <tr>
-                  <td
-                    className={isLightTheme ? "text-muted" : "text-light"}
-                  >No Recent Work Added Yet</td>
+                  <td className={isLightTheme ? "text-muted" : "text-light"}>
+                    No Recent Work Added Yet
+                  </td>
                 </tr>
               )}
               {doc.recentWork &&
@@ -249,9 +248,12 @@ export default function UserProfile({ doc }) {
                       )}
                       <strong
                         className={isLightTheme ? "text-dark" : "text-white"}
-                      >{work.title}</strong> <br />
+                      >
+                        {work.title}
+                      </strong>{" "}
+                      <br />
                       <p className="text-muted">{work.description}</p>
-                      <a href={work.link} target="_blank">
+                      <a href={work.link.substring(0, 20)} target="_blank">
                         {work.link}
                       </a>
                     </td>

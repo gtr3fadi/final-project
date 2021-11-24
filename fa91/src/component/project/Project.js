@@ -39,11 +39,12 @@ export default function Project() {
     : [];
 
   const handelClick = (id) => {
-    projectFirestore.collection("Projects").doc(id).delete();
+    projectFirestore.collection("projects").doc(id).delete();
+    console.log("delete");
   };
 
   return (
-    <div className="container  py-3 mt-5 ">
+    <div className="container  py-2 mt-2 ">
       <div className="row">
         <div className="col-md-12">
           <h2 className={`${isLightTheme? "text-dark" : "text-white"} text-center`}
@@ -58,7 +59,7 @@ export default function Project() {
                 />
               )}
               {data && (
-                <ProjectList data={filteredData} handelClick={handelClick} />
+                <ProjectList data={filteredData} handelClick={handelClick} user={user}    />
               )}
               {!data && (
                 <div className="text-center">

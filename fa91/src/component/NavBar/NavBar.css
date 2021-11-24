@@ -212,10 +212,9 @@
 .navbar .user-tools .user-tools-text a {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 1.1em;
-  font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
-  padding: 0px 10px;
+  padding: 0px 0px;
 }
 
 .navbar .user-tools .user-tools-text a:hover {

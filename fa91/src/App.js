@@ -9,6 +9,7 @@ import {
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import NavBar from "./component/NavBar/NavBar";
 import { FaBeer, FaBars } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 import ThemeContextProvider from "./Context/ThemeContext";
 import "./index.css";
@@ -33,7 +34,7 @@ function App() {
       {AuthIsReady && (
         <ThemeContextProvider>
           <BrowserRouter>
-            <NavBar />
+            <NavBar/>
             <SideBar />
             <FollowerList />
 

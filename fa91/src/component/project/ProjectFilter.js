@@ -20,27 +20,21 @@ export default function ProjectFilter({ currentFilter, changeFilter }) {
         Filter
       </h4>
 
-      <nav className="row justify-content-center g-0">
+      <nav className="row  row-cols-3 g-2 justify-content-evenly">
         {FilterList.map((filter) => (
-          <div
-            className="col d-flex justify-content-center align-items-center"
-            key={filter}
-          >
-            <span className="badge badge-pill badge-secondary ">
-              <button
-                onClick={() => handelClick(filter)}
-                className={
-                  currentFilter === filter
-                    ? " btn btn-primary btn-sm active"
-                    : " btn btn-danger btn-sm"
-                }
-                type="button"
-                key={filter}
-              >
-                {filter}
-              </button>
-            </span>
-          </div>
+            <button
+              key={filter}
+              onClick={() => handelClick(filter)}
+              className={
+                currentFilter === filter
+                  ? " btn btn-primary btn-sm col ms-1 active"
+                  : " btn btn-danger btn-sm col ms-1"
+              }
+              type="button"
+              key={filter}
+            >
+              {filter}
+            </button>
         ))}
       </nav>
     </div>

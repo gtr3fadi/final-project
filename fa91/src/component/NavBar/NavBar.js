@@ -15,6 +15,7 @@ import "./NavBar.css";
 import { useLogout } from "../hook/useLogout"
 import { useAuthContext } from "../hook/useAuthContext";
 import Avatar from "../Avatar";
+import { motion } from "framer-motion";
 
 const NavBar = () => {
   const {user}=useAuthContext()
@@ -30,7 +31,11 @@ const NavBar = () => {
 
   return (
     <div>
-      <nav className="navbar">
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: .75 , ease: "easeOut", delay:2}} 
+        className="navbar">
         <div
           style={{
             width: "260px",
@@ -79,8 +84,8 @@ const NavBar = () => {
           )}
           {!user && (
             <span className="user-tools-text">
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/login">Login</Link>/
+              <Link to="/signup">Register</Link>
             </span>
           )}
         </div>
@@ -100,7 +105,7 @@ const NavBar = () => {
             </button>
           </div>
         
-      </nav>
+      </motion.nav>
     </div>
   );
 };
