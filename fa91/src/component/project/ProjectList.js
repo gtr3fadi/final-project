@@ -4,8 +4,8 @@ import Avatar from "../Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useThemeContext } from "../hook/useThemeContext";
 import { useAuthContext } from "../hook/useAuthContext";
-import DeleteModal from "./DeleteModal";
-import UpdateModal from "./UpdateModal";
+import DeleteModal from "../DeleteModal";
+import UpdateModal from "../UpdateModal";
 
 export default function ProjectList({ data }) {
   const { user } = useAuthContext();
@@ -129,29 +129,10 @@ export default function ProjectList({ data }) {
                   Bidded : ({project.bidd.length})
                 </small>
               </p>
-              {user && user.uid === project.createdBy.uid && (
-                <div
-                  className="btn btn-primary col-6 col-md-5 mx-1 mb-1"
-                  onClick={() => setUpdateModal(true)}
-                >
-                  UpDate
-                </div>
-              )}
-              {updateModal && (
-                <UpdateModal data={project} setUpdateModal={setUpdateModal} />
-              )}
+              
+             
 
-              {user.uid === project.createdBy.uid && (
-                <div
-                  className="btn btn-danger col-6 col-md-5 mx-1 mb-1"
-                  onClick={() => setDeleteModal(true)}
-                >
-                  Delete
-                </div>
-              )}
-              {deleteModal && (
-                <DeleteModal id={project.id} setDeleteModal={setDeleteModal} />
-              )}
+             
               <Link
                 to={`/project/${project.id}`}
                 className="btn btn-success col-6 col-md-5 mx-1 "

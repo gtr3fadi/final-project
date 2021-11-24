@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { projectFirestore } from '../../firebase/firebase';
+import { projectFirestore } from '../firebase/firebase';
 import { useState, useEffect } from 'react';
 
 
@@ -20,12 +20,17 @@ export default function DeleteModal({ setDeleteModal, id }) {
 
   return (
     <div
-      className=" position-fixed top-0 left-0 bottom-0 right-0  z-index-9999 p-1 "
+      className=" position-fixed top-0 left-0 bottom-0 right-0   p-1 "
       style={{
-        backgroundColor: "rgba(0,0,0,0.3)",
+        backgroundColor: "rgba(0,0,0,0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: "9999",
+        top: "0",
+        left: "0",
+        right: "0",
+        bottom: "0",
       }}
     >
       <motion.div

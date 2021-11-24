@@ -1,12 +1,15 @@
 import Avatar from "./Avatar";
+import {useState} from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useAuthContext } from "./hook/useAuthContext";
 import { useFirestore } from "./hook/useFirestore";
 import { timestamp } from "../firebase/firebase";
 import { Link } from "react-router-dom";
 
+
 export default function ProjectSummary({ project }) {
   const { response, updateDocumentField } = useFirestore("projects");
+  
 
   const { user } = useAuthContext();
 
@@ -116,6 +119,7 @@ export default function ProjectSummary({ project }) {
                 Bidded
               </button>
             )}
+           
           </div>
         </div>
       </div>

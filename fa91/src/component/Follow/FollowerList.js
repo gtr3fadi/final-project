@@ -82,16 +82,16 @@ console.log(follower)
                     padding: "10px",
                   }}
                 >
-                  <p className="d-flex justify-content-end align-items-center">
+                  <p className="  d-flex justify-content-end align-items-center position-relative">
                     <Link
                       to={`/profile/${doc.uid}`}
                       className="d-flex justify-content-between align-items-center"
                     >
-                      {doc.online ? <span className={sty.online}></span> : null}
                       <span className="text-capitalize ms-1 font-weight-bold">
                         {doc.displayName}
                       </span>
                       <Avatar src={doc.photoURL} />
+                      {doc.online ? <span className={sty.online}></span> : null}
                     </Link>
                   </p>
                 </div>

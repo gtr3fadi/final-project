@@ -1,26 +1,31 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Select from "react-select";
-import { projectFirestore, timestamp } from "../../firebase/firebase";
-import { webDevList } from "../Profile/Skills";
-import { useDocument } from "../hook/useDoucment";
-import { useFirestore } from "../hook/useFirestore";
-import { useCollection } from "../hook/useCollection";
+import { projectFirestore, timestamp } from "../firebase/firebase";
+import { webDevList } from "./Profile/Skills";
+import { useDocument } from "./hook/useDoucment";
+import { useFirestore } from "./hook/useFirestore";
+import { useCollection } from "./hook/useCollection";
 
-export default function UpdateProject({ data , setUpdateModal}) {
+export default function UpdateProject({ data, setUpdateModal }) {
   const [isPending, setIsPending] = useState(false);
   const { updateDocumentField, response } = useFirestore("projects");
   const { documents, error } = useCollection("projects");
   console.log(data);
 
   const [projectName, setProjectName] = useState(data.projectName);
-  const [projectDescription, setProjectDescription] = useState(data.projectDescription);
+  const [projectDescription, setProjectDescription] = useState(
+    data.projectDescription
+  );
   const [projectType, setProjectType] = useState(data.projectType);
-  const [projectDuration, setProjectDuration] = useState(data.projectDuration.toDate());
+  const [projectDuration, setProjectDuration] = useState(
+    data.projectDuration.toDate()
+  );
   const [budget, setBudget] = useState(data.budget);
-  const [projectCategory, setProjectCategory] = useState(data.projectCategory.map((item) => {
-    return { value: item, label: item };
-  })
+  const [projectCategory, setProjectCategory] = useState(
+    data.projectCategory.map((item) => {
+      return { value: item, label: item };
+    })
   );
 
   const sk = projectCategory.map((category) => category.value);
@@ -33,16 +38,14 @@ export default function UpdateProject({ data , setUpdateModal}) {
     return <div>Loading...</div>;
   }
 
-  
-
-  const handelSubmit =async (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
     const project = {
       projectName,
       projectDescription,
       projectType,
       projectCategory: sk,
-      projectDuration:timestamp.fromDate(new Date(projectDuration)),
+      projectDuration: timestamp.fromDate(new Date(projectDuration)),
       budget,
     };
     await updateDocumentField(data.id, project);
@@ -51,27 +54,36 @@ export default function UpdateProject({ data , setUpdateModal}) {
 
   return (
     <div
-      className=" fade-in position-fixed top-0 left-0 bottom-0 right-0  z-index-9999 p-1 "
+      className=" fade-in position-fixed mt-5 "
       style={{
         backgroundColor: "rgba(0,0,0,0.8)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        overflow: "auto",
+        overflow: "scroll",
+        zIndex: "9999",
+        top: "0",
+        left: "0",
+        bottom: "0",
+        right: "0",
       }}
     >
-      <div className="container m-auto my-5 p-2">
+      <div className="container m-auto  ">
         <div className="row">
           <div className="col-md-8 m-auto">
-            <h1 className="display-4 text-center text-light">Update Project</h1>
-            <p className="lead text-center text-light">
-              Update a project and share with the world
-            </p>
-            <form className="mt-5" onSubmit={handelSubmit}>
+            <form
+              className="mt-5 mt-md-4"
+              style={{
+                backgroundColor: "white",
+                border: "1px solid #e5e5e5",
+                borderRadius: "10px",
+                padding: "10px 20px",
+                boxShadow: "0px 0px 10px #e5e5e5",
+              }}
+              onSubmit={handelSubmit}
+            >
               <div className="form-group">
-                <label htmlFor="projectName" className="text-light">
-                  Project Name
-                </label>
+                <label htmlFor="projectName">Project Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -94,10 +106,10 @@ export default function UpdateProject({ data , setUpdateModal}) {
                 />
               </div>
 
-              <label className="text-light w-100">
+              <label className=" w-100">
                 <span>Project Type</span>
                 <br />
-                <div className=" btn-group m-auto mb-2" role="group">
+                <div className=" btn-group row m-auto mb-2 w-100" role="group">
                   <input
                     type="radio"
                     className="btn-check m-1"
@@ -106,13 +118,12 @@ export default function UpdateProject({ data , setUpdateModal}) {
                     id="frontend"
                     cheched={projectType === "frontend"}
                     onChange={(e) => setProjectType(e.target.value)}
-                    
                   />
                   <label
                     htmlFor="frontend"
                     className={`${
                       projectType === "frontend" ? "active" : ""
-                    } btn btn-secondary `}
+                    } btn btn-secondary col-3 `}
                   >
                     Frontend
                   </label>
@@ -131,7 +142,7 @@ export default function UpdateProject({ data , setUpdateModal}) {
                     htmlFor="backend"
                     className={`${
                       data.projectType === "backend" ? "active" : ""
-                    } btn btn-secondary `}
+                    } btn btn-secondary col-3 `}
                   >
                     Backend
                   </label>
@@ -150,7 +161,7 @@ export default function UpdateProject({ data , setUpdateModal}) {
                     htmlFor="fullstack"
                     className={`${
                       projectType === "fullstack" ? "active" : ""
-                    } btn btn-secondary `}
+                    } btn btn-secondary col-4`}
                   >
                     Fullstack
                   </label>
@@ -169,13 +180,13 @@ export default function UpdateProject({ data , setUpdateModal}) {
                     htmlFor="other"
                     className={`${
                       projectType === "other" ? "active" : ""
-                    } btn btn-secondary `}
+                    } btn btn-secondary col-2 `}
                   >
                     Other
                   </label>
                 </div>
               </label>
-              <label className="text-light w-100">
+              <label className=" w-100">
                 <span>Project Category</span>
                 <br />
                 <Select
@@ -187,9 +198,7 @@ export default function UpdateProject({ data , setUpdateModal}) {
                 />
               </label>
               <div className="form-group">
-                <label htmlFor="projectDuration" className="text-light">
-                  Project Duration
-                </label>
+                <label htmlFor="projectDuration">Project Duration</label>
                 <input
                   type="date"
                   className="form-control"
@@ -199,9 +208,7 @@ export default function UpdateProject({ data , setUpdateModal}) {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="projectBudget" className="text-light">
-                  Project Budget
-                </label>
+                <label htmlFor="projectBudget">Project Budget</label>
                 <input
                   type="number"
                   className="form-control"
@@ -210,14 +217,18 @@ export default function UpdateProject({ data , setUpdateModal}) {
                   onChange={(e) => setBudget(e.target.value)}
                 />
               </div>
-             
-                <button type="submit"  className="btn btn-primary btn-block my-2">
+
+              <div className="row justify-content-around px-3 mt-1">
+                <button type="submit" className="btn btn-primary  my-2 col-md-3 col-6">
                   Update Project
                 </button>
-              <button className="btn btn-danger btn-block my-2"
-                onClick={() => setUpdateModal(false)}
-              >Cancel</button>
-              
+                <button
+                  className="btn btn-danger  my-2 col-md-3 col-6"
+                  onClick={() => setUpdateModal(false)}
+                >
+                  Cancel
+                </button>
+              </div>
             </form>
           </div>
         </div>

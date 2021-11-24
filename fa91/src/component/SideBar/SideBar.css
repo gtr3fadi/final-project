@@ -13,7 +13,7 @@
   left: 0;
   height: 100vh;
   width: 210px;
-  z-index: 9999;
+  z-index: 9998;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
@@ -56,7 +56,7 @@
 
 .sidebar .nav-links {
   height: calc(100vh - 50px);
-  padding: 20px 0 150px 0;
+  padding: 20px 0 130px 0;
   overflow: auto;
   background: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(10px);
@@ -65,6 +65,7 @@
   -o-backdrop-filter: blur(10px);
   -webkit-box-shadow: 0px 25px 45px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 25px 45px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .sidebar .nav-links::-webkit-scrollbar {
@@ -184,7 +185,7 @@
 .sidebar .profile-details {
   position: fixed;
   bottom: 0;
-  width: 260px;
+  width: 210px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

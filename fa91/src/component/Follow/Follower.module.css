@@ -16,7 +16,7 @@
     margin-right: 10px;
        box-shadow: 6px 5px 10px rgba(0,0,0,0.3);
    border-radius: 15px;
-   background :rgba(255,255,255,0.5);
+   background :rgba(255,255,255,0.1);
    border-top:1px solid rgba(255,255,255,0.5);
    border-left: 1px solid rgba(255,255,255,0.5);
    backdrop-filter: blur(5px);
@@ -47,13 +47,13 @@
     width: calc(100% - 10px);
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: 6px 5px 10px rgba(0,0,0,0.3);
-   border-radius: 15px;
-   -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     -moz-backdrop-filter: blur(10px);
     -o-backdrop-filter: blur(10px);
-   background :rgba(255,255,255,0.5);
+    box-shadow: 6px 5px 10px rgba(0,0,0,0.3);
+   border-radius: 15px;
+   -webkit-backdrop-filter: blur(10px);
    border-top:1px solid rgba(255,255,255,0.5);
    border-left: 1px solid rgba(255,255,255,0.5);
    
@@ -61,12 +61,17 @@
 }
 
 .online{
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #90EE02;
     margin-right: 5px;
-    border: 1px solid #2d3a19;
+    box-shadow: 0px 0px 3px #90EE02;
+    
+    position: absolute;
+    top: 25px;
+    right: -5px;
+
 
 }
 

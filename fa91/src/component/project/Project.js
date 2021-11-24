@@ -41,7 +41,7 @@ export default function Project() {
 
 
   return (
-    <div className="container  py-2 mt-2 ">
+    <div className="container  py-2 pt-5 mt-5 ">
       <div className="row">
         <div className="col-md-12">
           <h2 className={`${isLightTheme? "text-dark" : "text-white"} text-center`}
