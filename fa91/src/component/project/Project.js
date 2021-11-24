@@ -38,10 +38,7 @@ export default function Project() {
       })
     : [];
 
-  const handelClick = (id) => {
-    projectFirestore.collection("projects").doc(id).delete();
-    console.log("delete");
-  };
+
 
   return (
     <div className="container  py-2 mt-2 ">
@@ -59,7 +56,7 @@ export default function Project() {
                 />
               )}
               {data && (
-                <ProjectList data={filteredData} handelClick={handelClick} user={user}    />
+                <ProjectList data={filteredData}   />
               )}
               {!data && (
                 <div className="text-center">

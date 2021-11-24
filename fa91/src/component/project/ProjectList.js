@@ -1,11 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useThemeContext } from "../hook/useThemeContext";
 import { useAuthContext } from "../hook/useAuthContext";
+import DeleteModal from "./DeleteModal";
 
-export default function ProjectList({ data, user, handelClick }) {
+export default function ProjectList({ data }) {
+  const { user } = useAuthContext();
   const { isLightTheme } = useThemeContext();
+  const [deleteModal, setDeleteModal] = useState(false);
+
   return (
     <div>
       {data && (
@@ -134,10 +139,13 @@ export default function ProjectList({ data, user, handelClick }) {
               {user.uid === project.createdBy.uid && (
                 <div
                   className="btn btn-danger col-6 col-md-5 mx-1 mb-1"
-                  onClick={() => handelClick(project.id)}
+                  onClick={() => setDeleteModal(true)}
                 >
                   Delete
                 </div>
+              )}
+              {deleteModal && (
+                <DeleteModal id={project.id} setDeleteModal={setDeleteModal} />
               )}
               <Link
                 to={`/project/${project.id}`}
