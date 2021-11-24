@@ -27,6 +27,7 @@ export default function UpdateProject() {
       });
   }, [id]);
 
+
   return (
     <div>
       <h1>Update Project</h1>
@@ -190,6 +191,94 @@ export default function UpdateProject() {
                     </label>
                   </div>
                 </label>
+                <label>
+                  <span>Project Category</span>
+                  <br />
+                  <select
+                    className="form-control form-control-lg"
+                    name="projectCategory"
+                    onChange={(e) => {
+                      setData({
+                        ...data,
+                        projectCategory: e.target.value.split(","),
+                      });
+                    }}
+                  >
+                    <option value="">Select Category</option>
+                    <option value="react">React</option>
+                    <option value="javascript">Javascript</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="NodeJS">NodeJS</option>
+                    <option value="C++">C++</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                    <option value="C#">C#</option>
+                    <option value="PHP">PHP</option>
+                    <option value="SQL">SQL</option>
+                    <option value="CSS3">CSS3</option>
+                    <option value="Bootstrap">Bootstrap</option>
+                    <option value="Materialize">Materialize</option>
+                    <option value="Material-UI">Material-UI</option>
+                    <option value="HTML5">HTML5</option>
+                    <option value="angular">Angular</option>
+                    <option value="vue">Vue</option>
+                    <option value="node">Node</option>
+                    <option value="express">Express</option>
+                    <option value="mongo">Mongo</option>
+                    <option value="mysql">Mysql</option>
+                    <option value="mongodb">Mongodb</option>
+                    <option value="php">Php</option>
+                    <option value="laravel">Laravel</option>
+                    <option value="symfony">Symfony</option>
+                    <option value="django">Django</option>
+                    <option value="flutter">Flutter</option>
+                    <option value="react-native">React Native</option>
+                    <option value="ionic">Ionic</option>
+                    <option value="android">Android</option>
+                    <option value="ios">Ios</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Mobile Development">
+                      Mobile Development
+                    </option>
+                    <option value="Games Development">Games Development</option>
+                    <option value="unity">Unity</option>
+                    <option value="unreal">Unreal</option>
+                    <option value="unity-engine">Unity Engine</option>
+                    <option value="unity-script">Unity Script</option>
+                    <option value="unity-shader">Unity Shader</option>
+                    <option value="unity-assets">Unity Assets</option>
+                    <option value="unity-scriptable-object">
+                      Unity Scriptable Object
+                    </option>
+                    <option value="unity-package">Unity Package</option>
+                    <option value="unity-project">Unity Project</option>
+                    <option value="unity-package-manifest">
+                      Unity Package Manifest
+                    </option>
+                    <option value="unity-package-manifest-asset">
+                      Unity Package Manifest Asset
+                    </option>
+                    <option value="unity-package-manifest-asset-bundle">
+                      Unity Package Manifest Asset Bundle
+                    </option>
+                    <option value="unity-package-manifest-asset-bundle-manifest">
+                      Unity Package Manifest Asset Bundle Manifest
+                    </option>
+                    <option value="unity-package-manifest-asset-bundle-manifest-asset">
+                      Unity Package Manifest Asset Bundle Manifest Asset
+                    </option>
+                    <option value="unity-package-manifest-asset-bundle-manifest-asset-bundle">
+                      Unity Package Manifest Asset Bundle Manifest Asset Bundle
+                    </option>
+                  </select>
+                </label>
+
+                {data.projectCategory.map((category) => (
+                  <span className="badge badge-secondary m-1" key={category}>
+                    {category}
+                  </span>
+                ))}
 
                 <button type="submit">Update Project</button>
                 <Link to="/myproject">

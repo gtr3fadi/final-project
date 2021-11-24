@@ -5,6 +5,7 @@ import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
 import { timestamp } from "../../firebase/firebase";
 import Select from "react-select";
+import { webDevList } from "../Profile/Skills";
 
 export default function PostProject() {
   const { addDocument, response } = useFirestore("projects");
@@ -19,39 +20,15 @@ export default function PostProject() {
   const [budget, setBudget] = useState("");
   const [projectDuration, setProjectDuration] = useState("");
 
-  const handelAddCategory = (e) => {
-    e.preventDefault();
-    if (e.target.value === "") {
-      alert("Please enter a category");
-      return;
-    }
-    if (projectCategory.length === 3) {
-      alert("You can't add more than 3 categories");
-      return;
-    }
+    const [skills, setSkills] = useState("");
+    const [selectValue, setSelectValue] = useState([]);
+    console.log(selectValue);
 
-    if (projectCategory.includes(e.target.value)) {
-      alert("You can't add same category");
-      return;
-    }
+    const sk = selectValue.map((item) => {
+      return item.value;
+    });
 
-    if (projectCategory.length < 3) {
-      setProjectCategory([...projectCategory, e.target.value]);
-    }
-
-    if (e.target.value && !projectCategory.includes(e.target.value)) {
-      setProjectCategory([...projectCategory, e.target.value]);
-    }
-  };
-
-  const handelRemoveCategory = (e) => {
-    e.preventDefault();
-    if (e.target.value && projectCategory.includes(e.target.value)) {
-      setProjectCategory(
-        projectCategory.filter((category) => category !== e.target.value)
-      );
-    }
-  };
+ 
 
   const createdBy = {
     displayName: user.displayName,
@@ -65,7 +42,7 @@ export default function PostProject() {
     projectName,
     projectDescription,
     projectType,
-    projectCategory,
+    projectCategory:sk,
     budget,
     projectDuration: timestamp.fromDate(new Date(projectDuration)),
     comments: [],
@@ -90,7 +67,7 @@ export default function PostProject() {
   return (
     <div>
       {user && (
-        <div className="container m-auto my-5 p-2">
+        <div className="container m-auto my-5 p-3">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Add Project</h1>
@@ -126,10 +103,10 @@ export default function PostProject() {
                   )}
 
                   {projectDescription && (
-                    <label className="animated animatedFadeInUp fadeInUp">
+                    <label className="animated animatedFadeInUp fadeInUp w-100">
                       <span> Project Type </span>
                       <br />
-                      <div className="btn-group  m-auto  mb-2 ">
+                      <div className="btn-group row w-100  m-auto  mb-2 ">
                         <input
                           type="radio"
                           className="btn-check m-1"
@@ -139,7 +116,7 @@ export default function PostProject() {
                           onChange={(e) => setProjectType(e.target.value)}
                           cheched={projectType === "frontend"}
                         />
-                        <label htmlFor="frontend" className="btn btn-secondary">
+                        <label htmlFor="frontend" className="btn btn-secondary px-1   col-3">
                           Frontend
                         </label>
                         <input
@@ -152,7 +129,7 @@ export default function PostProject() {
                           cheched={projectType === "backend"}
                           autoComplete="off"
                         />
-                        <label htmlFor="backend" className="btn btn-secondary">
+                        <label htmlFor="backend" className="btn btn-secondary px-1 col-3">
                           Backend
                         </label>
 
@@ -168,7 +145,7 @@ export default function PostProject() {
                         />
                         <label
                           htmlFor="fullstack"
-                          className="btn btn-secondary"
+                          className="btn btn-secondary col-4 px-1"
                         >
                           Fullstack
                         </label>
@@ -182,7 +159,7 @@ export default function PostProject() {
                           cheched={projectType === "other"}
                           autoComplete="off"
                         />
-                        <label htmlFor="other" className="btn btn-secondary">
+                        <label htmlFor="other" className="btn btn-secondary px-1  col-2">
                           Other
                         </label>
                       </div>
@@ -191,106 +168,26 @@ export default function PostProject() {
                   <br />
 
                   {projectType && (
-                    <label className="animated animatedFadeInUp fadeInUp">
+                    <label className="animated animatedFadeInUp fadeInUp w-100">
                       <span> Project Category </span>
                       <br />
 
-                      <select
-                        className="form-control form-control-lg"
-                        name="projectCategory"
-                        value={projectCategory
-                          .map((category) => category.toLowerCase())
-                          .join(",")}
-                        onChange={(e) => handelAddCategory(e)}
-                      >
-                        <option value="">Select Category</option>
-                        <option value="react">React</option>
-                        <option value="javascript">Javascript</option>
-                        <option value="HTML">HTML</option>
-                        <option value="CSS">CSS</option>
-                        <option value="NodeJS">NodeJS</option>
-                        <option value="C++">C++</option>
-                        <option value="Python">Python</option>
-                        <option value="Java">Java</option>
-                        <option value="C#">C#</option>
-                        <option value="PHP">PHP</option>
-                        <option value="SQL">SQL</option>
-                        <option value="CSS3">CSS3</option>
-                        <option value="Bootstrap">Bootstrap</option>
-                        <option value="Materialize">Materialize</option>
-                        <option value="Material-UI">Material-UI</option>
-                        <option value="HTML5">HTML5</option>
-                        <option value="angular">Angular</option>
-                        <option value="vue">Vue</option>
-                        <option value="node">Node</option>
-                        <option value="express">Express</option>
-                        <option value="mongo">Mongo</option>
-                        <option value="mysql">Mysql</option>
-                        <option value="mongodb">Mongodb</option>
-                        <option value="php">Php</option>
-                        <option value="laravel">Laravel</option>
-                        <option value="symfony">Symfony</option>
-                        <option value="django">Django</option>
-                        <option value="flutter">Flutter</option>
-                        <option value="react-native">React Native</option>
-                        <option value="ionic">Ionic</option>
-                        <option value="android">Android</option>
-                        <option value="ios">Ios</option>
-                        <option value="Web Development">Web Development</option>
-                        <option value="Mobile Development">
-                          Mobile Development
-                        </option>
-                        <option value="Games Development">
-                          Games Development
-                        </option>
-                        <option value="unity">Unity</option>
-                        <option value="unreal">Unreal</option>
-                        <option value="unity-engine">Unity Engine</option>
-                        <option value="unity-script">Unity Script</option>
-                        <option value="unity-shader">Unity Shader</option>
-                        <option value="unity-assets">Unity Assets</option>
-                        <option value="unity-scriptable-object">
-                          Unity Scriptable Object
-                        </option>
-                        <option value="unity-package">Unity Package</option>
-                        <option value="unity-project">Unity Project</option>
-                        <option value="unity-package-manifest">
-                          Unity Package Manifest
-                        </option>
-                        <option value="unity-package-manifest-asset">
-                          Unity Package Manifest Asset
-                        </option>
-                        <option value="unity-package-manifest-asset-bundle">
-                          Unity Package Manifest Asset Bundle
-                        </option>
-                        <option value="unity-package-manifest-asset-bundle-manifest">
-                          Unity Package Manifest Asset Bundle Manifest
-                        </option>
-                        <option value="unity-package-manifest-asset-bundle-manifest-asset">
-                          Unity Package Manifest Asset Bundle Manifest Asset
-                        </option>
-                        <option value="unity-package-manifest-asset-bundle-manifest-asset-bundle">
-                          Unity Package Manifest Asset Bundle Manifest Asset
-                          Bundle
-                        </option>
-                      </select>
+                      <Select
+                     
+                            
+                  classNamePrefix="select"
+                  defaultValue={selectValue}
+                  isMulti
+                  name="color"
+                  options={webDevList}
+                  onChange={(opt) => setSelectValue(opt)}
+                />
+                      
                     </label>
                   )}
 
                   <div>
-                    {projectCategory &&
-                      projectCategory.map((category) => (
-                        <span className="badge badge-pill badge-secondary m-1">
-                          <button
-                            onClick={handelRemoveCategory}
-                            className="btn btn-danger btn-sm"
-                          >
-                            {category}
-
-                            <i className="fas fa-times  ms-2"></i>
-                          </button>
-                        </span>
-                      ))}
+                  
                   </div>
                   {!projectCategory.length == 0 && (
                     <div className="animated animatedFadeInUp fadeInUp">
