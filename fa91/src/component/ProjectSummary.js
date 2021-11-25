@@ -1,15 +1,14 @@
 import Avatar from "./Avatar";
-import {useState} from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useAuthContext } from "./hook/useAuthContext";
 import { useFirestore } from "./hook/useFirestore";
 import { timestamp } from "../firebase/firebase";
 import { Link } from "react-router-dom";
-
+import { useThemeContext } from "./hook/useThemeContext";
 
 export default function ProjectSummary({ project }) {
   const { response, updateDocumentField } = useFirestore("projects");
-  
+  const { isLightTheme } = useThemeContext();
 
   const { user } = useAuthContext();
 
@@ -36,7 +35,12 @@ export default function ProjectSummary({ project }) {
 
   return (
     <div className="project-summary mt-1">
-      <div className="card my-3 bg-light " key={project.id}>
+      <div
+        className={`${
+          isLightTheme ? "bg-white text-dark" : "bg-dark text-light"
+        } card bg-opacity-75 bg-gradient shadow-sm p-3 mb-3 mt-2`}
+        key={project.id}
+      >
         <div className="card-body ">
           <h5 className="card-title text-primary text-center text-capitalize">
             {project.projectName}
@@ -69,12 +73,12 @@ export default function ProjectSummary({ project }) {
           </div>
           <hr />
           {project.projectDuration.toDate() < new Date() ? (
-            <p class="note note-danger">
+            <p>
               <strong>Description :</strong>
               {project.projectDescription}
             </p>
           ) : (
-            <p class="note note-primary">
+            <p>
               <strong>Description :</strong>
               {project.projectDescription}
             </p>
@@ -119,7 +123,6 @@ export default function ProjectSummary({ project }) {
                 Bidded
               </button>
             )}
-           
           </div>
         </div>
       </div>

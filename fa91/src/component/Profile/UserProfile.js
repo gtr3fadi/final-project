@@ -223,7 +223,7 @@ export default function UserProfile({ doc }) {
           <hr />
 
           <div className="row col-12 m-auto">
-            <div className="col-md-6">
+            <div className="col-11 m-auto">
               {!doc.recentWork && user.uid !== doc.id && (
                 <span
                   className={`${isLightTheme ? "text-muted" : "text-dark"}`}
@@ -243,7 +243,6 @@ export default function UserProfile({ doc }) {
                       className={`${
                         isLightTheme ? "bg-light " : "bg-dark"
                       } shadow rounded p-2 mb-2 bg-opacity-75 bg-gradient card `}
-                      
                     >
                       <div className="card-body">
                         {user.uid === doc.id && (
@@ -258,11 +257,19 @@ export default function UserProfile({ doc }) {
                             }}
                           ></i>
                         )}
-                        <h5 className="card-title text-capitalize">{work.title}</h5>
+                        <h5 className="card-title text-capitalize">
+                          {work.title}
+                        </h5>
                         <p className="card-text">{work.description}</p>
-                        <a href={work.link} className="btn btn-primary">
-                          Go to project
-                        </a>
+                        <div className="row ">
+                          <a
+                            target="_blank"
+                            href={work.link}
+                            className="btn btn-primary col-11 col-md-4"
+                          >
+                            Go to project
+                          </a>
+                        </div>
                       </div>
                     </div>
                   ))}
