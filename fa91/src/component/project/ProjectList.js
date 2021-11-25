@@ -4,8 +4,7 @@ import Avatar from "../Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useThemeContext } from "../hook/useThemeContext";
 import { useAuthContext } from "../hook/useAuthContext";
-import DeleteModal from "../DeleteModal";
-import UpdateModal from "../UpdateModal";
+
 
 export default function ProjectList({ data }) {
   const { user } = useAuthContext();

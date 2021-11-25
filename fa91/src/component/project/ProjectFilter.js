@@ -31,7 +31,6 @@ export default function ProjectFilter({ currentFilter, changeFilter }) {
                   : " btn btn-danger btn-sm col ms-1"
               }
               type="button"
-              key={filter}
             >
               {filter}
             </button>

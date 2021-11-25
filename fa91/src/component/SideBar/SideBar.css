@@ -49,7 +49,7 @@
           transition-delay: 0.1s;
   position: absolute;
   top: 5px;
-  left: 60px;
+  left: 55px;
   width: 145px;
   cursor: pointer;
 }
@@ -247,7 +247,7 @@
   opacity: 1;
   position: absolute;
   top: 5px;
-  left: 70px;
+  left: 55px;
   width: 145px;
   color: #1266f1;
 }
@@ -394,7 +394,7 @@
           transition-delay: 0.1s;
   position: absolute;
   top: 5px;
-  left: 70px;
+  left: 55px;
   width: 145px;
 }
 

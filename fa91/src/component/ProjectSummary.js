@@ -35,7 +35,7 @@ export default function ProjectSummary({ project }) {
   };
 
   return (
-    <div className="project-summary mt-5">
+    <div className="project-summary mt-1">
       <div className="card my-3 bg-light " key={project.id}>
         <div className="card-body ">
           <h5 className="card-title text-primary text-center text-capitalize">

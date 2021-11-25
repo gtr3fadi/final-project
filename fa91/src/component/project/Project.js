@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { projectFirestore } from "../../firebase/firebase";
+import React, {  useState } from "react";
 import { useCollection } from "../hook/useCollection";
 import { useAuthContext } from "../hook/useAuthContext";
 import ProjectFilter from "./ProjectFilter";

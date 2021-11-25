@@ -102,7 +102,8 @@ export default function UserProfile({ doc }) {
           {!doc.skills && user.uid !== doc.id && (
             <span className="text-muted">Not Added yet</span>
           )}
-          {!doc.skills || doc.skills.length === 0 && user.uid === doc.id && (  
+          {!doc.skills ||
+            (doc.skills.length === 0 && user.uid === doc.id && (
               <>
                 <Select
                   classNamePrefix="select"
@@ -124,7 +125,7 @@ export default function UserProfile({ doc }) {
                   <button className="btn btn-primary ">Update</button>
                 </form>
               </>
-            )}
+            ))}
 
           <hr />
         </div>
@@ -221,48 +222,62 @@ export default function UserProfile({ doc }) {
           )}
           <hr />
 
-          <table className="table table-hover table-striped ">
-            <tbody>
-              {!doc.recentWork && (
-                <tr>
-                  <td className={isLightTheme ? "text-muted" : "text-light"}>
-                    No Recent Work Added Yet
-                  </td>
-                </tr>
+          <div className="row col-12 m-auto">
+            <div className="col-md-6">
+              {!doc.recentWork && user.uid !== doc.id && (
+                <span
+                  className={`${isLightTheme ? "text-muted" : "text-dark"}`}
+                >
+                  Not Added yet
+                </span>
               )}
               {doc.recentWork &&
-                doc.recentWork.map((work) => (
-                  <tr>
-                    <td>
-                      {doc.id === user.uid && (
-                        <i
-                          onClick={() => {
-                            updateDocumentField(doc.id, {
-                              recentWork: doc.recentWork.filter(
-                                (w) => w.id !== work.id
-                              ),
-                            });
-                          }}
-                          className="fa fa-times float-end text-danger "
-                        ></i>
-                      )}
-                      <strong
-                        className={isLightTheme ? "text-dark" : "text-white"}
-                      >
-                        {work.title}
-                      </strong>{" "}
-                      <br />
-                      <p className="text-muted">{work.description}</p>
-                      <a href={work.link.substring(0, 20)} target="_blank">
-                        {work.link}
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+                doc.recentWork.length === 0 &&
+                user.uid === doc.id && (
+                  <span className="text-muted">Not Added yet</span>
+                )}
+              {doc.recentWork && doc.recentWork.length > 0 && (
+                <>
+                  {doc.recentWork.map((work) => (
+                    <div
+                      className={`${
+                        isLightTheme ? "bg-light " : "bg-dark"
+                      } shadow rounded p-2 mb-2 bg-opacity-75 bg-gradient card `}
+                      
+                    >
+                      <div className="card-body">
+                        {user.uid === doc.id && (
+                          <i
+                            className="fa fa-times float-end text-danger hover-text-danger"
+                            onClick={() => {
+                              updateDocumentField(doc.id, {
+                                recentWork: doc.recentWork.filter(
+                                  (w) => w.id !== work.id
+                                ),
+                              });
+                            }}
+                          ></i>
+                        )}
+                        <h5 className="card-title text-capitalize">{work.title}</h5>
+                        <p className="card-text">{work.description}</p>
+                        <a href={work.link} className="btn btn-primary">
+                          Go to project
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
   );
-}
+};
+
+
+
+
+
+

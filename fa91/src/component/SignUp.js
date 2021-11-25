@@ -59,7 +59,7 @@ export default function SignUp() {
             return
         }
         if (!thumbnail) {
-            setThumbnailError("Please upload a thumbnail")
+            setThumbnailError("Please upload an image")
             return
         }
         
@@ -198,9 +198,9 @@ export default function SignUp() {
                     <div className="alert alert-danger">{thumbnailError}</div>
                   )}
                 </div>
-                <div className="form-group mt-5">
+                <div className="form-group mt-5 row">
                   <button
-                    className="btn  w-25 m-auto btn-lg btn-primary btn-block"
+                    className="btn col-10 col-sm-8 col-md-6   m-auto btn-lg btn-primary "
                     type="submit"
                     disabled={isPending}
                   >

@@ -289,18 +289,18 @@ export default function Profile() {
           >
             <div className="card-body">
               <div className="row justify-content-around mb-1 ">
-                <div className="col-6">
+                <div className="col-sm-6 col-12 mb-2 ">
                   <button
-                    className="btn btn-primary btn-block"
+                    className="btn btn-primary btn-block "
                     onClick={() => setShow(true)}
                   >
                     profile <i className="fas fa-user-circle"></i>
                   </button>
                 </div>
                 {user.uid === doc.id && (
-                  <div className="col-6">
+                  <div className="col-sm-6 col-12">
                     <button
-                      className="btn btn-primary btn-block"
+                      className="btn btn-primary  btn-block "
                       onClick={() => setShow(false)}
                     >
                       edit profile <i className="fas fa-user-edit"></i>
