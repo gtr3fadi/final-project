@@ -1,22 +1,24 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useThemeContext } from "./hook/useThemeContext";
 
-import { motion } from 'framer-motion';
-import { projectFirestore } from '../firebase/firebase';
-import { useState} from 'react';
-
-
-export default function DeleteModal({ setDeleteModal, id }) {
-   const [isLoading, setIsLoading] = useState(false);
-
-    const handelClick = async (id) => {
-        setIsLoading(true);
-         
-        await projectFirestore.collection("projects").doc(id).delete();
-        setIsLoading(false);
-        setDeleteModal(false);
-     };
-
-
-
+export default function RWdeleteModule({
+  id,
+  setRWdelete,
+  doc,
+  work,
+  updateDocumentField,
+}) {
+  const [isLoading, setIsLoading] = useState(false);
+  const { isLightTheme } = useThemeContext();
+  const handelClick = async () => {
+    setIsLoading(true);
+    await updateDocumentField(id, {
+      recentWork: doc.recentWork.filter((w) => w.id !== work.id),
+    });
+    setIsLoading(false);
+    setRWdelete(false);
+  };
 
   return (
     <div
@@ -51,7 +53,7 @@ export default function DeleteModal({ setDeleteModal, id }) {
         transition={{ duration: 0.5 }}
       >
         <div
-          className="bg-white rounded shadow-lg p-2 m-2"
+          className="bg-light rounded shadow-lg p-2 m-2"
           style={{
             width: "400px",
             height: "200px",
@@ -61,30 +63,25 @@ export default function DeleteModal({ setDeleteModal, id }) {
             alignItems: "center",
           }}
         >
-          <h5 className="text-center">
-            Are you sure you want to delete this project?
+          <h5 className="text-center text-dark">
+            Are you sure you want to delete this recent work?
           </h5>
           <hr className="my-2 w-100" />
           <div className="d-flex justify-content-between mt-2">
-            <button
-              onClick={() => { handelClick(id)}}
-              className="btn btn-danger mx-2"
-            >
+            <button onClick={handelClick} className="btn btn-danger mx-2">
               Yes
             </button>
             <button
               onClick={() => {
-                setDeleteModal(false);
+                setRWdelete(false);
               }}
               className="btn btn-secondary mx-2"
             >
               No
-                      </button>
-                      {isLoading && <div className="spinner-border text-primary" role="status"> </div>}
+            </button>
           </div>
         </div>
       </motion.div>
     </div>
   );
 }
-          

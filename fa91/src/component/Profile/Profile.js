@@ -136,35 +136,37 @@ export default function Profile() {
                   </form>
                 )}
               </div>
-              <div className="card-body"
-              >
-                <div className="row mb-4">
-                  <div className="col-6">
-                    {doc.followers
-                      .map((follower) => follower.id)
-                      .filter((follow) => follow == user.uid).length === 0 ? (
-                      <button
-                        className="btn btn-primary btn-block text-capitalize"
-                        onClick={toggoleFollow}
-                        disabled={user.uid === doc.id}
-                      >
-                        Follow <i className="fas fa-user-plus"></i>
+              <div className="card-body">
+                {user.uid == doc.id ?(
+                  null
+                ) : (
+                  <div className="row mb-4">
+                    <div className="col-6">
+                      {doc.followers
+                        .map((follower) => follower.id)
+                        .filter((follow) => follow == user.uid).length === 0 ? (
+                        <button
+                          className="btn btn-primary btn-block text-capitalize"
+                          onClick={toggoleFollow}
+                        >
+                          Follow <i className="fas fa-user-plus"></i>
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-danger btn-block text-capitalize  "
+                          onClick={toggoleFollow}
+                        >
+                          Unfollow <i className="fas fa-user-minus"></i>
+                        </button>
+                      )}
+                    </div>
+                    <div className="col-6">
+                      <button className="btn btn-primary btn-block">
+                        <i className="fas fa-comment-alt"></i> Message
                       </button>
-                    ) : (
-                      <button
-                        className="btn btn-danger btn-block text-capitalize  "
-                        onClick={toggoleFollow}
-                      >
-                        Unfollow <i className="fas fa-user-minus"></i>
-                      </button>
-                    )}
+                    </div>
                   </div>
-                  <div className="col-6">
-                    <button className="btn btn-primary btn-block">
-                      <i className="fas fa-comment-alt"></i> Message
-                    </button>
-                  </div>
-                </div>
+                )}
                 <ul className="list-group shadow-none">
                   <li className="list-group-item">
                     <div className="list-details">
@@ -282,7 +284,6 @@ export default function Profile() {
 
         <div className="col-lg-8 mt-5 mb-2">
           <div
-           
             className={`${
               isLightTheme ? "bg-light text-dark" : "bg-dark text-light shadow"
             } card bg-opacity-50 bg-gradient z-depth-3`}

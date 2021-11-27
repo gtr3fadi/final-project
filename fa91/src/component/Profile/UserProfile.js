@@ -6,6 +6,7 @@ import { useCollection } from "../hook/useCollection";
 import { useFirestore } from "../hook/useFirestore";
 import { v4 as uuidv4 } from "uuid";
 import { useThemeContext } from "../hook/useThemeContext";
+import RWdeleteModule from "../RWdeleteModule";
 
 export default function UserProfile({ doc }) {
   const { isLightTheme } = useThemeContext();
@@ -16,13 +17,14 @@ export default function UserProfile({ doc }) {
   const [about, setAbout] = useState("");
   const [skills, setSkills] = useState("");
   const [selectValue, setSelectValue] = useState([]);
-  console.log(selectValue);
+  const [RWdelete, setRWdelete] = useState(false);
+  
 
   const sk = selectValue.map((item) => {
     return item.value;
   });
 
-  console.log(sk);
+ 
 
   const [RecentWorkTitle, setRecentWorkTitle] = useState("");
   const [RecentWorkError, setRecentWorkError] = useState(null);
@@ -224,18 +226,17 @@ export default function UserProfile({ doc }) {
 
           <div className="row col-12 m-auto">
             <div className="col-11 m-auto">
-              {!doc.recentWork && user.uid !== doc.id && (
-                <span
-                  className={`${isLightTheme ? "text-muted" : "text-dark"}`}
-                >
-                  Not Added yet
-                </span>
-              )}
-              {doc.recentWork &&
-                doc.recentWork.length === 0 &&
-                user.uid === doc.id && (
-                  <span className="text-muted">Not Added yet</span>
+              {(!doc.recentWork || !doc.recentWork.length) &&
+                user.uid !== doc.id && (
+                  <span
+                    className={`${
+                      isLightTheme ? "text-muted" : "text-white-50"
+                    }`}
+                  >
+                    Not Added yet
+                  </span>
                 )}
+
               {doc.recentWork && doc.recentWork.length > 0 && (
                 <>
                   {doc.recentWork.map((work) => (
@@ -246,16 +247,23 @@ export default function UserProfile({ doc }) {
                     >
                       <div className="card-body">
                         {user.uid === doc.id && (
-                          <i
-                            className="fa fa-times float-end text-danger hover-text-danger"
-                            onClick={() => {
-                              updateDocumentField(doc.id, {
-                                recentWork: doc.recentWork.filter(
-                                  (w) => w.id !== work.id
-                                ),
-                              });
-                            }}
-                          ></i>
+                          <>
+                            <button
+                              className=" float-end btn btn-sm bg-danger text-light"
+                              onClick={() => setRWdelete(true)}
+                            >
+                              <i className="fa fa-times"></i>
+                            </button>
+                            {RWdelete && (
+                              <RWdeleteModule
+                                work={work}
+                                doc={doc}
+                                setRWdelete={setRWdelete}
+                                id={doc.id}
+                                updateDocumentField={updateDocumentField}
+                              />
+                            )}
+                          </>
                         )}
                         <h5 className="card-title text-capitalize">
                           {work.title}
@@ -281,10 +289,4 @@ export default function UserProfile({ doc }) {
       </div>
     </>
   );
-};
-
-
-
-
-
-
+}

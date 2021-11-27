@@ -258,6 +258,15 @@ export default function SideBar() {
           </li>
         </ul>
       </motion.div>
+      <section
+        onClick={() => {
+          document
+            .querySelector(".sidebar")
+            .setAttribute("class", "sidebar hideNav")
+        }}
+        className="home-section">
+
+      </section>
   
     </>
   );

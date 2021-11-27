@@ -70,6 +70,9 @@
         a {
           .link_name {
             color: #fff;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: italic;
           }
         }
       }
@@ -97,7 +100,7 @@
         align-items: center;
         text-decoration: none;
         .link_name {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 400;
           color: #000;
           transition: all 0.4s ease;
@@ -202,6 +205,7 @@
       a .link_name {
         opacity: 0;
         pointer-events: none;
+       
       }
       i {
         color: #1266f1;
@@ -223,10 +227,12 @@
         transition: 0s;
         text-align: center;
         .link_name {
-          font-size: 18px;
+          font-size: 16px;
+          font-weight: 350;
+          font-style: italic;
           opacity: 1;
           display: block;
-          margin: 10px 20px;
+          margin: 8px 20px;
         }
       }
       &:hover {
@@ -278,12 +284,19 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba($color: #000000, $alpha: 0.2);
+  bottom: 0;
+  right: 0;
   z-index: 9990;
 }
 .sidebar.closeNav ~ .home-section {
+    position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9990;
+}
+.sidebar.hideNav ~ .home-section {
   display: none;
 }
 
