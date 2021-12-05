@@ -1,7 +1,6 @@
 import React from "react";
 import { useCollection } from "./hook/useCollection";
 import { useAuthContext } from "./hook/useAuthContext";
-import { useFirestore } from "./hook/useFirestore";
 import ProjectList from "./project/ProjectList";
 
 const MyProject = () => {

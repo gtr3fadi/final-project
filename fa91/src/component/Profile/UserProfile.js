@@ -18,13 +18,10 @@ export default function UserProfile({ doc }) {
   const [skills, setSkills] = useState("");
   const [selectValue, setSelectValue] = useState([]);
   const [RWdelete, setRWdelete] = useState(false);
-  
 
   const sk = selectValue.map((item) => {
     return item.value;
   });
-
- 
 
   const [RecentWorkTitle, setRecentWorkTitle] = useState("");
   const [RecentWorkError, setRecentWorkError] = useState(null);
@@ -65,7 +62,7 @@ export default function UserProfile({ doc }) {
       <h5 className="mt-3">User Profile</h5>
       <hr />
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-12">
           <h6 className="font-weight-bold">About Me</h6>
           {doc.about && <p className=" text-capitalize ">{doc.about}</p>}
           {!doc.about && user.uid !== doc.id && (
@@ -104,70 +101,33 @@ export default function UserProfile({ doc }) {
           {!doc.skills && user.uid !== doc.id && (
             <span className="text-muted">Not Added yet</span>
           )}
-          {!doc.skills ||
-            (doc.skills.length === 0 && user.uid === doc.id && (
-              <>
-                <Select
-                  classNamePrefix="select"
-                  defaultValue={selectValue}
-                  isMulti
-                  name="color"
-                  options={webDevList}
-                  onChange={(opt) => setSelectValue(opt)}
-                />
+          {(!doc.skills || doc.skills.length === 0) && user.uid === doc.id && (
+            <>
+              <Select
+                classNamePrefix="select"
+                defaultValue={selectValue}
+                isMulti
+                name="color"
+                options={webDevList}
+                onChange={(opt) => setSelectValue(opt)}
+              />
 
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    updateDocumentField(doc.id, {
-                      skills: sk,
-                    });
-                  }}
-                >
-                  <button className="btn btn-primary ">Update</button>
-                </form>
-              </>
-            ))}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  updateDocumentField(doc.id, {
+                    skills: sk,
+                  });
+                }}
+              >
+                <button className="btn btn-primary ">Update</button>
+              </form>
+            </>
+          )}
 
           <hr />
         </div>
-        <div className="col-md-6">
-          <h6>Recent </h6>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            html5
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            react
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            codeply
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            angularjs
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            css3
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            jquery
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            bootstrap
-          </a>
-          <a href="javascript:void();" className="badge badge-dark badge-pill">
-            responsive-design
-          </a>
-          <hr />
-          <span className="badge badge-primary">
-            <i className="fa fa-user"></i> 900 Followers
-          </span>
-          <span className="badge badge-success">
-            <i className="fa fa-cog"></i> 43 Forks
-          </span>
-          <span className="badge badge-danger">
-            <i className="fa fa-eye"></i> 245 Views
-          </span>
-        </div>
+
         <div className="col-md-12">
           <h5 className="mt-2 mb-3">
             <span className="fa fa-clock-o ion-clock float-right"></span> Recent
@@ -180,7 +140,7 @@ export default function UserProfile({ doc }) {
                 {RecentWorkError && (
                   <p className="text-danger">{RecentWorkError}</p>
                 )}
-                <label>
+                <label className="w-100">
                   <span className="fa fa-pencil">Title</span>
                   <input
                     placeholder="Enter Title"
@@ -192,7 +152,7 @@ export default function UserProfile({ doc }) {
                 </label>
               </div>
               <div className="form-group">
-                <label>
+                <label className="w-100">
                   <span className="fa fa-pencil">Link</span>
                   <input
                     placeholder="https://example.com"
@@ -206,7 +166,7 @@ export default function UserProfile({ doc }) {
               </div>
 
               <div className="form-group">
-                <label>
+                <label className="w-100">
                   <span className="fa fa-pencil">Description</span>
                   <textarea
                     placeholder="Enter Description"
@@ -225,7 +185,7 @@ export default function UserProfile({ doc }) {
           <hr />
 
           <div className="row col-12 m-auto">
-            <div className="col-11 m-auto">
+            <div className="col-12 m-auto">
               {(!doc.recentWork || !doc.recentWork.length) &&
                 user.uid !== doc.id && (
                   <span
@@ -243,7 +203,7 @@ export default function UserProfile({ doc }) {
                     <div
                       className={`${
                         isLightTheme ? "bg-light " : "bg-dark"
-                      } shadow rounded p-2 mb-2 bg-opacity-75 bg-gradient card `}
+                      } shadow rounded p-1 mb-2 bg-opacity-75 bg-gradient card `}
                     >
                       <div className="card-body">
                         {user.uid === doc.id && (

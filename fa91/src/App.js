@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   BrowserRouter,
   Route,
@@ -7,9 +8,6 @@ import {
 } from "react-router-dom";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import NavBar from "./component/NavBar/NavBar";
-import { FaBeer, FaBars } from "react-icons/fa";
-import { motion } from "framer-motion";
-
 import ThemeContextProvider from "./Context/ThemeContext";
 import "./index.css";
 import Home from "./component/Home";
@@ -27,6 +25,11 @@ import FollowerList from "./component/Follow/FollowerList";
 
 function App() {
   const { AuthIsReady, user } = useAuthContext();
+ 
+
+
+
+
   return (
     <div className="App">
       {AuthIsReady && (

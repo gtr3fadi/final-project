@@ -1,5 +1,5 @@
 import { useAuthContext } from "../hook/useAuthContext";
-import {useThemeContext} from "../hook/useThemeContext";
+import { useThemeContext } from "../hook/useThemeContext";
 import { useCollection } from "../hook/useCollection";
 import ProfileAvatar from "./ProfileAvatar";
 import { useState, useEffect } from "react";
@@ -11,9 +11,10 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
+import PresenceState from "../Follow/PresenceState";
 
 export default function Profile() {
-  const {isLightTheme } = useThemeContext();
+  const { isLightTheme } = useThemeContext();
   const { id } = useParams();
   const [career, setCareer] = useState("");
   const [education, setEducation] = useState("");
@@ -28,6 +29,11 @@ export default function Profile() {
   //   : null;
 
   const { doc, isPending, error } = useDocument("users", id);
+  const { doc: userDoc } = useDocument("users", user.uid);
+  console.log(userDoc);
+
+  const userFollower = userDoc && userDoc.following;
+  console.log(userFollower);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -41,10 +47,8 @@ export default function Profile() {
     );
   }
 
-  const fa = doc.followers.find(follower => follower.id === user.uid);
-  console.log (fa);
-
-
+  const fa = doc.followers.find((follower) => follower.id === user.uid);
+  console.log(fa);
 
   const toggoleFollow = async () => {
     const followerToAdd = {
@@ -53,19 +57,19 @@ export default function Profile() {
     const followingToAdd = {
       id: id,
     };
-    
+
     if (
       !doc.followers ||
-      !doc.followers.find(follower => follower.id === user.uid)) 
-     {
+      !doc.followers.find((follower) => follower.id === user.uid)
+    ) {
       await updateDocumentField(doc.id, {
         followers: doc.followers
           ? [...doc.followers, followerToAdd]
           : [followerToAdd],
       });
       await updateDocumentField(user.uid, {
-        following: doc.following
-          ? [...doc.following, followingToAdd]
+        following: userDoc.following
+          ? [...userDoc.following, followingToAdd]
           : [followingToAdd],
       });
     } else {
@@ -75,17 +79,15 @@ export default function Profile() {
         ),
       });
       await updateDocumentField(user.uid, {
-        following: doc.following.filter((following) => following.id !== id),
+        following: userDoc.following.filter((following) => following.id !== id),
       });
     }
   };
 
-
-// Edit Profile function after save changes set show to false
+  // Edit Profile function after save changes set show to false
   const saveChanges = (Boolean) => {
     setShow(Boolean);
   };
-
 
   // fetching the user data projects from the database
 
@@ -100,6 +102,7 @@ export default function Profile() {
               <div className="card-body text-center bg-primary rounded-top">
                 <div className="user-box"></div>
                 <ProfileAvatar src={doc.photoURL} online={doc.online} />
+                <PresenceState uid={doc.id} />
                 <h5 className="mb-1 text-white text-capitalize">
                   {doc.fullName}
                 </h5>
@@ -137,9 +140,7 @@ export default function Profile() {
                 )}
               </div>
               <div className="card-body">
-                {user.uid == doc.id ?(
-                  null
-                ) : (
+                {user.uid == doc.id ? null : (
                   <div className="row mb-4">
                     <div className="col-6">
                       {doc.followers

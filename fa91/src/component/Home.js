@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+
 
 const divSpace = `<DivSpace/>`;
 const logo = "</>";
 
 const Home = () => {
+  
   return (
     <div
       style={{

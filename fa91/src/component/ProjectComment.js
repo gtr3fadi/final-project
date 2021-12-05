@@ -43,7 +43,7 @@ export default function ProjectComment({ project }) {
         {project.comments.map((comment) => (
           <li
             key={comment.id}
-            className="media mb-1  bg-light p-2  "
+            className="media mb-1 bg-light   p-2 "
             style={{ borderRadius: "10px" }}
           >
             <div className="row d-flex justify-content-between align-items-center mx-1 mb-0  ">

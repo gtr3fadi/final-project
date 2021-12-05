@@ -4,67 +4,56 @@ import { useCollection } from "../hook/useCollection";
 import { useState } from "react";
 import sty from "./Follower.module.css";
 import { Link } from "react-router-dom";
-import{motion} from "framer-motion"
-
-
-
-
-
-
-
+import { motion } from "framer-motion";
+import PresenceState from "./PresenceState";
 
 export default function FollowerList() {
-  const [show, setShow] = useState(false);
   const { user } = useAuthContext();
-  const { documents, error } = useCollection("users");
+
+  const [show, setShow] = useState(false);
+
+  const { documents } = useCollection("users");
   if (!documents) return <p className="spinner">Loading...</p>;
 
-  const userDoc = documents && user ? documents.find(doc => doc.id === user.uid) : null;
+  const userDoc =
+    documents && user ? documents.find((doc) => doc.id === user.uid) : null;
   const followers = userDoc ? userDoc.followers : null;
   const following = userDoc ? userDoc.following : null;
 
-  
-
   const follow = followers && following ? [...followers, ...following] : null;
-  const follower = follow ? follow.map(doc => doc.id): null;
+  const follower = follow ? follow.map((doc) => doc.id) : null;
   // remove duplicates
   const unique = follower ? [...new Set(follower)] : null;
-  const uniqueDoc = unique && documents ? documents.filter(doc => unique.includes(doc.id)) : null;
-  const followerList = uniqueDoc ? uniqueDoc.filter(doc => doc.id !== user.uid) : null;
-
-console.log(follow)
-console.log(follower)
-  console.log(unique)
-  console.log(uniqueDoc)
-  
-  console.log(followerList)
-
-
-  
-  
- 
-  
-
-  
-
-  const handelOnline = (id) => {
-    const userDoc = documents && user ? documents.find(doc => doc.id === id) : null;
-    console.log(userDoc);
-    const online = userDoc ? userDoc.online : null;
-    console.log(online);
-    if (online)
-      return <span className={sty.online}></span>;
-    
-  }
+  const uniqueDoc =
+    unique && documents
+      ? documents.filter((doc) => unique.includes(doc.id))
+      : null;
+  const followerList = uniqueDoc
+    ? uniqueDoc.filter((doc) => doc.id !== user.uid)
+    : null;
 
   return (
     <>
       {user && followerList && (
         <div className={sty.followerlist} onClick={() => setShow(!show)}>
-          <div className={sty.followerlistHeader}>
-            <div className={sty.followerlistHeaderTitle}>
-              <i className="fas fa-user-friends me-1"></i>
-              Followers
+          <div
+            className={sty.followerlistHeader}
+            style={{
+              width: show ? "150px" : " 50px",
+              transition: "all 0.7s",
+              borderRadius: show ? "15px" : "50%",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              className={sty.followerlistHeaderTitle}
+              style={{
+                transition: "all 0.7s",
+              }}
+            >
+              <i className="fas fa-user-friends ">
+                <span className="ps-1">{show ? "Followers" : ""}</span>
+              </i>
             </div>
           </div>
           {show && (
@@ -91,7 +80,7 @@ console.log(follower)
                         {doc.displayName}
                       </span>
                       <Avatar src={doc.photoURL} />
-                      {doc.online ? <span className={sty.online}></span> : null}
+                      <PresenceState uid={doc.uid} />
                     </Link>
                   </p>
                 </div>

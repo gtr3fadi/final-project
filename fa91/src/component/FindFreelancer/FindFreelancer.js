@@ -1,13 +1,9 @@
 import { useCollection } from "../hook/useCollection";
-import { useAuthContext } from "../hook/useAuthContext";
 import { useThemeContext } from "../hook/useThemeContext";
-import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
 
 export default function FindFreelancer() {
   const { isLightTheme } = useThemeContext();
-  const { user } = useAuthContext();
   const { documents, error } = useCollection("users");
   if (error) {
     return <div>Error</div>;

@@ -7,7 +7,6 @@ export default function LogIn() {
 
   const { login, error, isPending } = useLogin();
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
