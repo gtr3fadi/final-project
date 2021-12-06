@@ -1,3 +1,5 @@
+import AvatarUploadImage from "./AvatarUploadImage";
+
 export default function ProfileAvatar({src ,online}) {
      return (
        <div
@@ -13,7 +15,6 @@ export default function ProfileAvatar({src ,online}) {
          }}
        >
          <img
-           
            src={src}
            alt="avatar"
            style={{
@@ -34,13 +35,17 @@ export default function ProfileAvatar({src ,online}) {
                height: "20px",
                borderRadius: "50%",
                background: "#90EE02",
-                 zIndex: 1,
+               zIndex: 1,
                boxShadow: "0 0 10px #ccc , 0 0 20px #ccc",
              }}
-                 ></div>
-                
+           ></div>
          )}
+         
+           <AvatarUploadImage
+            
+           />
+        
        </div>
      );
-}
-      
+   }
+        

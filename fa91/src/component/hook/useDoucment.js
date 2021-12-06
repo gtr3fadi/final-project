@@ -24,6 +24,6 @@ export const useDocument = (collection, Id) => {
             setIsPending(false);
         });
         return () => unsubscribe();
-    }, [collection, Id]);
+    }, [collection, Id,]);
     return { doc, error, isPending };
 };

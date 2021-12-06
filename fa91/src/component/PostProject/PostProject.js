@@ -3,7 +3,7 @@ import { Link, useHistory, Redirect } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { useFirestore } from "../hook/useFirestore";
 import { useAuthContext } from "../hook/useAuthContext";
-import { timestamp } from "../../firebase/firebase";
+import { projectStorage, timestamp } from "../../firebase/firebase";
 import Select from "react-select";
 import { webDevList } from "../Profile/Skills";
 import { useThemeContext } from "../hook/useThemeContext";
@@ -29,6 +29,7 @@ export default function PostProject() {
   const sk = selectValue.map((item) => {
     return item.value;
   });
+
 
   const createdBy = {
     displayName: user.displayName,

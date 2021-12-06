@@ -6,6 +6,7 @@ import { timestamp } from "../firebase/firebase";
 import { Link } from "react-router-dom";
 import { useThemeContext } from "./hook/useThemeContext";
 import ProjectBidd from "./ProjectBidd";
+import { AvatarURL } from "./Profile/AvatarURL";
 
 export default function ProjectSummary({ project }) {
   const { response, updateDocumentField } = useFirestore("projects");
@@ -52,7 +53,10 @@ export default function ProjectSummary({ project }) {
                 to={`/profile/${project.createdBy.uid}`}
                 className="card-text col-md-4 col-12 m-0 d-flex justify-content-start align-items-center"
               >
-                <Avatar src={project.createdBy.photoURL} />
+                <Avatar
+                  uid={project.createdBy.uid}
+                  src={project.createdBy.photoURL}
+                />
                 <span className="text-capitalize ms-1 font-weight-bold">
                   {project.createdBy.displayName}
                 </span>

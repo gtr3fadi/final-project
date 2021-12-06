@@ -6,16 +6,13 @@ import {
 } from "../../firebase/firebase";
 import { useAuthContext } from "./useAuthContext";
 
-
-
 export const useSignUp = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
 
-
-  const signUp = async (email, password, displayName,thumbnail ,fullName) => {
+  const signUp = async (email, password, displayName, thumbnail, fullName) => {
     setError(null);
     setIsPending(true);
     try {
@@ -30,12 +27,14 @@ export const useSignUp = () => {
       }
 
       // upload image to firebase storage
-      const uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`
-      const image = await projectStorage.ref(uploadPath).put(thumbnail);
+      const uploadPath = `thumbnails/${res.user.uid}`;
+      const image = await projectStorage
+        .ref(uploadPath)
+        .child(`avatar`)
+        .put(thumbnail);
       const imgUrl = await image.ref.getDownloadURL();
 
       await res.user.updateProfile({ displayName, photoURL: imgUrl });
-
 
       // creat user document in firestore
       await projectFirestore.collection("users").doc(res.user.uid).set({
@@ -49,20 +48,16 @@ export const useSignUp = () => {
         following: [],
         followers: [],
       });
-        
 
-     
-     dispatch({
-       type: "LOGIN",
-       payload: res.user,
-     });
+      dispatch({
+        type: "LOGIN",
+        payload: res.user,
+      });
 
       if (!isCancelled) {
         setIsPending(false);
         setError(null);
       }
-
-      
     } catch (error) {
       if (!isCancelled) {
         console.log(error.message);

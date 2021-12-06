@@ -1,17 +1,17 @@
 import { useAuthContext } from "../hook/useAuthContext";
 import { useThemeContext } from "../hook/useThemeContext";
-import { useCollection } from "../hook/useCollection";
 import ProfileAvatar from "./ProfileAvatar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useFirestore } from "../hook/useFirestore";
 import { useParams } from "react-router";
 import ProfileProject from "./ProfileProject";
 import { useDocument } from "../hook/useDoucment";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-
+import { AvatarURL } from "./AvatarURL";
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
 import PresenceState from "../Follow/PresenceState";
+import { projectStorage } from "../../firebase/firebase";
 
 export default function Profile() {
   const { isLightTheme } = useThemeContext();
@@ -23,10 +23,7 @@ export default function Profile() {
   const [show, setShow] = useState(true);
   const { updateDocumentField, response } = useFirestore("users");
   const { user } = useAuthContext();
-  // const { documents, error } = useCollection("users");
-  // const doc = documents
-  //   ? documents.filter((doc) => doc.id === id)[0]
-  //   : null;
+ 
 
   const { doc, isPending, error } = useDocument("users", id);
   const { doc: userDoc } = useDocument("users", user.uid);
@@ -89,9 +86,9 @@ export default function Profile() {
     setShow(Boolean);
   };
 
-  // fetching the user data projects from the database
+  
+ 
 
-  console.log(doc);
 
   return (
     <div className="container py-2">
