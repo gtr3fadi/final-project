@@ -63,6 +63,7 @@ export const AuthContextProvider = ({ children }) => {
               userStatusDatabaseRef.set(isOnlineForDatabase);
             });
         });
+      
     });
 
     return () => {

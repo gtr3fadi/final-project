@@ -7,11 +7,9 @@ import { useParams } from "react-router";
 import ProfileProject from "./ProfileProject";
 import { useDocument } from "../hook/useDoucment";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import { AvatarURL } from "./AvatarURL";
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
 import PresenceState from "../Follow/PresenceState";
-import { projectStorage } from "../../firebase/firebase";
 
 export default function Profile() {
   const { isLightTheme } = useThemeContext();
@@ -86,7 +84,9 @@ export default function Profile() {
     setShow(Boolean);
   };
 
-  
+ 
+
+
  
 
 
@@ -98,8 +98,7 @@ export default function Profile() {
             <div className="card shadow">
               <div className="card-body text-center bg-primary rounded-top">
                 <div className="user-box"></div>
-                <ProfileAvatar src={doc.photoURL} online={doc.online} />
-                <PresenceState uid={doc.id} />
+                <ProfileAvatar src={doc.photoURL}  uid={doc.id}  user={user}/>
                 <h5 className="mb-1 text-white text-capitalize">
                   {doc.fullName}
                 </h5>

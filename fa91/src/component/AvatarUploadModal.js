@@ -39,6 +39,7 @@ export default function AvatarUploadModal({ img, setShowModal }) {
       await user.updateProfile({ photoURL: avatarUrl });
       setIsLoading(false);
       setShowModal(false);
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }

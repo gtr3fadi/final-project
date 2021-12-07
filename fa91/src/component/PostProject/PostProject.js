@@ -14,6 +14,7 @@ export default function PostProject() {
   const { user } = useAuthContext();
   const history = useHistory();
   const [isPending, setIsPending] = useState(false);
+  const [imgURL, setImgURL] = useState("");
 
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
@@ -30,10 +31,24 @@ export default function PostProject() {
     return item.value;
   });
 
+  const imgPath = projectStorage
+    .ref(`/avatars/${user.uid}`)
+    .listAll()
+    .then((res) => {
+      console.log(res);
+      res.items.forEach(async (itemRef) => {
+        const url = await itemRef.getDownloadURL();
+        console.log(url);
+        setImgURL(url);
+      });
+    });
+
+  const imgChild = projectStorage.ref(`/avatars/${user.uid}`).child(`avatar`);
+  console.log(imgChild);
 
   const createdBy = {
     displayName: user.displayName,
-    photoURL: user.photoURL,
+    photoURL: imgURL,
     uid: user.uid,
   };
 

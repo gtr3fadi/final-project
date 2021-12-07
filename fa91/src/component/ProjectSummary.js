@@ -6,7 +6,6 @@ import { timestamp } from "../firebase/firebase";
 import { Link } from "react-router-dom";
 import { useThemeContext } from "./hook/useThemeContext";
 import ProjectBidd from "./ProjectBidd";
-import { AvatarURL } from "./Profile/AvatarURL";
 
 export default function ProjectSummary({ project }) {
   const { response, updateDocumentField } = useFirestore("projects");
