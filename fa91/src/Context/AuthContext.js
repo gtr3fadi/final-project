@@ -28,12 +28,12 @@ export const AuthReducer = (state, action) => {
 const isOfflineForDatabase = {
   state: "offline",
   last_changed: firebase.database.ServerValue.TIMESTAMP,
-};
+ };
 
 const isOnlineForDatabase = {
   state: "online",
   last_changed: firebase.database.ServerValue.TIMESTAMP,
-};
+ };
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, {
@@ -63,6 +63,9 @@ export const AuthContextProvider = ({ children }) => {
               userStatusDatabaseRef.set(isOnlineForDatabase);
             });
         });
+      
+      
+      
       
     });
 

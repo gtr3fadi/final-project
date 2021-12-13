@@ -48,7 +48,9 @@ export default function ProjectComment({ project }) {
           >
             <div className="row d-flex justify-content-between align-items-center mx-1 mb-0  ">
               <div className="media-body col-12 col-md-6 d-flex justify-content-start align-items-center   ">
-                <Avatar src={comment.PhotoURL} />
+                <Avatar
+                  uid={comment.userId}
+                  src={comment.PhotoURL} />
                 <Link to={`/profile/${comment.userId}`}>
                   <h6 className="m-0  mx-1">{comment.displayName}</h6>
                 </Link>

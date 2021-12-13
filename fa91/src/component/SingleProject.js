@@ -6,7 +6,6 @@ import ProjectSummary from "./ProjectSummary";
 import UpdateModal from "./UpdateModal";
 import { useAuthContext } from "./hook/useAuthContext";
 import DeleteModal from "./DeleteModal";
-import ProjectBidd from "./ProjectBidd";
 
 export default function SingleProject() {
   const { id } = useParams();

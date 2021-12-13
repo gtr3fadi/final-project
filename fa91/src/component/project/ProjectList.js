@@ -5,7 +5,6 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useThemeContext } from "../hook/useThemeContext";
 import { useAuthContext } from "../hook/useAuthContext";
 
-
 export default function ProjectList({ data }) {
   const { user } = useAuthContext();
   const { isLightTheme } = useThemeContext();
@@ -57,7 +56,7 @@ export default function ProjectList({ data }) {
                     to={`/profile/${project.createdBy.uid}`}
                     className="d-flex justify-content-start align-items-center"
                   >
-                    <Avatar src={project.createdBy.photoURL} />
+                    <Avatar uid={project.uid} />
                     <span className="text-capitalize ms-1 font-weight-bold">
                       {project.createdBy.displayName}
                     </span>
@@ -128,10 +127,7 @@ export default function ProjectList({ data }) {
                   Bidded : ({project.bidd.length})
                 </small>
               </p>
-              
-             
 
-             
               <Link
                 to={`/project/${project.id}`}
                 className="btn btn-success col-8 col-md-5 mx-1 "

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSignUp } from "./hook/useSignUp";
 import { useThemeContext } from "./hook/useThemeContext";
-
+import { projectStorage } from "../firebase/firebase";
 export default function SignUp() {
   const { isLightTheme } = useThemeContext();
 
@@ -15,10 +15,27 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [cofirmPasswordError, setCofirmPasswordError] = useState(null);
-  const [thumbnail, setThumbnail] = useState("");
-  const [thumbnailError, setThumbnailError] = useState(null);
+  // const [thumbnail, setThumbnail] = useState("");
+  // const [thumbnailError, setThumbnailError] = useState(null);
 
   const { signUp, error, isPending } = useSignUp();
+
+    const [imgURL, setImgURL] = useState("");
+
+
+     const imgPath = projectStorage
+       .ref(`/newuser`)
+       .listAll()
+       .then((res) => {
+         console.log(res);
+         res.items.forEach(async (itemRef) => {
+           const url = await itemRef.getDownloadURL();
+           console.log(url);
+           setImgURL(url);
+         });
+       });
+
+     console.log(imgURL);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +44,7 @@ export default function SignUp() {
     setEmailError(null);
     setPasswordError(null);
     setCofirmPasswordError(null);
-    setThumbnailError(null);
+    // setThumbnailError(null);
 
     if (fullName.length < 3) {
       setFullNameError("Full name must be at least 3 characters");
@@ -53,33 +70,34 @@ export default function SignUp() {
       setCofirmPasswordError("Password does not match");
       return;
     }
-    if (!thumbnail) {
-      setThumbnailError("Please upload an image");
-      return;
-    }
+    // if (!thumbnail) {
+    //   setThumbnailError("Please upload an image");
+    //   return;
+    // }
 
-    signUp(email, password, userName, thumbnail, fullName);
+    signUp(email, password, userName, imgURL, fullName);
   };
 
-  const handelChangeFile = (e) => {
-    e.preventDefault();
-    setThumbnail(null);
-    let selected = e.target.files[0];
-    if (!selected) {
-      setThumbnailError("Please select a file");
-      return;
-    }
-    if (!selected.type.includes("image")) {
-      setThumbnailError("Please select an image file");
-      return;
-    }
-    if (selected.size > 1000000) {
-      setThumbnailError("Please select a file less than 1mb");
-      return;
-    }
-    setThumbnailError(null);
-    setThumbnail(selected);
-  };
+  // const handelChangeFile = (e) => {
+  //   e.preventDefault();
+  //   setThumbnail(null);
+  //   let selected = e.target.files[0];
+  //   if (!selected) {
+  //     setThumbnailError("Please select a file");
+  //     return;
+  //   }
+  //   if (!selected.type.includes("image")) {
+  //     setThumbnailError("Please select an image file");
+  //     return;
+  //   }
+  //   if (selected.size > 1000000) {
+  //     setThumbnailError("Please select a file less than 1mb");
+  //     return;
+  //   }
+  //   setThumbnailError(null);
+  //   setThumbnail(selected);
+  // };
+  // console.log(thumbnail);
 
   return (
     <div>
@@ -166,7 +184,7 @@ export default function SignUp() {
                   </div>
                 )}
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="thumbnail">Profile Image</label>
                 <input
                   type="file"
@@ -177,7 +195,7 @@ export default function SignUp() {
                 {thumbnailError && (
                   <div className="alert alert-danger">{thumbnailError}</div>
                 )}
-              </div>
+              </div> */}
               <div className="form-group mt-5 row">
                 <button
                   className="btn col-10 col-sm-8 col-md-6   m-auto btn-lg btn-primary "

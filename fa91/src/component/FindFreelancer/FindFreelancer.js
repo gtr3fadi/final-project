@@ -1,8 +1,13 @@
 import { useCollection } from "../hook/useCollection";
 import { useThemeContext } from "../hook/useThemeContext";
 import { Link } from "react-router-dom";
+import Avatar from "../Avatar";
+
+
+
 
 export default function FindFreelancer() {
+  
   const { isLightTheme } = useThemeContext();
   const { documents, error } = useCollection("users");
   if (error) {
@@ -45,11 +50,8 @@ export default function FindFreelancer() {
                   >
                     <div className="row">
                       <div className="col-12 text-center">
-                        <img
-                          src={user.photoURL}
-                          className="img-fluid w-50 rounded-circle border border-1 shadow"
-                          alt="..."
-                        />
+                        <Avatar uid={user.uid} width={"150px"} />
+                        
                       </div>
                       <div className="col-12 text-center">
                         <h5 className="card-title text-capitalize mb-0 mt-2">

@@ -7,6 +7,7 @@ import { projectStorage, timestamp } from "../../firebase/firebase";
 import Select from "react-select";
 import { webDevList } from "../Profile/Skills";
 import { useThemeContext } from "../hook/useThemeContext";
+import userImage from "../image/user.jpg";
 
 export default function PostProject() {
   const { isLightTheme } = useThemeContext();
@@ -42,13 +43,40 @@ export default function PostProject() {
         setImgURL(url);
       });
     });
+  
+  console.log("user image",userImage)
 
-  const imgChild = projectStorage.ref(`/avatars/${user.uid}`).child(`avatar`);
-  console.log(imgChild);
+  // const imgUpload = () => {
+  //   const file = userImage;
+  //   const uploadTask = projectStorage.ref(`/avatars/${user.uid}`).put(file);
+  //   uploadTask.on( 
+  //     "state_changed",
+  //     (snapshot) => {
+  //       const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+  //       console.log(progress);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     },
+  //     () => {
+  //       projectStorage
+  //         .ref(`/avatars/${user.uid}`)
+  //         .getDownloadURL()
+  //         .then((url) => {
+  //           console.log(url);
+            
+  //         });
+  //     }
+  //   );
+  // };
+
+  // console.log("image upload",imgUpload());
+
+
 
   const createdBy = {
     displayName: user.displayName,
-    photoURL: imgURL,
+    photoURL: user.photoURL,
     uid: user.uid,
   };
 

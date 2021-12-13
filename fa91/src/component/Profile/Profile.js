@@ -10,6 +10,7 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
 import PresenceState from "../Follow/PresenceState";
+import { projectFirestore, projectStorage } from "../../firebase/firebase";
 
 export default function Profile() {
   const { isLightTheme } = useThemeContext();
@@ -21,7 +22,6 @@ export default function Profile() {
   const [show, setShow] = useState(true);
   const { updateDocumentField, response } = useFirestore("users");
   const { user } = useAuthContext();
- 
 
   const { doc, isPending, error } = useDocument("users", id);
   const { doc: userDoc } = useDocument("users", user.uid);
@@ -84,12 +84,6 @@ export default function Profile() {
     setShow(Boolean);
   };
 
- 
-
-
- 
-
-
   return (
     <div className="container py-2">
       <div className="row ">
@@ -98,7 +92,7 @@ export default function Profile() {
             <div className="card shadow">
               <div className="card-body text-center bg-primary rounded-top">
                 <div className="user-box"></div>
-                <ProfileAvatar src={doc.photoURL}  uid={doc.id}  user={user}/>
+                <ProfileAvatar src={doc.photoURL} uid={doc.id} user={user} />
                 <h5 className="mb-1 text-white text-capitalize">
                   {doc.fullName}
                 </h5>

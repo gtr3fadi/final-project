@@ -3,6 +3,7 @@ import {
   projectAuth,
   projectFirestore,
   projectStorage,
+  firebase,
 } from "../../firebase/firebase";
 import { useAuthContext } from "./useAuthContext";
 
@@ -12,7 +13,7 @@ export const useSignUp = () => {
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const signUp = async (email, password, displayName, thumbnail, fullName) => {
+  const signUp = async (email, password, displayName, imgURL, fullName) => {
     setError(null);
     setIsPending(true);
     try {
@@ -26,21 +27,23 @@ export const useSignUp = () => {
         throw new Error("Could not complete signup");
       }
 
-      // upload image to firebase storage
-      const uploadPath = `thumbnails/${res.user.uid}`;
-      const image = await projectStorage
-        .ref(uploadPath)
-        .child(`avatar`)
-        .put(thumbnail);
-      const imgUrl = await image.ref.getDownloadURL();
+      await res.user.updateProfile({ displayName});
 
-      await res.user.updateProfile({ displayName, photoURL: imgUrl });
+      // await projectStorage.ref(`images/${res.user.uid}`).put(imgURL);
+
+      // const userImageDatabaseRef = await firebase
+      //   .database()
+      //   .ref(`/images/${res.user.uid}`);
+      
+      // await userImageDatabaseRef.set({
+      //   avatar: imgURL,
+      // });
 
       // creat user document in firestore
       await projectFirestore.collection("users").doc(res.user.uid).set({
         displayName,
         online: true,
-        photoURL: imgUrl,
+        photoURL: res.user.photoURL,
         uid: res.user.uid,
         fullName,
         email,

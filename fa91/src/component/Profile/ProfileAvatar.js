@@ -1,7 +1,14 @@
+import Avatar from "../Avatar";
 import PresenceState from "../Follow/PresenceState";
 import AvatarUploadImage from "./AvatarUploadImage";
 
-export default function ProfileAvatar({ src ,uid, user}) {
+
+
+  
+
+export default function ProfileAvatar({ src, uid, user }) {
+ 
+  
   return (
     <div
       className="avatar "
@@ -15,16 +22,7 @@ export default function ProfileAvatar({ src ,uid, user}) {
         position: "relative",
       }}
     >
-      <img
-        src={src}
-        alt="avatar"
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "50%",
-          border: "2px solid #ccc",
-        }}
-      />
+      <Avatar uid={uid} width={"200px"} />
       <div
         style={{
           position: "absolute",

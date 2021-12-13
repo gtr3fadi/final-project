@@ -68,18 +68,18 @@ export default function FollowerList() {
                   className="follower-list-item"
                   key={doc.uid}
                   style={{
-                    padding: "10px",
+                    padding: "5px",
                   }}
                 >
-                  <p className="  d-flex justify-content-end align-items-center position-relative">
+                  <p className="  d-flex justify-content-end align-items-center position-relative m-0">
                     <Link
                       to={`/profile/${doc.uid}`}
                       className="d-flex justify-content-between align-items-center"
                     >
-                      <span className="text-capitalize ms-1 font-weight-bold">
-                        {doc.displayName}
+                      <span className="text-capitalize me-1 font-weight-bold">
+                        {doc.displayName.substring(0, 8)}
                       </span>
-                      <Avatar src={doc.photoURL} />
+                      <Avatar uid={doc.uid} />
                       <PresenceState uid={doc.uid} />
                     </Link>
                   </p>

@@ -34,6 +34,8 @@ export default function ProjectSummary({ project }) {
     });
   };
 
+
+
   return (
     <>
       <div className="project-summary mt-1">
@@ -52,10 +54,9 @@ export default function ProjectSummary({ project }) {
                 to={`/profile/${project.createdBy.uid}`}
                 className="card-text col-md-4 col-12 m-0 d-flex justify-content-start align-items-center"
               >
-                <Avatar
-                  uid={project.createdBy.uid}
-                  src={project.createdBy.photoURL}
-                />
+                
+                  <Avatar uid={project.uid}  />
+                
                 <span className="text-capitalize ms-1 font-weight-bold">
                   {project.createdBy.displayName}
                 </span>

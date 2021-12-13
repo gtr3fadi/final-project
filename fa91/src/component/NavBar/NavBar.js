@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
-import { Link ,NavLink} from "react-router-dom";
-import {
-  FaSun,
-  FaMoon,
-  FaUsers,
-  FaProjectDiagram,
-} from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import { FaSun, FaMoon, FaUsers, FaProjectDiagram } from "react-icons/fa";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { ThemeContext } from "../../Context/ThemeContext";
 import "./NavBar.css";
@@ -14,19 +9,18 @@ import Avatar from "../Avatar";
 import { motion } from "framer-motion";
 
 const NavBar = () => {
-  const {user}=useAuthContext()
-  
+  const { user } = useAuthContext();
+
   const { toggleTheme, isLightTheme } = useContext(ThemeContext);
-
-
 
   return (
     <div>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: .75 , ease: "easeOut", delay:2}} 
-        className="navbar">
+        transition={{ duration: 0.75, ease: "easeOut", delay: 2 }}
+        className="navbar"
+      >
         <div
           style={{
             width: "260px",
@@ -59,43 +53,37 @@ const NavBar = () => {
 
         <div className="user-tools col col-lg-2">
           {user && (
-            
-              <Link to={`/profile/${user.uid}`}>
-                <div className="user-login">
-                  <div className="user-name d-none d-md-flex">
-                    {" "}
-                    {user.displayName}
-                  </div>
-
-                  <Avatar src={user.photoURL} />
+            <Link to={`/profile/${user.uid}`}>
+              <div className="user-login">
+                <div className="user-name d-none d-md-flex">
+                  {" "}
+                  {user.displayName}
                 </div>
-              </Link>
-              
-            
+
+                <Avatar uid={user.uid} />
+              </div>
+            </Link>
           )}
           {!user && (
             <span className="user-tools-text">
-              <Link to="/login">Login</Link>/
-              <Link to="/signup">Register</Link>
+              <Link to="/login">Login</Link>/<Link to="/signup">Register</Link>
             </span>
           )}
         </div>
 
-        
-          <div className="theme-toggle col">
-            <button onClick={toggleTheme}>
-              {isLightTheme ? (
-                <span className="theme-toggle-text">
-                  <FaMoon color="black" /> 
-                </span>
-              ) : (
-                <span className="theme-toggle-text">
-                  <FaSun color="yellow " /> 
-                </span>
-              )}
-            </button>
-          </div>
-        
+        <div className="theme-toggle col">
+          <button onClick={toggleTheme}>
+            {isLightTheme ? (
+              <span className="theme-toggle-text">
+                <FaMoon color="black" />
+              </span>
+            ) : (
+              <span className="theme-toggle-text">
+                <FaSun color="yellow " />
+              </span>
+            )}
+          </button>
+        </div>
       </motion.nav>
     </div>
   );

@@ -23,7 +23,9 @@ export default function ProjectBidd({ project }) {
                 to={`/profile/${bidd.user}`}
                 className="card-text  m-0 d-flex justify-content-start align-items-center"
               >
-                <Avatar src={bidd.photoURL} />
+                <Avatar
+                  uid={bidd.user}
+                  src={bidd.photoURL} />
                 <span className="text-capitalize ms-1 font-weight-bold">
                   {bidd.displayName}
                 </span>
