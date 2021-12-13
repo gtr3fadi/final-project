@@ -1,4 +1,7 @@
 import { useOnlineState } from "../hook/useOnlineState";
+import { useState } from 'react';
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+
 
 
 
@@ -22,8 +25,19 @@ const getColor = (presence) => {
   return "transparent";
 };
 
+const getText = (presence) => {
+  if (!presence) {
+    return "unknown";
+  }
+
+  return presence.state === "online" ? "online" : `last seen ${formatDistanceToNow(new Date(presence.last_changed), { addSuffix: true })}`;
+};
+
+ 
+
 const PresenceState = ({ uid }) => {
   const presence = useOnlineState(uid);
+  const [show, setShow] = useState(true);
 
   return (
     <div
@@ -36,12 +50,18 @@ const PresenceState = ({ uid }) => {
         top: "24px",
         right: "-1px",
       }}
-      className="hover-pointer"
-      
+      onMouseOver={() => setShow(true)}
+      onMouseOut={() => setShow(false)}
+      data-toggle="tooltip"
+      data-placement="top"
+      title={getText(presence)}
     >
-     
+    
     </div>
   );
-};
+}
+
+     
+  
 
 export default PresenceState;

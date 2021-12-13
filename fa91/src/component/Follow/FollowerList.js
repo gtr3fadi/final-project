@@ -12,8 +12,8 @@ export default function FollowerList() {
 
   const [show, setShow] = useState(false);
 
-  const { documents } = useCollection("users");
-  if (!documents) return <p className="spinner">Loading...</p>;
+  const { documents,loading } = useCollection("users");
+  if (loading) return <p className="spinner">Loading...</p>;
 
   const userDoc =
     documents && user ? documents.find((doc) => doc.id === user.uid) : null;

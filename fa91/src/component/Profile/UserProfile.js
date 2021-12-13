@@ -147,12 +147,20 @@ export default function UserProfile({ doc }) {
                     value={RecentWorkTitle}
                     onChange={(e) => setRecentWorkTitle(e.target.value)}
                     type="text"
-                    className="form-control"
+                    className={`form-control ${
+                      isLightTheme
+                        ? "bg-white text-dark"
+                        : " bg-dark text-white"
+                    }`}
                   />
                 </label>
               </div>
               <div className="form-group">
-                <label className="w-100">
+                <label
+                  className={`w-100 ${
+                    isLightTheme ? "text-dark" : "text-white"
+                  }`}
+                >
                   <span className="fa fa-pencil">Link</span>
                   <input
                     placeholder="https://example.com"
@@ -160,7 +168,11 @@ export default function UserProfile({ doc }) {
                     type="url"
                     value={RecentWorkLink}
                     onChange={(e) => setRecentWorkLink(e.target.value)}
-                    className="form-control"
+                    className={`form-control ${
+                      isLightTheme
+                        ? "bg-white text-dark"
+                        : " bg-dark text-white"
+                    }`}
                   />
                 </label>
               </div>
@@ -173,7 +185,11 @@ export default function UserProfile({ doc }) {
                     type="text"
                     value={RecentWorkDescription}
                     onChange={(e) => setRecentWorkDescription(e.target.value)}
-                    className="form-control"
+                    className={`form-control ${
+                      isLightTheme
+                        ? "bg-white text-dark"
+                        : " bg-dark text-white"
+                    }`}
                   />
                 </label>
               </div>

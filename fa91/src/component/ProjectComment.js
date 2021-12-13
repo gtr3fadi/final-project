@@ -5,8 +5,10 @@ import Avatar from "./Avatar";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useFirestore } from "./hook/useFirestore";
 import { Link } from "react-router-dom";
+import { useThemeContext } from "./hook/useThemeContext";
 
 export default function ProjectComment({ project }) {
+  const{isLightTheme} = useThemeContext();
   const { user } = useAuthContext();
   const { response, updateDocumentField } = useFirestore("projects");
   const [newComment, setNewComment] = useState("");
@@ -43,20 +45,19 @@ export default function ProjectComment({ project }) {
         {project.comments.map((comment) => (
           <li
             key={comment.id}
-            className="media mb-1 bg-light   p-2 "
+            className="media mb-1 bg-transparent border border-primary p-2"
             style={{ borderRadius: "10px" }}
           >
             <div className="row d-flex justify-content-between align-items-center mx-1 mb-0  ">
-              <div className="media-body col-12 col-md-6 d-flex justify-content-start align-items-center   ">
-                <Avatar
-                  uid={comment.userId}
-                  src={comment.PhotoURL} />
+              <div className="media-body col-12  d-flex justify-content-start align-items-center   ">
+                <Avatar uid={comment.userId} />
                 <Link to={`/profile/${comment.userId}`}>
                   <h6 className="m-0  mx-1">{comment.displayName}</h6>
                 </Link>
+                
                 {comment.userId === user.uid ? (
                   <>
-                    <small className="text-muted me-1">
+                    <small className="text-muted m-3">
                       <i
                         className="fas fa-trash-alt"
                         style={{ color: "red" }}
@@ -69,7 +70,7 @@ export default function ProjectComment({ project }) {
                         }}
                       ></i>
                     </small>
-                    <small className="text-muted">
+                    <small className="text-muted m-3">
                       <i
                         className="fas fa-edit"
                         style={{ color: "blue" }}
@@ -86,7 +87,7 @@ export default function ProjectComment({ project }) {
                   </>
                 ) : null}
               </div>
-              <div className="media-body col-12 col-md-6 d-flex justify-content-end align-items-center   ">
+              <div className="media-body col-12  d-flex justify-content-end align-items-center   ">
                 <small className="text-muted">
                   <i className="fas fa-clock me-1"></i>
                 </small>
@@ -100,7 +101,9 @@ export default function ProjectComment({ project }) {
             <hr className="mt-1 mb-1" />
             <div className="media-body">
               <p
-                className="text-dark small m-0"
+                className={`${
+                  isLightTheme ? "text-dark" : "text-white"
+                } small m-0`}
                 style={{
                   wordWrap: "break-word",
 
@@ -123,6 +126,11 @@ export default function ProjectComment({ project }) {
             onChange={(e) => setNewComment(e.target.value)}
             value={newComment}
             className="form-control"
+            className={`form-control ${
+              isLightTheme
+                ? "bg-bg-transparent border border-primary"
+                : "bg-dark text-light"
+            }`}
             placeholder="Write a comment..."
           ></textarea>
 

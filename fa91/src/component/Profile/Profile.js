@@ -87,9 +87,13 @@ export default function Profile() {
   return (
     <div className="container py-2">
       <div className="row ">
-        <div className="col-lg-4 mt-5 mb-2">
+        <div className="col-lg-4 mt-5 mb-2  pt-2">
           <div className="profile-card-4 z-depth-3">
-            <div className="card shadow">
+            <div
+              className={`card-body border border-primary p-0 border rounded-5 ${
+                isLightTheme ? "white-text" : "black-text"
+              }`}
+            >
               <div className="card-body text-center bg-primary rounded-top">
                 <div className="user-box"></div>
                 <ProfileAvatar src={doc.photoURL} uid={doc.id} user={user} />
@@ -129,7 +133,9 @@ export default function Profile() {
                   </form>
                 )}
               </div>
-              <div className="card-body">
+              <div
+                className={`card-body ${isLightTheme ? "bg-light" : "bg-dark"}`}
+              >
                 {user.uid == doc.id ? null : (
                   <div className="row mb-4">
                     <div className="col-6">
@@ -158,8 +164,12 @@ export default function Profile() {
                     </div>
                   </div>
                 )}
-                <ul className="list-group shadow-none">
-                  <li className="list-group-item">
+                <ul
+                  className={`list-group list-group-flush border rounded-4 ${
+                    isLightTheme ? "bg-light" : "bg-dark"
+                  }`}
+                >
+                  <li className="list-group-item bg-transparent border-0">
                     <div className="list-details">
                       <i className="fab fa-whatsapp fa-lg text-success"></i>
                       {!doc.whatsApp && user.uid !== doc.id && (
@@ -194,13 +204,17 @@ export default function Profile() {
                       )}
                     </div>
                   </li>
-                  <li className="list-group-item">
+                  <li
+                    className={`list-group-item bg-transparent border-bottom border-top ${
+                      isLightTheme ? "border-muted" : "border-white"
+                    }`}
+                  >
                     <div className="list-details">
                       <i className="fas fa-envelope fa-lg text-primary"></i>
-                      <span> {doc.email}</span>
+                      <span className="text-muted small"> {doc.email}</span>
                     </div>
                   </li>
-                  <li className="list-group-item">
+                  <li className="list-group-item bg-transparent border-0">
                     <div className="list-details">
                       <i className="fas fa-map-marker-alt fa-lg text-danger"></i>
                       {!doc.country && user.uid !== doc.id && (
@@ -273,7 +287,7 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="col-lg-8 mt-5 mb-2">
+        <div className="col-lg-8 mt-5 mb-2 pt-2">
           <div
             className={`${
               isLightTheme ? "bg-light text-dark" : "bg-dark text-light shadow"
