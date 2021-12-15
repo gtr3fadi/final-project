@@ -50,6 +50,9 @@ export default function ProjectList({ data }) {
               <h5 className="card-title text-primary text-center text-capitalize">
                 {project.projectName}
               </h5>
+              <p className=" small text-capitalize text-danger text-center m-0 m-auto">
+                {project.projectType}
+              </p>
               <div className="row d-flex justify-content-between align-items-center">
                 <p className="card-text col-12 col-md-4 m-0 d-flex justify-content-start align-items-center">
                   <Link

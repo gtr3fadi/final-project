@@ -18,16 +18,17 @@ export default function ProjectBidd({ project }) {
       <div className="card-body">
         <div className="row">
           {project.bidd.map((bidd, index) => (
-            <div key={bidd.biddId} className="col-md-3">
+            <div key={bidd.biddId} className="col-md-4 ">
               <Link
                 to={`/profile/${bidd.user}`}
-                className="card-text  m-0 d-flex justify-content-start align-items-center"
+                className="card-text  m-0  d-flex justify-content-start align-items-center"
               >
                 <Avatar uid={bidd.user} src={bidd.photoURL} />
                 <span className="text-capitalize ms-1 font-weight-bold">
-                  {bidd.displayName}
+                  {bidd.displayName} ({bidd.isBidded}$)
                 </span>
               </Link>
+              <button className="btn btn-danger btn-sm ms-5">hire me</button>
             </div>
           ))}
         </div>

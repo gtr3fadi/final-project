@@ -9,14 +9,11 @@ import { useDocument } from "../hook/useDoucment";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
-import PresenceState from "../Follow/PresenceState";
-import { projectFirestore, projectStorage } from "../../firebase/firebase";
 
 export default function Profile() {
   const { isLightTheme } = useThemeContext();
   const { id } = useParams();
   const [career, setCareer] = useState("");
-  const [education, setEducation] = useState("");
   const [whatsApp, setWhatsApp] = useState("");
   const [country, setCountry] = useState("");
   const [show, setShow] = useState(true);

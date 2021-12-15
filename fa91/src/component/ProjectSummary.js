@@ -6,10 +6,12 @@ import { timestamp } from "../firebase/firebase";
 import { Link } from "react-router-dom";
 import { useThemeContext } from "./hook/useThemeContext";
 import ProjectBidd from "./ProjectBidd";
+import { useState } from "react";
 
 export default function ProjectSummary({ project }) {
   const { response, updateDocumentField } = useFirestore("projects");
   const { isLightTheme } = useThemeContext();
+  const [isBidded, setIsBidded] = useState(null);
 
   const { user } = useAuthContext();
 
@@ -21,6 +23,7 @@ export default function ProjectSummary({ project }) {
       biddId: user.uid + timestamp.fromDate(new Date()),
       displayName: user.displayName,
       photoURL: user.photoURL,
+      isBidded,
     };
 
     await updateDocumentField(project.id, {
@@ -33,8 +36,6 @@ export default function ProjectSummary({ project }) {
       bidd: project.bidd.filter((bidd) => bidd.user !== user.uid),
     });
   };
-
-
 
   return (
     <>
@@ -49,14 +50,16 @@ export default function ProjectSummary({ project }) {
             <h5 className="card-title text-primary text-center text-capitalize">
               {project.projectName}
             </h5>
+            <p className=" small text-capitalize text-danger text-center m-0 m-auto">
+              {project.projectType}
+            </p>
             <div className="row d-flex justify-content-between align-items-center">
               <Link
                 to={`/profile/${project.createdBy.uid}`}
                 className="card-text col-md-4 col-12 m-0 d-flex justify-content-start align-items-center"
               >
-                
-                  <Avatar uid={project.uid}  />
-                
+                <Avatar uid={project.uid} />
+
                 <span className="text-capitalize ms-1 font-weight-bold">
                   {project.createdBy.displayName}
                 </span>
@@ -78,17 +81,17 @@ export default function ProjectSummary({ project }) {
               )}
             </div>
             <hr />
-            {project.projectDuration.toDate() < new Date() ? (
-              <p>
-                <strong>Description :</strong>
-                {project.projectDescription}
-              </p>
-            ) : (
-              <p>
-                <strong>Description :</strong>
-                {project.projectDescription}
-              </p>
-            )}
+            <p>
+              <strong>Description :</strong>
+              {project.projectDescription}
+            </p>
+            <p className="card-text">
+              <span className="text-capitalize font-weight-bold">
+                {" "}
+                Budget :
+              </span>
+              {project.budget} $
+            </p>
 
             <p className="card-text">
               <span className="font-weight-bold"> Project Skills : </span>
@@ -118,15 +121,34 @@ export default function ProjectSummary({ project }) {
               {project.bidd.filter((b) => {
                 return b.user === user.uid;
               }).length === 0 ? (
-                <button
-                  className="btn btn-success btn-sm "
-                  onClick={ToggleClick}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    ToggleClick();
+                  }}
+                  className="form-inline m-0 p-0"
                 >
-                  Bid
-                </button>
+                  <div className="input-group ">
+                    <input
+                      type="number"
+                      className="form-control form-control-sm "
+                      placeholder="Bid"
+                      aria-label="Bid"
+                      aria-describedby="basic-addon2"
+                      onChange={(e) => {
+                        setIsBidded(e.target.value);
+                      }}
+                    />
+                    <div className="input-group-append">
+                      <button className="btn btn-success   " type="submit">
+                        Bid
+                      </button>
+                    </div>
+                  </div>
+                </form>
               ) : (
                 <button
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary "
                   onClick={ToggleClickReomvebidder}
                 >
                   Bidded
