@@ -75,6 +75,7 @@ export default function FollowerList() {
                     <Link
                       to={`/profile/${doc.uid}`}
                       className="d-flex justify-content-between align-items-center"
+                     
                     >
                       <span className="text-capitalize me-1 font-weight-bold">
                         {doc.displayName.substring(0, 8)}

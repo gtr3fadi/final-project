@@ -11,6 +11,15 @@ export default function ProjectList({ data }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
 
+  if (!data) return (
+    <div className="spinerContenar">
+      <div className="spinner">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
+
   return (
     <div>
       {data && (

@@ -22,6 +22,9 @@ import Profile from "./component/Profile/Profile";
 import SideBar from "./component/SideBar/SideBar";
 import FindFreelancer from "./component/FindFreelancer/FindFreelancer";
 import FollowerList from "./component/Follow/FollowerList";
+import ProjectForUser from "./component/project/ProjectForUser";
+import UserFollower from "./component/Follow/UserFollower";
+import UserFollowing from "./component/Follow/UserFollowing";
 
 function App() {
   const { AuthIsReady, user } = useAuthContext();
@@ -62,9 +65,23 @@ function App() {
               <Route exact path="/profile/:id">
                 {user ? <Profile /> : <Redirect to="/login" />}
               </Route>
+              <Route exact path="/ProjectForUser/:id">
+                {user ? <ProjectForUser /> : <Redirect to="/login" />}
+              </Route>
               <Route exact path="/findfreelancer">
                 {user ? <FindFreelancer /> : <Redirect to="/login" />}
               </Route>
+              <Route exact path="/userfollower/:id">
+                {user ? <UserFollower /> : <Redirect to="/login" />}
+              </Route>
+              <Route exact path="/userfollowing/:id">
+                {user ? <UserFollowing /> : <Redirect to="/login" />}
+              </Route>
+
+
+
+
+
               <Route path="*">
                 <Redirect to="/" />
               </Route>

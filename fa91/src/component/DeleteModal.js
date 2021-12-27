@@ -20,13 +20,15 @@ export default function DeleteModal({ setDeleteModal, id }) {
 
   return (
     <div
-      className=" position-fixed top-0 left-0 bottom-0 right-0   p-1 "
       style={{
         backgroundColor: "rgba(0,0,0,0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         zIndex: "9999",
+        position: "fixed",
+        width: "100vw",
+        height: "100vh",
         top: "0",
         left: "0",
         right: "0",

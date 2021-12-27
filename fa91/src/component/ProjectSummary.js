@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { useThemeContext } from "./hook/useThemeContext";
 import ProjectBidd from "./ProjectBidd";
 import { useState } from "react";
+import UpdateModal from "./UpdateModal";
+import DeleteModal from "./DeleteModal";
 
 export default function ProjectSummary({ project }) {
   const { response, updateDocumentField } = useFirestore("projects");
@@ -14,6 +16,9 @@ export default function ProjectSummary({ project }) {
   const [isBidded, setIsBidded] = useState(null);
 
   const { user } = useAuthContext();
+
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
 
   const ToggleClick = async () => {
     const biddToAdd = {
@@ -117,48 +122,78 @@ export default function ProjectSummary({ project }) {
                 Bidded :({project.bidd.length} ){" "}
               </small>
             </p>
-            <div className="col-12 col-md-4 d-flex justify-content-end align-items-center">
-              {project.bidd.filter((b) => {
-                return b.user === user.uid;
-              }).length === 0 ? (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    ToggleClick();
-                  }}
-                  className="form-inline m-0 p-0"
-                >
-                  <div className="input-group ">
-                    <input
-                      type="number"
-                      className="form-control form-control-sm "
-                      placeholder="Bid"
-                      aria-label="Bid"
-                      aria-describedby="basic-addon2"
-                      onChange={(e) => {
-                        setIsBidded(e.target.value);
-                      }}
-                    />
-                    <div className="input-group-append">
-                      <button className="btn btn-success   " type="submit">
-                        Bid
-                      </button>
+            {project.createdBy.uid !== user.uid && (
+              <div className="col-12 col-md-4 d-flex justify-content-end align-items-center">
+                {project.bidd.filter((b) => {
+                  return b.user === user.uid;
+                }).length === 0 ? (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      ToggleClick();
+                    }}
+                    className="form-inline m-0 p-0"
+                  >
+                    <div className="input-group ">
+                      <input
+                        type="number"
+                        className="form-control form-control-sm "
+                        placeholder="Bid"
+                        aria-label="Bid"
+                        aria-describedby="basic-addon2"
+                        onChange={(e) => {
+                          setIsBidded(e.target.value);
+                        }}
+                      />
+                      <div className="input-group-append">
+                        <button className="btn btn-success   " type="submit">
+                          Bid
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
-              ) : (
-                <button
-                  className="btn btn-primary "
-                  onClick={ToggleClickReomvebidder}
-                >
-                  Bidded
-                </button>
+                  </form>
+                ) : (
+                  <button
+                    className="btn btn-primary "
+                    onClick={ToggleClickReomvebidder}
+                  >
+                    Bidded
+                  </button>
+                )}
+              </div>
+            )}
+            <div className="col-12 row row-cols-2 mt-1 ">
+              {project.createdBy.uid === user.uid && (
+                <div className="col text-center">
+                  <button
+                    className="btn btn-primary btn-block btn-sm "
+                    onClick={() => setUpdateModal(true)}
+                  >
+                    update
+                  </button>
+                </div>
+              )}
+              {updateModal && (
+                <UpdateModal data={project} setUpdateModal={setUpdateModal} />
+              )}
+              {user.uid === project.createdBy.uid && (
+                <div className="col text-center">
+                  <button
+                    className="btn btn-danger btn-block btn-sm "
+                    onClick={() => setDeleteModal(true)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+              {deleteModal && (
+                <DeleteModal id={project.id} setDeleteModal={setDeleteModal} />
               )}
             </div>
           </div>
         </div>
       </div>
-      <ProjectBidd project={project} />
+      <ProjectBidd project={project} user={user} />
     </>
   );
 }

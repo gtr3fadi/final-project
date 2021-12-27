@@ -10,8 +10,7 @@ const getImageUrl = (imageURL) => {
   }
 };
 
-export default function Avatar({ src, uid , width }) {
-    const { user } = useAuthContext();
+export default function Avatar({  uid , width }) {
     const imageURL = useImageURL(uid);
     const image= getImageUrl(imageURL);
 

@@ -54,7 +54,6 @@ export default function UpdateProject({ data, setUpdateModal }) {
 
   return (
     <div
-      className=" fade-in position-fixed mt-5 "
       style={{
         backgroundColor: "rgba(0,0,0,0.8)",
         display: "flex",
@@ -62,10 +61,13 @@ export default function UpdateProject({ data, setUpdateModal }) {
         alignItems: "center",
         overflow: "scroll",
         zIndex: "9999",
+        position: "fixed",
         top: "0",
         left: "0",
         bottom: "0",
         right: "0",
+        width: "100vw",
+        height: "100vh",
       }}
     >
       <div className="container m-auto  ">

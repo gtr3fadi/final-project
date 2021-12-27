@@ -9,6 +9,10 @@ import { useDocument } from "../hook/useDoucment";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import UserProfile from "./UserProfile";
 import EditeProfile from "./EditeProfile";
+import { Link } from "react-router-dom";
+import UserFollower from "../Follow/UserFollower";
+import UserFollowing from "../Follow/UserFollowing";
+import ChatRoom from "../ChatRoom/ChatRoom";
 
 export default function Profile() {
   const { isLightTheme } = useThemeContext();
@@ -17,15 +21,14 @@ export default function Profile() {
   const [whatsApp, setWhatsApp] = useState("");
   const [country, setCountry] = useState("");
   const [show, setShow] = useState(true);
+  const [showMsgRoom, setShowMsgRoom] = useState(false);
   const { updateDocumentField, response } = useFirestore("users");
   const { user } = useAuthContext();
 
   const { doc, isPending, error } = useDocument("users", id);
   const { doc: userDoc } = useDocument("users", user.uid);
-  console.log(userDoc);
-
   const userFollower = userDoc && userDoc.following;
-  console.log(userFollower);
+  
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -155,9 +158,12 @@ export default function Profile() {
                       )}
                     </div>
                     <div className="col-6">
-                      <button className="btn btn-primary btn-block">
+                      <button
+                      onClick={() => setShowMsgRoom(true)}
+                        className="btn btn-primary btn-block">
                         <i className="fas fa-comment-alt"></i> Message
                       </button>
+                      {showMsgRoom && (<ChatRoom  doc={doc} setShowMsgRoom={setShowMsgRoom}       />)}
                     </div>
                   </div>
                 )}
@@ -251,21 +257,27 @@ export default function Profile() {
                   </li>
                 </ul>
                 <div className="row text-center mt-4">
-                  <div className="col p-2">
-                    <ProfileProject id={doc.id} />
-                    <small className="mb-0 font-weight-bold">Projects</small>
+                  <div className="col  p-2 btn rounded shadow border border-primary">
+                    <Link to={`/ProjectForUser/${doc.id}`}>
+                      <ProfileProject id={doc.id} />
+                      <small className="mb-0 font-weight-bold">Projects</small>
+                    </Link>
                   </div>
-                  <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">
-                      {doc.followers.length}
-                    </h4>
-                    <small className="mb-0 font-weight-bold">Followers</small>
+                  <div className="col mx-2 p-2 btn rounded shadow border border-primary">
+                    <Link to={`/userfollower/${doc.id}`}>
+                      <h4 className="mb-1 line-height-5">
+                        {doc.followers.length}
+                      </h4>
+                      <small className="mb-0 font-weight-bold">Followers</small>
+                    </Link>
                   </div>
-                  <div className="col p-2">
-                    <h4 className="mb-1 line-height-5">
-                      {doc.following.length}
-                    </h4>
-                    <small className="mb-0 font-weight-bold">Following</small>
+                  <div className="col p-2 btn rounded shadow  border border-primary">
+                    <Link to={`/userfollowing/${doc.id}`}>
+                      <h4 className="mb-1 line-height-5">
+                        {doc.following.length}
+                      </h4>
+                      <small className="mb-0 font-weight-bold">Following</small>
+                    </Link>
                   </div>
                 </div>
               </div>
